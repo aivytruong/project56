@@ -13,6 +13,7 @@ export class Product extends React.Component<RouteComponentProps<{}>> {
             <h1>Product Page Template</h1>
             
             <br/>
+            <NavLink to={ '/sale' }  activeClassName='active'> <button><h1>Back</h1></button> </NavLink>
             <h2>Product Title</h2>
             <img src="https://pixy.org/images/placeholder.png" width={600} height={300}/>
             <br/>
@@ -29,11 +30,11 @@ Eam autem suavitate periculis te. Eu pro habeo debitis, sit omnes ubique ad. Fal
 No nisl elit civibus eum. Viris vitae et est, eam et discere salutandi urbanitas. Nam ex veritus tincidunt persequeris, te ius nonumy vocibus. Vel eu fierent senserit, quo ad equidem accusam singulis, et vim error definitionem. Has te apeirian dissentiunt, cu has dicunt aliquam.</p>
             <br/>
             <h3>Price</h3>
-            <button>Add to cart</button>
+            <button><h3>Add to cart</h3></button>
             <br/>
             <br/>
             <br/>
-            <NavLink to={ '/sale' }  activeClassName='active'> <button>Back</button> </NavLink>
+            
             <br/>
             <br/>
         </div>;
