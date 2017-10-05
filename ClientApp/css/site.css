@@ -71,15 +71,11 @@
 }
 
 
-<<<<<<< HEAD
 .main-nav li a:hover {
     background-color: yellow;
 }
 
 /* @media (min-width: 768px) { */
-=======
-@media (min-width: 768px) {
->>>>>>> 6ff0bafb02e30dbb5a443ac349525bc2f1f3a537
     /* On small screens, convert the nav menu to a vertical sidebar */
     /* .main-nav {
         height: 100%;
@@ -149,8 +145,6 @@ html,body {
 
 
 
-<<<<<<< HEAD
-=======
 .main-nav li {
     float: left;
 
@@ -200,4 +194,3 @@ body {
 /* add padding  */
 .left-addon input  { padding-left:  40px; }
 .right-addon input { padding-right: 40px; }
->>>>>>> 6ff0bafb02e30dbb5a443ac349525bc2f1f3a537
