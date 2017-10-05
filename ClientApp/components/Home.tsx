@@ -48,7 +48,7 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
                         }
                         self._slideTo(self.index);
 
-                    }, 5000);
+                    }, 3000);
                 },
                 stopStart: function () {
                     var self = this;
@@ -71,12 +71,11 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
                 var slider = new Slideshow("#main-slider");
 
             });
-
-
         })();
 
         return <div className="slider" id="main-slider">
             <div className="slider-wrapper">
+                
                 <img src="https://pbs.twimg.com/media/Cl9q5-1WYAAfHL7.jpg:large" alt="First" className="slide" />
                 <img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD" alt="Second" className="slide" />
                 <img src="https://torrentsgames.org/wp-content/uploads/2017/01/Lego-City-Undercover-Xbox360.jpg" alt="Third" className="slide" />
@@ -85,4 +84,3 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
 
     }
 }
-
