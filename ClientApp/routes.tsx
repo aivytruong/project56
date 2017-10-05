@@ -8,7 +8,8 @@ import { Sale } from './components/Sale';
 import { Product } from './components/Product';
 import { Login } from './components/Login';
 import { Registreren } from './components/registreren';
-import { StarwarsProductPage } from './components/StarwarsProductPage';
+import { StarwarsSets } from './components/StarwarsSets';
+import { KidsSets } from './components/KidsSets';
 
 
 export const routes = <Layout>
@@ -18,6 +19,7 @@ export const routes = <Layout>
     <Route path='/product' component={ Product } />
     <Route path='/login' component={ Login } />
     <Route path='/registreren' component={ Registreren } />
-    <Route path='/StarwarsProductPage' component={ StarwarsProductPage } />
+    <Route path='/StarwarsSets' component={ StarwarsSets } />
+    <Route path='/KidsSets' component={ KidsSets } />
 
 </Layout>;

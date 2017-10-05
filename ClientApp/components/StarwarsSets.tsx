@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 
-export class StarwarsProductPage extends React.Component<RouteComponentProps<{}>> {
+export class StarwarsSets extends React.Component<RouteComponentProps<{}>> {
     constructor() {
         super();
         this.state = {};

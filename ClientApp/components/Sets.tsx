@@ -36,7 +36,7 @@ export class Sets extends React.Component<RouteComponentProps<{}>> {
             <div className="categories">
             <img src="https://www.parentmap.com/images/article/6670/kids-with-lego.jpg" width={300} height={200}/>
             <br/>
-            <NavLink to={ '/product' }  activeClassName='active'> <button>LEGO KIDS</button> </NavLink>     
+            <NavLink to={ '/KidsSets' }  activeClassName='active'> <button>LEGO KIDS</button> </NavLink>     
             </div> 
               
         
