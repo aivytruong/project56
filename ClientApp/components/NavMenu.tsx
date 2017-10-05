@@ -4,22 +4,12 @@ import { Link, NavLink } from 'react-router-dom';
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
         return <div className='main-nav'>
-                <div className='navbar navbar-inverse'>
-                <div className='navbar-header'>
-                    <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-                        <span className='sr-only'>Toggle navigation</span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                    </button>
-                    <Link className='navbar-brand' to={ '/' }>project56</Link>
-                </div>
-                <div className='clearfix'></div>
-                <div className='navbar-collapse collapse'>
-                    <ul className='nav navbar-nav'>
+                    <ul>
                         <li>
+                        <i className="fa fa-home"></i>
                             <NavLink to={ '/' } exact activeClassName='active'>
-                                <span className='glyphicon glyphicon'></span> Home
+                                <i className='css-icons'>home</i>
+                                <img src="http://www.stickpng.com/assets/images/5847e798cef1014c0b5e480e.png" width={25 } height={20}/>
                             </NavLink>
                         </li>
                         <li>
@@ -32,9 +22,23 @@ export class NavMenu extends React.Component<{}, {}> {
                                 <span className='glyphicon glyphicon'></span> Sets
                             </NavLink>
                         </li>
+                        <li className='dropdown'>
+                            <NavLink to={ '/login' } activeClassName='active'>
+                                <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20}/>
+                            </NavLink>
+                            {/* <div className='dropdown-content'>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                            </div> */}
+                        </li>
                     </ul>
                 </div>
-            </div>
-        </div>;
     }
 }
