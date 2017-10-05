@@ -6,8 +6,10 @@ export class NavMenu extends React.Component<{}, {}> {
         return <div className='main-nav'>
                     <ul>
                         <li>
+                        <i className="fa fa-home"></i>
                             <NavLink to={ '/' } exact activeClassName='active'>
-                                <span className='glyphicon glyphicon'></span> Home
+                                <i className='css-icons'>home</i>
+                                <img src="http://www.stickpng.com/assets/images/5847e798cef1014c0b5e480e.png" width={25 } height={20}/>
                             </NavLink>
                         </li>
                         <li>
@@ -21,12 +23,20 @@ export class NavMenu extends React.Component<{}, {}> {
                             </NavLink>
                         </li>
                         <li className='dropdown'>
-                            <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20}/>
-                            <div className='dropdown-content'>
-                                <span>I am the best around</span>
-                                <span>I am the best around</span>
-                                <span>I am the best around</span>
-                            </div>
+                            <NavLink to={ '/login' } activeClassName='active'>
+                                <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20}/>
+                            </NavLink>
+                            {/* <div className='dropdown-content'>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                            </div> */}
                         </li>
                     </ul>
                 </div>
