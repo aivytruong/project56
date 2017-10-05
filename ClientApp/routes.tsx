@@ -10,6 +10,10 @@ import { Login } from './components/Login';
 import { Registreren } from './components/registreren';
 import { KidsProductPage } from './components/KidsProductPage';
 import { Wishlist } from './components/Wishlist';
+import { StarwarsSets } from './components/StarwarsSets';
+import { KidsSets } from './components/KidsSets';
+
+
 
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
@@ -20,4 +24,6 @@ export const routes = <Layout>
     <Route path='/registreren' component={ Registreren } />
     <Route path='/kidsproductpage' component={KidsProductPage} />
     <Route path='/wishlist' component={Wishlist} />
+    <Route path='/StarwarsSets' component={ StarwarsSets } />
+    <Route path='/KidsSets' component={ KidsSets } />
 </Layout>;
