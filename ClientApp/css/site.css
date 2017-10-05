@@ -187,6 +187,16 @@ body {
   pointer-events: none;
 }
 
+.categories{
+    float: left;
+    padding: 20px;
+}
+
+.starwars{
+    float: left;
+    padding: 20px;
+}
+
 /* align icon */
 .left-addon .glyphicon  { left:  0px;}
 .right-addon .glyphicon { right: 0px;}

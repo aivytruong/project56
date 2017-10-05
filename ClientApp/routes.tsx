@@ -8,6 +8,8 @@ import { Sale } from './components/Sale';
 import { Product } from './components/Product';
 import { Login } from './components/Login';
 import { Registreren } from './components/registreren';
+import { StarwarsProductPage } from './components/StarwarsProductPage';
+
 
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
@@ -16,4 +18,6 @@ export const routes = <Layout>
     <Route path='/product' component={ Product } />
     <Route path='/login' component={ Login } />
     <Route path='/registreren' component={ Registreren } />
+    <Route path='/StarwarsProductPage' component={ StarwarsProductPage } />
+
 </Layout>;
