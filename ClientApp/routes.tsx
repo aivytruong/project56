@@ -8,6 +8,7 @@ import { Sale } from './components/Sale';
 import { Product } from './components/Product';
 import { Login } from './components/Login';
 import { Registreren } from './components/registreren';
+import { KidsProductPage } from './components/KidsProductPage';
 
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
@@ -16,4 +17,5 @@ export const routes = <Layout>
     <Route path='/product' component={ Product } />
     <Route path='/login' component={ Login } />
     <Route path='/registreren' component={ Registreren } />
+    <Route path='/kidsproductpage' component={KidsProductPage} />
 </Layout>;

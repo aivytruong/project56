@@ -14,7 +14,7 @@ export class Sale extends React.Component<RouteComponentProps<{}>> {
             <div>Welcome to the sale page! Here you will find the best sales for LEGO </div>
             <br/>
             <h2>Starwars</h2>
-            <NavLink to={ '/product' }  activeClassName='active'> <button><img src="https://images.brickset.com/sets/large/10188-1.jpg?200807260532" width={600} height={300}/></button> </NavLink>
+            <NavLink to={ '/kidsproductpage' }  activeClassName='active'> <button><img src="https://images.brickset.com/sets/large/10188-1.jpg?200807260532" width={600} height={300}/></button> </NavLink>
             <br/>
             <h3><del>€50,-</del> Now: €25,-</h3>
             <NavLink to={ '/product' }  activeClassName='active'> <button className="button">Read more</button> </NavLink>

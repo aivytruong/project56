@@ -11,7 +11,6 @@ export class KidsProductPage extends React.Component<RouteComponentProps<{}>> {
 
     public render() {
         return <div>
-            
             <br/>
             <h2>Starwars</h2>
             <img src="http://comicsalliance.com/files/2017/02/Lego-Batman-Movie.png" width={600} height={300}/>
