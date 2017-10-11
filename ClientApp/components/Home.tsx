@@ -82,5 +82,15 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
             </div>
         </div>
 
+<<<<<<< HEAD
+=======
+export class Home extends React.Component<RouteComponentProps<{}>, {}> {
+    public render() {
+        return <div>
+            <h1>Welcome to the LEGO webshop!</h1>
+            <h2>Here you will find LEGO sets and seperate blocks.</h2>
+        </div>; 
+        
+>>>>>>> 20d5fd43348643dfa8dd660e5479ceac7ed9b868
     }
 }
