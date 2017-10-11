@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 
-export class Sets extends React.Component<RouteComponentProps<{}>> {
+export class LosseBlokken extends React.Component<RouteComponentProps<{}>> {
     constructor() {
         super();
         this.state = {};
@@ -11,7 +11,7 @@ export class Sets extends React.Component<RouteComponentProps<{}>> {
     public render() {
         return <div>
             
-            <h1>Welcome to the sets page! </h1>
+            <h1>Welcome to the loose blocks page! </h1>
             <h2>Choose a category</h2>
             <br/>
 
@@ -24,7 +24,7 @@ export class Sets extends React.Component<RouteComponentProps<{}>> {
             <div className="categories">
             <img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD" width={300} height={200}/>
             <br/>
-            <NavLink to={ '/StarwarsProductPage' }  activeClassName='active'> <button>LEGO STARWARS</button> </NavLink>     
+            <NavLink to={ '/StarwarsLosseBlokken' }  activeClassName='active'> <button>LEGO STARWARS</button> </NavLink>     
             </div> 
 
             <div className="categories">
@@ -46,5 +46,3 @@ export class Sets extends React.Component<RouteComponentProps<{}>> {
    
     }
 }
-
-
