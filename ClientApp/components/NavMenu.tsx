@@ -22,6 +22,11 @@ export class NavMenu extends React.Component<{}, {}> {
                                 <span className='glyphicon glyphicon'></span> Sets
                             </NavLink>
                         </li>
+                         <li>
+                            <NavLink to={ '/losseblokken' } activeClassName='active'>
+                                <span className='glyphicon glyphicon'></span> Loose Blocks
+                            </NavLink>
+                        </li>
                         <li className='dropdown'>
                             <NavLink to={ '/login' } activeClassName='active'>
                                 <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20}/>

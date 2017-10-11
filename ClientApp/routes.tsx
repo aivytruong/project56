@@ -10,6 +10,8 @@ import { Login } from './components/Login';
 import { Registreren } from './components/registreren';
 import { StarwarsSets } from './components/StarwarsSets';
 import { KidsSets } from './components/KidsSets';
+import { LosseBlokken } from './components/LosseBlokken';
+import { StarwarsLosseBlokken } from './components/StarwarsLosseBlokken';
 
 
 export const routes = <Layout>
@@ -21,5 +23,7 @@ export const routes = <Layout>
     <Route path='/registreren' component={ Registreren } />
     <Route path='/StarwarsSets' component={ StarwarsSets } />
     <Route path='/KidsSets' component={ KidsSets } />
+    <Route path='/LosseBlokken' component={ LosseBlokken } />
+    <Route path='/StarwarsLosseBlokken' component={ StarwarsLosseBlokken } />
 
 </Layout>;
