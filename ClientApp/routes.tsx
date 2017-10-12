@@ -16,6 +16,7 @@ import {Newproduct1} from './Components/Newproduct1'
 import {Newproduct2} from './Components/Newproduct2'
 import {Newproduct3} from './Components/Newproduct3'
 
+import { KidsProductPage } from './components/KidsProductPage';
 
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
@@ -33,4 +34,5 @@ export const routes = <Layout>
     <Route path='/Newproduct3' component={ Newproduct3 } />
 
 
+    <Route path='/kidsproductpage' component={KidsProductPage} />
 </Layout>;
