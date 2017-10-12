@@ -24,7 +24,7 @@ export class NavMenu extends React.Component<{}, {}> {
                         </li>
                          <li>
                             <NavLink to={ '/losseblokken' } activeClassName='active'>
-                                <span className='glyphicon glyphicon'></span> Loose Blocks
+                                <span className='glyphicon glyphicon'></span> Seperate Bricks
                             </NavLink>
                         </li>
                         <li className='dropdown'>
