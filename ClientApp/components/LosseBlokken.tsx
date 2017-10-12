@@ -16,27 +16,27 @@ export class LosseBlokken extends React.Component<RouteComponentProps<{}>> {
             <br/>
 
             <div className="categories">
-            <NavLink to={ '/product' }  activeClassName='active'> <button><img src="https://pbs.twimg.com/media/Cl9q5-1WYAAfHL7.jpg:large" width={300} height={200}/></button> </NavLink>
+            <NavLink to={ '/product' }  activeClassName='active'> <button><img src="https://ae01.alicdn.com/kf/HTB1RI3bSFXXXXaqaXXXq6xXFXXXP/Baksteen-blok-Kinderen-Speelgoed-Star-Wars-Force-Wekt-Han-Solo-Chewbacca-Kylo-Ren-Building-Juguetes-Compatibel.jpg" width={300} height={200}/></button> </NavLink>
             <br/>
-            <NavLink to={ '/product' }  activeClassName='active'> <button>LEGO NINJAGO</button> </NavLink>     
+            <NavLink to={ '/product' }  activeClassName='active'> <button>Loose figures</button> </NavLink>     
             </div>
 
             <div className="categories">
-            <NavLink to={ '/StarwarsLosseBlokken' }  activeClassName='active'> <button><img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD" width={300} height={200}/></button> </NavLink>
+            <NavLink to={ '/StarwarsLosseBlokken' }  activeClassName='active'> <button><img src="https://s.s-bol.com/imgbase0/imagebase3/large/FC/6/4/3/2/9200000016312346_6.jpg" width={300} height={200}/></button> </NavLink>
             <br/>
-            <NavLink to={ '/StarwarsLosseBlokken' }  activeClassName='active'> <button>LEGO STARWARS</button> </NavLink>     
+            <NavLink to={ '/StarwarsLosseBlokken' }  activeClassName='active'> <button>Loose blocks</button> </NavLink>     
             </div> 
 
             <div className="categories">
-            <NavLink to={ '/product' }  activeClassName='active'> <button><img src="https://torrentsgames.org/wp-content/uploads/2017/01/Lego-City-Undercover-Xbox360.jpg" width={300} height={200}/></button> </NavLink>
+            <NavLink to={ '/product' }  activeClassName='active'> <button><img src="http://farm5.static.flickr.com/4146/5061589253_dc12961822.jpg" width={300} height={200}/></button> </NavLink>
             <br/>
-            <NavLink to={ '/product' }  activeClassName='active'> <button>LEGO CITY</button> </NavLink>     
+            <NavLink to={ '/product' }  activeClassName='active'> <button>Loose objects</button> </NavLink>     
             </div> 
 
             <div className="categories">
-            <NavLink to={ '/KidsSets' }  activeClassName='active'> <button><img src="https://www.parentmap.com/images/article/6670/kids-with-lego.jpg" width={300} height={200}/></button> </NavLink>
+            <NavLink to={ '/KidsSets' }  activeClassName='active'> <button><img src="https://i.pinimg.com/736x/d8/34/50/d834509d1cc7d0d511123f85c6323f67--lego-furniture-lego-building.jpg" width={300} height={200}/></button> </NavLink>
             <br/>
-            <NavLink to={ '/KidsSets' }  activeClassName='active'> <button>LEGO KIDS</button> </NavLink>     
+            <NavLink to={ '/KidsSets' }  activeClassName='active'> <button>Loose decorations</button> </NavLink>     
             </div> 
               
         
