@@ -38,8 +38,8 @@ export class StarwarsLosseBlokken extends React.Component<RouteComponentProps<{}
             <br/>
 
             <div className="starwars">
-            <h2>Starwars: The Force Awakens</h2>
-            <NavLink to={ '/product' }  activeClassName='active'> <button><img src="https://lc-www-live-s.legocdn.com/r/www/r/starwars/-/media/franchises/starwars2015/apps/forceawakensmobileedition/1_keyart_1488x837.jpg" width={200} height={100}/></button> </NavLink>
+            <h2>Starwars: Darth Vader Transformation process (new helmet)</h2>
+            <NavLink to={ '/product' }  activeClassName='active'> <button><img src="http://losseminifiguren.nl/wp-content/uploads/2017/06/sw834-1440x1440.jpg" width={200} height={100}/></button> </NavLink>
             <br/>
             <h3>€90,-</h3>
             <NavLink to={ '/product' }  activeClassName='active'> <button className="button">Read more</button> </NavLink>
