@@ -9,23 +9,23 @@ using project56.model;
 
 namespace project56.Controllers
 {
-    public class DatabaseController : Controller
+    public class LegoController : Controller
     {
         private readonly LegoContext _context;
 
-        public DatabaseController(LegoContext context)
+        public LegoController(LegoContext context)
         {
             _context = context;
         }
 
-        // GET: Database
+        // GET: Lego
         public async Task<IActionResult> Index()
         {
             return View(await _context.Legos.ToListAsync());
         }
 
-        // GET: Database/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Lego/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -42,18 +42,18 @@ namespace project56.Controllers
             return View(lego);
         }
 
-        // GET: Database/Create
+        // GET: Lego/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Database/Create
+        // POST: Lego/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Item_Number,Name,Year,Theme,Subtheme,Pieces,Minifigures,Image_URL,GB_MSRP,USD_MSRP,EUR_MSRP,Packaging,Availability")] Lego lego)
+        public async Task<IActionResult> Create([Bind("Item_Number,Name,Year,Theme,Subtheme,Pieces,Minifigures,Image_URL,GBP_MSRP,USD_MSRP,CAD_MSRP,EUR_MSRP,Packaging,Availability")] Lego lego)
         {
             if (ModelState.IsValid)
             {
@@ -64,8 +64,8 @@ namespace project56.Controllers
             return View(lego);
         }
 
-        // GET: Database/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Lego/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -80,12 +80,12 @@ namespace project56.Controllers
             return View(lego);
         }
 
-        // POST: Database/Edit/5
+        // POST: Lego/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Item_Number,Name,Year,Theme,Subtheme,Pieces,Minifigures,Image_URL,GB_MSRP,USD_MSRP,EUR_MSRP,Packaging,Availability")] Lego lego)
+        public async Task<IActionResult> Edit(string id, [Bind("Item_Number,Name,Year,Theme,Subtheme,Pieces,Minifigures,Image_URL,GBP_MSRP,USD_MSRP,CAD_MSRP,EUR_MSRP,Packaging,Availability")] Lego lego)
         {
             if (id != lego.Item_Number)
             {
@@ -115,8 +115,8 @@ namespace project56.Controllers
             return View(lego);
         }
 
-        // GET: Database/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Lego/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -133,10 +133,10 @@ namespace project56.Controllers
             return View(lego);
         }
 
-        // POST: Database/Delete/5
+        // POST: Lego/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var lego = await _context.Legos.SingleOrDefaultAsync(m => m.Item_Number == id);
             _context.Legos.Remove(lego);
@@ -144,7 +144,7 @@ namespace project56.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LegoExists(int id)
+        private bool LegoExists(string id)
         {
             return _context.Legos.Any(e => e.Item_Number == id);
         }

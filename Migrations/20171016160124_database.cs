@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
 namespace project56.Migrations
 {
-    public partial class Begin : Migration
+    public partial class database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,20 +12,20 @@ namespace project56.Migrations
                 name: "legodetails",
                 columns: table => new
                 {
-                    Item_Number = table.Column<int>(type: "int4", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Availability = table.Column<int>(type: "int4", nullable: false),
-                    EUR_MSRP = table.Column<int>(type: "int4", nullable: false),
-                    GB_MSRP = table.Column<int>(type: "int4", nullable: false),
+                    Item_Number = table.Column<string>(type: "text", nullable: false),
+                    Availability = table.Column<string>(type: "text", nullable: true),
+                    CAD_MSRP = table.Column<string>(type: "text", nullable: true),
+                    EUR_MSRP = table.Column<string>(type: "text", nullable: true),
+                    GBP_MSRP = table.Column<string>(type: "text", nullable: true),
                     Image_URL = table.Column<string>(type: "text", nullable: true),
-                    Minifigures = table.Column<int>(type: "int4", nullable: false),
+                    Minifigures = table.Column<string>(type: "text", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Packaging = table.Column<string>(type: "text", nullable: true),
-                    Pieces = table.Column<int>(type: "int4", nullable: false),
+                    Pieces = table.Column<string>(type: "text", nullable: true),
                     Subtheme = table.Column<string>(type: "text", nullable: true),
                     Theme = table.Column<string>(type: "text", nullable: true),
-                    USD_MSRP = table.Column<int>(type: "int4", nullable: false),
-                    Year = table.Column<int>(type: "int4", nullable: false)
+                    USD_MSRP = table.Column<string>(type: "text", nullable: true),
+                    Year = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

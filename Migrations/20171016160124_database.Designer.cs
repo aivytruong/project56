@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using project56.model;
 using System;
@@ -11,8 +10,8 @@ using System;
 namespace project56.Migrations
 {
     [DbContext(typeof(LegoContext))]
-    [Migration("20171012094546_Begin")]
-    partial class Begin
+    [Migration("20171016160124_database")]
+    partial class database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,32 +22,34 @@ namespace project56.Migrations
 
             modelBuilder.Entity("project56.model.Lego", b =>
                 {
-                    b.Property<int>("Item_Number")
+                    b.Property<string>("Item_Number")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Availability");
+                    b.Property<string>("Availability");
 
-                    b.Property<int>("EUR_MSRP");
+                    b.Property<string>("CAD_MSRP");
 
-                    b.Property<int>("GB_MSRP");
+                    b.Property<string>("EUR_MSRP");
+
+                    b.Property<string>("GBP_MSRP");
 
                     b.Property<string>("Image_URL");
 
-                    b.Property<int>("Minifigures");
+                    b.Property<string>("Minifigures");
 
                     b.Property<string>("Name");
 
                     b.Property<string>("Packaging");
 
-                    b.Property<int>("Pieces");
+                    b.Property<string>("Pieces");
 
                     b.Property<string>("Subtheme");
 
                     b.Property<string>("Theme");
 
-                    b.Property<int>("USD_MSRP");
+                    b.Property<string>("USD_MSRP");
 
-                    b.Property<int>("Year");
+                    b.Property<string>("Year");
 
                     b.HasKey("Item_Number");
 
