@@ -11,7 +11,7 @@ export class LosseBlokken extends React.Component<RouteComponentProps<{}>> {
     public render() {
         return <div>
             
-            <h1>Welcome to the Seperate bricks! </h1>
+            <h1>Welcome to the Separate bricks! </h1>
             <h2>Choose a category</h2>
             <br/>
 

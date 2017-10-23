@@ -15,8 +15,9 @@ import { StarwarsLosseBlokken } from './components/StarwarsLosseBlokken';
 import {Newproduct1} from './Components/Newproduct1'
 import {Newproduct2} from './Components/Newproduct2'
 import {Newproduct3} from './Components/Newproduct3'
-
 import { KidsProductPage } from './components/KidsProductPage';
+import {filtertest} from './Components/filtertest'
+
 
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
@@ -32,7 +33,7 @@ export const routes = <Layout>
     <Route path='/Newproduct1' component={ Newproduct1 } />
     <Route path='/Newproduct2' component={ Newproduct2 } />
     <Route path='/Newproduct3' component={ Newproduct3 } />
-
-
     <Route path='/kidsproductpage' component={KidsProductPage} />
+    <Route path= '/filtertest' component={filtertest}/>
+
 </Layout>;
