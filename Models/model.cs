@@ -22,19 +22,20 @@ namespace project56.model
     [Table("legodetails")]
     public class Lego {
         [Key]
-        public int Item_Number { get; set; }
+        public string Item_Number { get; set; }
         public string Name { get; set; }
-        public int Year { get; set; }
+        public string Year { get; set; }
         public string Theme { get; set; }
         public string Subtheme { get; set; }
-        public int Pieces { get; set; }
-        public int Minifigures { get; set; }
+        public string Pieces { get; set; }
+        public string Minifigures { get; set; }
         public string Image_URL { get; set; }
-        public int GB_MSRP { get; set; }
-        public int USD_MSRP { get; set; }
-        public int EUR_MSRP { get; set; }
+        public string GBP_MSRP { get; set; }
+        public string USD_MSRP { get; set; }
+        public string CAD_MSRP{get;set;}
+        public string EUR_MSRP { get; set; }
         public string Packaging { get; set; }
-        public int Availability { get; set; }
+        public string Availability { get; set; }
     }
 
     

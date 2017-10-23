@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
@@ -12,6 +11,8 @@ import { StarwarsSets } from './components/StarwarsSets';
 import { KidsSets } from './components/KidsSets';
 import { LosseBlokken } from './components/LosseBlokken';
 import { StarwarsLosseBlokken } from './components/StarwarsLosseBlokken';
+import { databasebutton } from './components/databasebutton';
+
 
 
 export const routes = <Layout>
@@ -25,5 +26,6 @@ export const routes = <Layout>
     <Route path='/KidsSets' component={ KidsSets } />
     <Route path='/LosseBlokken' component={ LosseBlokken } />
     <Route path='/StarwarsLosseBlokken' component={ StarwarsLosseBlokken } />
+    <Route path='/databasebutton' component={databasebutton} />
 
 </Layout>;

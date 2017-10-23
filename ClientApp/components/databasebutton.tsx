@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
-import {model} from './ClientApp/Models/model';
 
 
-async function sendLegoFile(file:string, institute:string) : Promise<void> {
+
+async function sendLegoFile(file:string) : Promise<void> {
   let content = {content:file}
   console.log(content)
-  let res = await fetch(`/api/v1/CustomAssignmentLogic/SendLegoFile/${institute}`, { method: 'put',  body:JSON.stringify(content), credentials: 'include', headers: { 'content-type': 'application/json' } })
+  let res = await fetch(`custom/Lego`, { method: 'put', body:JSON.stringify(file), credentials: 'include', headers: { 'content-type': 'application/json' } })
   let parsed_res = await res.json()
   if(!parsed_res)
     throw new Error("Error while uploading or processing the file at server side")
   return 
 }
-class FormUploaderComponent extends React.Component<{institute:model.Institute, entities_to_upload:"Lego"},{content:string}>  {
+export class databasebutton extends React.Component<RouteComponentProps<{}>,{content:string}>  {
   constructor(props, context){
     super(props, context)
     this.state = {content:""}
@@ -36,8 +36,7 @@ class FormUploaderComponent extends React.Component<{institute:model.Institute, 
   }
   handleSubmit(event) {
     console.log("handleSubmit", this.state)
-    if(this.props.entities_to_upload == "Lego")
-      sendLegoFile(this.state.content, this.props.institute.Name).then(_=>alert('File sent')).catch(e=>{console.log(e); alert('Error')})
+      sendLegoFile(this.state.content).then(_=>alert('File sent')).catch(e=>{console.log(e); alert('Error')})
     event.preventDefault();
   }
 
