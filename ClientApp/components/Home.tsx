@@ -2,7 +2,6 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 
-
 export class Home extends React.Component<RouteComponentProps<{}>> {
 
     render() {
@@ -47,7 +46,7 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
                         }
                         self._slideTo(self.index);
 
-                    }, 1000);
+                    }, 5000);
                 },
                 stopStart: function () {
                     var self = this;
@@ -73,12 +72,13 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
         })();
 
         return <div className="slider" id="main-slider">
-            <div className="slider-wrapper">
+                <div className="slider-wrapper">
                 <h1> Most wanted! Last chance to buy! </h1>
-                <img src="https://pbs.twimg.com/media/Cl9q5-1WYAAfHL7.jpg:large" alt="First" className="slide" />
-                <img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD" alt="Second" className="slide" />
-                <img src="https://torrentsgames.org/wp-content/uploads/2017/01/Lego-City-Undercover-Xbox360.jpg" alt="Third" className="slide" />
-            </div>
+                <img src="https://pbs.twimg.com/media/Cl9q5-1WYAAfHL7.jpg:large"className="slide" alt="First"/>
+                <img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD"className="slide" alt="Second"/>
+                <img src="https://torrentsgames.org/wp-content/uploads/2017/01/Lego-City-Undercover-Xbox360.jpg"className="slide" alt="Third"/>
+                    
+                </div>
             <p><h1>What's new?</h1></p>
             <NavLink to={ '/LosseBlokken' }  activeClassName='active'> <button><img src="https://i.pinimg.com/736x/d8/34/50/d834509d1cc7d0d511123f85c6323f67--lego-furniture-lego-building.jpg" width={300} height={200} /></button> </NavLink> 
             <NavLink to={ '/LosseBlokken' }  activeClassName='active'> <button><img src="https://s.s-bol.com/imgbase0/imagebase3/large/FC/6/4/3/2/9200000016312346_6.jpg" width={300} height={200}/></button> </NavLink>
