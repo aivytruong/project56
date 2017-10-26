@@ -10,7 +10,7 @@ using System;
 namespace project56.Migrations
 {
     [DbContext(typeof(LegoContext))]
-    [Migration("20171016160124_database")]
+    [Migration("20171024113311_database")]
     partial class database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
