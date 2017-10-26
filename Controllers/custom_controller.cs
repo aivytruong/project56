@@ -75,7 +75,7 @@ namespace project56.Controllers
                             where _starwars.Theme == theme
                             select _starwars).FirstOrDefault();
 
-            if (starwars == null) throw new Exception("Product not found")
+            if (starwars == null) throw new Exception("Product not found");
             return starwars;
         }
     }
