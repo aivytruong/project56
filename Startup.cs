@@ -25,7 +25,11 @@ namespace project56
         public void ConfigureServices(IServiceCollection services)
         {
              services.AddDbContext<LegoContext> (
+<<<<<<< HEAD
                  opt => opt.UseNpgsql(@"Host=localhost;Database=LegoDB;Username=postgres;Password=123"));
+=======
+                 opt => opt.UseNpgsql(@"Host=localhost;Database=LegoDB;Username=postgres;Password=haha88"));
+>>>>>>> origin/sho2
             services.AddMvc();
         }
 

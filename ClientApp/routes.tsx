@@ -11,6 +11,14 @@ import { StarwarsSets } from './components/StarwarsSets';
 import { KidsSets } from './components/KidsSets';
 import { LosseBlokken } from './components/LosseBlokken';
 import { StarwarsLosseBlokken } from './components/StarwarsLosseBlokken';
+<<<<<<< HEAD
+=======
+import {Newproduct1} from './Components/Newproduct1'
+import {Newproduct2} from './Components/Newproduct2'
+import {Newproduct3} from './Components/Newproduct3'
+import { KidsProductPage } from './components/KidsProductPage';
+import {filtertest} from './Components/filtertest'
+>>>>>>> origin/sho2
 import { databasebutton } from './components/databasebutton';
 
 
@@ -26,6 +34,14 @@ export const routes = <Layout>
     <Route path='/KidsSets' component={ KidsSets } />
     <Route path='/LosseBlokken' component={ LosseBlokken } />
     <Route path='/StarwarsLosseBlokken' component={ StarwarsLosseBlokken } />
+<<<<<<< HEAD
+=======
+    <Route path='/Newproduct1' component={ Newproduct1 } />
+    <Route path='/Newproduct2' component={ Newproduct2 } />
+    <Route path='/Newproduct3' component={ Newproduct3 } />
+    <Route path='/kidsproductpage' component={KidsProductPage} />
+    <Route path= '/filtertest' component={filtertest}/>
+>>>>>>> origin/sho2
     <Route path='/databasebutton' component={databasebutton} />
 
 </Layout>;

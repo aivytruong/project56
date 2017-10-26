@@ -80,9 +80,9 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
                     
                 </div>
             <p><h1>What's new?</h1></p>
-            <NavLink to={ '/LosseBlokken' }  activeClassName='active'> <button><img src="https://i.pinimg.com/736x/d8/34/50/d834509d1cc7d0d511123f85c6323f67--lego-furniture-lego-building.jpg" width={300} height={200} /></button> </NavLink> 
-            <NavLink to={ '/LosseBlokken' }  activeClassName='active'> <button><img src="https://s.s-bol.com/imgbase0/imagebase3/large/FC/6/4/3/2/9200000016312346_6.jpg" width={300} height={200}/></button> </NavLink>
-            <NavLink to={ '/LosseBlokken' }  activeClassName='active'> <button><img src="http://farm5.static.flickr.com/4146/5061589253_dc12961822.jpg" width={300} height={200}/></button> </NavLink>
+            <NavLink to={ '/Newproduct1' }  activeClassName='active'> <button><img src="http://toysnbricks.com/wp-content/uploads/2017/05/LEGO-City-60162-Jungle-Air-Drop-Helicopter-Box.jpg" width={300} height={200} /></button> </NavLink> 
+            <NavLink to={ '/Newproduct2' }  activeClassName='active'> <button><img src="http://dark-horizons-sukobdumutpsb2zn0.stackpathdns.com/wp-content/uploads/2017/06/justice-league-lego-sets-offer-reveals.jpg" width={300} height={200}/></button> </NavLink>
+            <NavLink to={ '/Newproduct3' }  activeClassName='active'> <button><img src="http://assets1.ignimgs.com/2017/08/31/75189-box1-v39-1504192454909_1280w.jpg" width={300} height={200}/></button> </NavLink>
             
         </div>
     
