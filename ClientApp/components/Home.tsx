@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 
 
-
 export class Home extends React.Component<RouteComponentProps<{}>> {
 
     render() {
@@ -48,7 +47,7 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
                         }
                         self._slideTo(self.index);
 
-                    }, 1000);
+                    }, 5000);
                 },
                 stopStart: function () {
                     var self = this;

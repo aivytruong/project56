@@ -172,6 +172,7 @@ body {
 .css-btn{ background-color:red; color:white; font-size:15px; border:none; padding:8px 16px; text-align: center}
 .css-lightred{ background-color:#ffe5e5;}
 .css-input{ padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%}
+.css-input-amount{ padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:4%}
 .css-container{ padding:0.01em 20px}
 .css-card{ box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19); width: 50%;}
 .css-toppadding{ padding-top: 20px;}

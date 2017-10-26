@@ -9,6 +9,13 @@ export class LosseBlokken extends React.Component<RouteComponentProps<{}>> {
     }
 
     public render() {
+        {
+        
+        function x(searchterm){
+        for (var index = 0; index < searchterm.length; index++){
+            document.getElementsByClassName(searchterm[index])[0].remove();
+        }
+        }
         return <div>
             
             <h1>Welcome to the Separate bricks! </h1>
@@ -45,4 +52,4 @@ export class LosseBlokken extends React.Component<RouteComponentProps<{}>> {
 
    
     }
-}
+}}
