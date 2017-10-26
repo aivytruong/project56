@@ -28,8 +28,8 @@ export class NavMenu extends React.Component<{}, {}> {
                             </NavLink>
                         </li>
                          <li>
-                            <NavLink to={ '/losseblokken' } activeClassName='active'>
-                                <span className='glyphicon glyphicon'></span> Loose Blocks
+                            <NavLink to={ '/separatebricks' } activeClassName='active'>
+                                <span className='glyphicon glyphicon'></span> Separate Blocks
                             </NavLink>
                         </li>
                         <li className='dropdown'>
