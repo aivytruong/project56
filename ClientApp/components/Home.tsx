@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 
 
-
 export class Home extends React.Component<RouteComponentProps<{}>> {
 
     render() {

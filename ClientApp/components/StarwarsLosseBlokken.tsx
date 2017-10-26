@@ -9,7 +9,16 @@ export class StarwarsLosseBlokken extends React.Component<RouteComponentProps<{}
     }
 
     public render() {
+        {
+        function x(searchterm){
+        for (var index = 0; index < searchterm.length; index++){
+            document.getElementsByClassName(searchterm[index])[0].remove();
+        }}
         return <div>
+
+            <h1><button onClick={(event)=>x(["id1","id2"])}>Starwars: Darth Vader Transformation process (new helmet)</button></h1>
+            <h1><button onClick={(event)=>x(["id2", "id3"])}>Lego Star Wars Princess Leia Minifigure with Blaster</button></h1>
+            <h1><button onClick={(event)=>x(["id3", "id1"])}>LEGO Star Wars First Order Star Destroyer 75190Starwars Sandcrawler</button></h1>
             <h1>LEGO STARWARS</h1> 
             <br/>
 
@@ -52,5 +61,5 @@ export class StarwarsLosseBlokken extends React.Component<RouteComponentProps<{}
     }
 
    
-    }
+    }}
 

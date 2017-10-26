@@ -18,7 +18,9 @@ export class Sale extends React.Component<RouteComponentProps<{}>> {
         }
     }
         return <div>
-            
+            <h1><button onClick={(event)=>x(["id1","id2"])}>Starwars: The forceawakens</button></h1>
+            <h1><button onClick={(event)=>x(["id2", "id3"])}>Starwars</button></h1>
+            <h1><button onClick={(event)=>x(["id3", "id1"])}>Starwars Sandcrawler</button></h1>
             
             <h1 >Sale</h1>
             <div>Welcome to the sale page! Here you will find the best sales for LEGO </div>
