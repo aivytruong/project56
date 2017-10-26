@@ -72,14 +72,35 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
             });
         })();
 
-        return <div className="slider" id="main-slider">
-            <div className="slider-wrapper">
-                
-                <img src="https://pbs.twimg.com/media/Cl9q5-1WYAAfHL7.jpg:large" alt="First" className="slide" />
-                <img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD" alt="Second" className="slide" />
-                <img src="https://torrentsgames.org/wp-content/uploads/2017/01/Lego-City-Undercover-Xbox360.jpg" alt="Third" className="slide" />
+        return  <div className='row'>
+                    <div className='column side-nav w10'>
+                        <ul className='css-big noneul'>
+                            <li>
+                                <NavLink to={ '/sale' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sale
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to={ '/losseblokken' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Loose Blocks
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className='column w90'>
+                        <div className="slider" id="main-slider">
+                            <div className="slider-wrapper">           
+                            <img src="https://pbs.twimg.com/media/Cl9q5-1WYAAfHL7.jpg:large" alt="First" className="slide" />
+                            <img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD" alt="Second" className="slide" />
+                            <img src="https://torrentsgames.org/wp-content/uploads/2017/01/Lego-City-Undercover-Xbox360.jpg" alt="Third" className="slide" />
+                            </div>
+                        </div>
+                    </div>
             </div>
-        </div>
-
     }
 }

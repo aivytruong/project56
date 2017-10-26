@@ -1,9 +1,14 @@
+html,body {
+	margin: 0;
+	padding: 0;
+}
+
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
     src: url(https://fonts.gstatic.com/s/materialicons/v29/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
-  }
+}
 
   .css-icons {
     font-family: 'Material Icons';
@@ -22,7 +27,9 @@
     position: absolute;
     padding: 10px;
     left: 0px;
-  }
+}
+
+body { padding-top:50px;}
 
 .main-nav {
     position: fixed;
@@ -63,16 +70,10 @@
     display: block;
 }
 
-.main-nav ul {
+.noneul {
     list-style-type: none;
     margin: 0;
     padding: 5px;
-    width: 100%;
-}
-
-
-.main-nav li a:hover {
-    background-color: yellow;
 }
 
 /* @media (min-width: 768px) { */
@@ -113,11 +114,6 @@
         text-overflow: ellipsis;
     } */ */
 
-
-html,body {
-	margin: 0;
-	padding: 0;
-}
 .slider {
 	width: 1024px;
 	margin: 2em auto;
@@ -144,10 +140,8 @@ html,body {
 }
 
 
-
 .main-nav li {
     float: left;
-
 }
 
 .main-nav li a {
@@ -162,18 +156,31 @@ html,body {
     background-color: yellow;
 }
 
-body {
-    padding-top: 70px;
+
+.side-nav li a {
+    margin: 0;
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+}
+
+.side-nav li a:hover {
+    background-color: yellow;
 }
 
 .css-red{ background-color: red; color: white;}
 .css-text-red{ color: red;}
-.css-btn{ background-color:red; color:white; font-size:15px; border:none; padding:8px 16px; text-align: center}
+.css-btn{ border:none; padding:8px 16px; text-align: center}
 .css-lightred{ background-color:#ffe5e5;}
 .css-input{ padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%}
 .css-container{ padding:0.01em 20px}
 .css-card{ box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19); width: 50%;}
 .css-toppadding{ padding-top: 20px;}
+.css-big { font-size:18px; }
+.css-redish{color:#fff;background-color:#f44336}
+.css-teal{color:#fff;background-color:#009688}
+.css-circle{border-radius:50%;}
 
 /* enable absolute positioning */
 .inner-addon { 
@@ -204,3 +211,8 @@ body {
 /* add padding  */
 .left-addon input  { padding-left:  40px; }
 .right-addon input { padding-right: 40px; }
+
+.column { float:left; padding: 10px;}
+.row:after { content: ''; display:table; clear:both; }
+.side-nav { background-color: red; text-decoration:none; list-style-type:none; height:100%; }
+.w50{width:50%;}.w10{width:10%;}.w90{width:90%;}.w20{width:20%;}.w80{width:80%;}.w60{width:60%;}.w40{width:40%;}.w30{width:30%;}.w70{width:70%;}

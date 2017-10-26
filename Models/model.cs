@@ -38,5 +38,16 @@ namespace project56.model
         public string Availability { get; set; }
     }
 
+    [Table("userdetails")]
     
+    public class Users {
+        public string User_id { get; set; }
+        public string Gebruikersnaam { get; set; }
+        public string Wachtwoord { get; set; }
+        public string Geboortedatum { get; set; }
+        public string Emailadres { get; set; }
+        public string Adres { get; set; }
+        public string geslacht { get; set; }
+    }
+
 }

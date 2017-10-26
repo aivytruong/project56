@@ -30,7 +30,7 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, {}> {
                     <input className='css-input css-lightred' name="first" type="text" />
                 </p>
                 <p>
-                    <span className='css-text-red'>Land</span>
+                    <span className='css-text-red'>Adres</span>
                     <input className='css-input css-lightred' name="first" type="text" />
                 </p>
                 <p>

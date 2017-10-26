@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
         return <div className='main-nav'>
-                    <ul>
+                    <ul className='noneul'>
                         <li>
                         <i className="fa fa-home"></i>
                             <NavLink to={ '/' } exact activeClassName='active'>
