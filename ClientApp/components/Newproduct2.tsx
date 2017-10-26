@@ -1,34 +1,23 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
-import * as Models from './lego_types'
 
-
-type StarwarsProductComponentProps = {}
-type StarwarsProductComponentState = | {kind:"loading"} | {kind: "lego", products: Models.Lego}
-
-export async function get_starwars_product(theme: string): Promise<{product: Models.Lego}>{
-    let res = await fetch(`custom/StarwarsProduct/${theme}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
-    let json = await res.json()
-    console.log("received correct products", json)
-    return json
-}
-
-export class Product extends React.Component<RouteComponentProps<{}>, StarwarsProductComponentState> {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {kind:"loading"};
+export class Newproduct2 extends React.Component<RouteComponentProps<{}>> {
+    constructor() {
+        super();
+        this.state = {};
     }
 
     public render() {
         return <div>
-           
-            <h1>Product Page Template</h1>
+            <h1>NEW</h1>
             
             <br/>
-            <NavLink to={ '/sale' }  activeClassName='active'> <button><h1>Back</h1></button> </NavLink>
-            <h2>Product Title</h2>
-            <img src="https://pixy.org/images/placeholder.png" width={600} height={300}/>
+            <NavLink to={ '/' }  activeClassName='active'> <button><h1>Back</h1></button> </NavLink>
+            <h2>Flying Fox</h2>
+            <img src="http://dark-horizons-sukobdumutpsb2zn0.stackpathdns.com/wp-content/uploads/2017/06/justice-league-lego-sets-offer-reveals.jpg" width={600} height={300}/>
+            <p><img src="https://sh-s7-live-s.legocdn.com/is/image/LEGO/76087?$PDPDefault$" width={300} height={200}/>
+            <img src="https://brickshow.com/wp-content/uploads/2017/07/76087-19.jpg" width={300} height={200}/></p>
             <br/>
             <br/>
             <h3>Productbeschrijving</h3>

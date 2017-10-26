@@ -73,13 +73,23 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
         })();
 
         return <div className="slider" id="main-slider">
+            <h1> Most wanted! Last chance to buy! </h1>
             <div className="slider-wrapper">
                 
                 <img src="https://pbs.twimg.com/media/Cl9q5-1WYAAfHL7.jpg:large" alt="First" className="slide" />
                 <img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD" alt="Second" className="slide" />
                 <img src="https://torrentsgames.org/wp-content/uploads/2017/01/Lego-City-Undercover-Xbox360.jpg" alt="Third" className="slide" />
             </div>
+            <p><h1>What's new?</h1></p>
+            <NavLink to={ '/Newproduct1' }  activeClassName='active'> <button><img src="http://toysnbricks.com/wp-content/uploads/2017/05/LEGO-City-60162-Jungle-Air-Drop-Helicopter-Box.jpg" width={300} height={200} /></button> </NavLink> 
+            <NavLink to={ '/Newproduct2' }  activeClassName='active'> <button><img src="http://dark-horizons-sukobdumutpsb2zn0.stackpathdns.com/wp-content/uploads/2017/06/justice-league-lego-sets-offer-reveals.jpg" width={300} height={200}/></button> </NavLink>
+            <NavLink to={ '/Newproduct3' }  activeClassName='active'> <button><img src="http://assets1.ignimgs.com/2017/08/31/75189-box1-v39-1504192454909_1280w.jpg" width={300} height={200}/></button> </NavLink>
+            
         </div>
+    
+    
 
-    }
-}
+        
+
+
+}}
