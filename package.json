@@ -1,7 +1,7 @@
 {
-  "name": "project56",
+  "name": "react",
   "private": true,
-  "version": "0.0.0",
+  "version": "16.0.0",
   "devDependencies": {
     "@types/history": "4.6.0",
     "@types/react": "15.0.35",
@@ -33,5 +33,20 @@
   },
   "dependencies": {
     "yarn": "^1.1.0"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aivytruong/project56.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aivytruong/project56/issues"
+  },
+  "homepage": "https://github.com/aivytruong/project56#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "description": ""
 }
