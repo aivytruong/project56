@@ -10,7 +10,7 @@ export class KidsSets extends React.Component<RouteComponentProps<{}>> {
 
     public render() {
         return <div>
-            <h1>Sale</h1>
+            <h1>Kids page</h1>
             <div>Welcome to the Kids page! Here you will find the best Kids sets! Your kid will love it! </div>
             <br/>
             <h2>Marvel Super Heroes </h2>
