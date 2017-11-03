@@ -16,10 +16,14 @@ export class KidsSets extends React.Component<RouteComponentProps<{}>> {
             document.getElementsByClassName(searchterm[index])[0].remove();
         }}
         return <div>
+<<<<<<< HEAD
             <h1><button onClick={(event)=>x(["id1","id2"])}>City</button></h1>
             <h1><button onClick={(event)=>x(["id2", "id3"])}>Marvel Super Heroes</button></h1>
             <h1><button onClick={(event)=>x(["id3", "id1"])}>Thomas And Friends</button></h1>
             <h1>KidsPage</h1>
+=======
+            <h1>Kids page</h1>
+>>>>>>> 1015e6c695f4181d8b51a93f3ed522b09b2ba773
             <div>Welcome to the Kids page! Here you will find the best Kids sets! Your kid will love it! </div>
             <br/>
             <div className = "id1">

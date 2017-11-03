@@ -68,6 +68,7 @@ namespace project56.Controllers
 
 
         }
+<<<<<<< HEAD
         [HttpGet("StarwarsProduct")]
         public Lego StarwarsProduct(string theme)
         {
@@ -77,6 +78,22 @@ namespace project56.Controllers
 
             if (starwars == null) throw new Exception("Product not found");
             return starwars;
+=======
+        [HttpGet("Product")]
+        public Lego[] Product()
+        {
+            return _context.Legos.ToArray();
+            // var starwars = (from _starwars in _context.Legos
+            //                 let product = _context.Legos.Where(a => a.Item_Number == _starwars.Item_Number).ToList()
+            //                 select new Lego(){
+            //                     Item_Number=_starwars.Item_Number, Name=_starwars.Name, Year=_starwars.Year, Theme=_starwars.Theme, Subtheme=_starwars.Subtheme, Pieces=_starwars.Pieces, Minifigures=_starwars.Minifigures, Image_URL=_starwars.Image_URL, GBP_MSRP=_starwars.GBP_MSRP,USD_MSRP=_starwars.USD_MSRP,CAD_MSRP=_starwars.CAD_MSRP,EUR_MSRP=_starwars.EUR_MSRP,Packaging=_starwars.Packaging,Availability=_starwars.Availability
+            //                 });
+            //                 where _starwars.Item_Number == id
+            //                 select _starwars).FirstOrDefault();
+
+            
+            // return Ok(starwars.ToArray());
+>>>>>>> 1015e6c695f4181d8b51a93f3ed522b09b2ba773
         }
     }
 
