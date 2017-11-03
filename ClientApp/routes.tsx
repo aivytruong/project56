@@ -21,7 +21,6 @@ import {Newproduct2} from './Components/Newproduct2'
 import {Newproduct3} from './Components/Newproduct3'
 import { KidsProductPage } from './components/KidsProductPage';
 import {filtertest} from './Components/filtertest'
-import { databasebutton } from './components/databasebutton';
 
 
 
