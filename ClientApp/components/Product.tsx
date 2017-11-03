@@ -5,7 +5,7 @@ import * as Models from './lego_types'
 
 
 type StarwarsProductComponentProps = {}
-type StarwarsProductComponentState = | {kind:"loading"} | {kind: "lego", products: Models.Lego}
+type StarwarsProductComponentState =  {products: Models.Lego[] | "loading"}
 
 export async function get_starwars_product(theme: string): Promise<{product: Models.Lego}>{
     let res = await fetch(`custom/StarwarsProduct/${theme}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
@@ -17,12 +17,17 @@ export async function get_starwars_product(theme: string): Promise<{product: Mod
 export class Product extends React.Component<RouteComponentProps<{}>, StarwarsProductComponentState> {
     constructor(props, context) {
         super(props, context);
-        this.state = {kind:"loading"};
+        this.state = {products:"loading"};
     }
+
+    // ComponentWillMount(){
+    //     get_starwars_product('starwars').then(starwars => this.setState({... this.state, products: starwars}))
+    // }
 
     public render() {
         return <div>
            
+                     
             <h1>Product Page Template</h1>
             
             <br/>

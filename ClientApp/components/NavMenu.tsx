@@ -23,11 +23,6 @@ export class NavMenu extends React.Component<{}, {}> {
                             </NavLink>
                         </li>*/}
                         <li>
-                            <NavLink to={ '/databasebutton' } activeClassName='active'>
-                                <span className='glyphicon glyphicon'></span> database
-                            </NavLink>
-                        </li>
-                        <li>
                             <NavLink to={ '/sets' } activeClassName='active'>
                                 <span className='glyphicon glyphicon'></span> Sets
                             </NavLink>
@@ -39,6 +34,9 @@ export class NavMenu extends React.Component<{}, {}> {
                         </li>
                          <li>
                             <NavLink to={ '/separatebricks' } activeClassName='active'>
+                                <span className='glyphicon glyphicon'></span> Separate Blocks
+                            </NavLink>
+                            {/*<NavLink to={ '/losseblokken' } activeClassName='active'>
                                 <span className='glyphicon glyphicon'></span> Separate Bricks
                             </NavLink>
                             {/*<NavLink to={ '/losseblokken' } activeClassName='active'>

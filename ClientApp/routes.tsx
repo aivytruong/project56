@@ -23,8 +23,6 @@ import { KidsProductPage } from './components/KidsProductPage';
 import {filtertest} from './Components/filtertest'
 
 
-
-
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
     <Route path='/sale' component={ Sale } />
@@ -46,6 +44,5 @@ export const routes = <Layout>
     <Route path='/Newproduct3' component={ Newproduct3 } />
     <Route path='/kidsproductpage' component={KidsProductPage} />
     <Route path= '/filtertest' component={filtertest}/>
-    <Route path='/databasebutton' component={databasebutton} />
 
 </Layout>;
