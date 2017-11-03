@@ -68,6 +68,16 @@ namespace project56.Controllers
 
 
         }
+        [HttpGet("StarwarsProduct")]
+        public Lego StarwarsProduct(string theme)
+        {
+            var starwars = (from _starwars in _context.Legos
+                            where _starwars.Theme == theme
+                            select _starwars).FirstOrDefault();
+
+            if (starwars == null) throw new Exception("Product not found");
+            return starwars;
+        }
     }
 
 }
