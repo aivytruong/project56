@@ -16,20 +16,44 @@ export async function get_product(): Promise<Models.Lego[]>{
 
 export class Product extends React.Component<RouteComponentProps<{}>, StarwarsProductComponentState> {
     constructor(props, context) {
-        super(props, context);
+        super();
         this.state = {products: "loading"};
     }
 
     componentWillMount(){
-        get_product().then(prod => this.setState({...this.state, products: prod })).then( _ =>
-        {if (this.state.products != "loading")
-            console.log("gg", this.state.products)})
+        get_product().then(products => this.setState({...this.state, products:products
+            .map((_products:Models.Lego) => {
+            return {
+                products:_products,
+                Item_Number:_products.Item_Number,
+                Name:_products.Name,
+                Year:_products.Year,
+                Theme:_products.Theme,
+                Subtheme:_products.Subtheme,
+                Pieces:_products.Pieces,
+                Minifigures:_products.Minifigures,
+                Image_URL:_products.Image_URL,
+                GBP_MSRP:_products.GBP_MSRP,
+                USD_MSRP:_products.USD_MSRP,
+                CAD_MSRP:_products.CAD_MSRP,
+                EUR_MSRP:_products.EUR_MSRP,
+                Packaging:_products.Packaging,
+                Availability:_products.Availability
+
+            }
+        })
+    }))
+        
+        // get_product().then(products => this.setState({...this.state, products: products})).then( _ =>
+        // {if (this.state.products != "loading")
+        //     console.log("gg", this.state.products)})
     }
 
-    public render() {
+    render() {
         if (this.state.products == "loading") return <div>loading...</div>
         return <div>
-           {this.state.products.map(product => <div>{product.Name}</div>)}    
+           {this.state.products.map(products => <div> title: {products.Name}</div>)}
+           {console.log("render", this.state.products)}    
         </div>;
     }
 }
