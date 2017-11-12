@@ -9,6 +9,8 @@ using project56.model;
 using System.IO;
 
 
+
+
 namespace project56.Controllers
 {
     [Route("custom")]
@@ -20,6 +22,39 @@ namespace project56.Controllers
 
             _context = context;
         }
+
+
+
+         [HttpPut("User")]
+        public void put (int id,[FromBody] ClassUser User)
+        {
+           
+           
+            using ( LegoContext _user = new LegoContext())
+            {
+                var entity = _user.Users.FirstOrDefault(e =>e.ID == id);
+
+                 entity.FirstName = User.FirstName;
+                 entity.LastName = User.LastName;
+                 entity.UserName = User.UserName;
+                 entity.EmailAdress = User.EmailAdress;
+                 entity.Password = User.Password;
+                 entity.RelatedAccountId = User.RelatedAccountId;
+                 entity.Adress = User.Adress;
+                 entity.PhoneNumber = User.PhoneNumber;
+                 entity.country = User.country;
+                 entity.date_of_birth = User.date_of_birth;
+                 entity.Gender = User.Gender;
+                 
+
+                 _user.SaveChanges();
+                 _context.Add(_user);              
+               
+                }
+
+
+               
+            }
 
         [HttpPut("Lego")]
         public void FindLegoDb([FromBody]string file)
@@ -66,19 +101,10 @@ namespace project56.Controllers
                 _context.SaveChanges();
             }
 
+            
+
 
         }
-<<<<<<< HEAD
-        [HttpGet("StarwarsProduct")]
-        public Lego StarwarsProduct(string theme)
-        {
-            var starwars = (from _starwars in _context.Legos
-                            where _starwars.Theme == theme
-                            select _starwars).FirstOrDefault();
-
-            if (starwars == null) throw new Exception("Product not found");
-            return starwars;
-=======
         [HttpGet("Product")]
         public Lego[] Product()
         {
@@ -93,8 +119,9 @@ namespace project56.Controllers
 
             
             // return Ok(starwars.ToArray());
->>>>>>> 1015e6c695f4181d8b51a93f3ed522b09b2ba773
         }
+
+       
     }
 
 }
