@@ -9,7 +9,7 @@ type StarwarsProductComponentState = { products: Models.Lego[] | "loading" }
 type LoadProducts = { load: Models.Lego }
 
 export async function get_product(): Promise<Models.Lego[]> {
-    let res = await fetch(`/custom/Product`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let res = await fetch(`./custom/Product`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = await res.json()
     console.log("received correct products", json)
     return json
@@ -31,8 +31,9 @@ export class Product extends React.Component<RouteComponentProps<{}>, StarwarsPr
 
     render() {
         if (this.state.products == "loading") return <div>loading...</div>
+        else
         return <div>
-            {this.state.products.map(products => <ProductLoad load={products} />)}
+            {this.state.products.map(products => <div> name: <ProductLoad load={products} /> </div>)}
             {console.log("render", this.state.products)}
         </div>;
     }
@@ -40,13 +41,14 @@ export class Product extends React.Component<RouteComponentProps<{}>, StarwarsPr
 
 export class ProductLoad extends React.Component<LoadProducts, {}> {
     constructor(props: LoadProducts) {
-        super();
+        super(props);
         this.state = {};
     }
 
     render() {
+        // console.log("rendering", this.props.load.name)
         return <div>
-            {this.props.load.Name}
+            {this.props.load.name}
         </div>;
     }
 }
