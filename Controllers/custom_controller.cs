@@ -82,6 +82,17 @@ namespace project56.Controllers
             
             // return Ok(starwars.ToArray());
         }
+
+        [HttpGet("LegoStarwars")]
+        public Lego[] LegoStarwars(string theme){
+            var starwars = from _starwars in _context.Legos
+                           where _starwars.Theme == theme
+                           //select _starwars;
+                           select new Lego(){Item_Number=_starwars.Item_Number, Availability=_starwars.Availability,CAD_MSRP=_starwars.CAD_MSRP,EUR_MSRP=_starwars.EUR_MSRP,GBP_MSRP=_starwars.GBP_MSRP,Image_URL=_starwars.Image_URL,Minifigures=_starwars.Minifigures,Name=_starwars.Name,Packaging=_starwars.Packaging,Pieces=_starwars.Pieces,Subtheme=_starwars.Subtheme,Theme=_starwars.Theme,USD_MSRP=_starwars.USD_MSRP,Year=_starwars.Year};
+            
+            return starwars.ToArray();               
+                            
+        }
     }
 
 }

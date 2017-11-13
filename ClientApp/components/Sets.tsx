@@ -22,9 +22,9 @@ export class Sets extends React.Component<RouteComponentProps<{}>> {
             </div>
 
             <div className="categories">
-            <NavLink to={ '/StarwarsProductPage' }  activeClassName='active'> <button><img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD" width={300} height={200}/></button> </NavLink>
+            <NavLink to={ '/StarwarsSets' }  activeClassName='active'> <button><img src="http://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/2017/05/lego_main.jpg?itok=OYmDXcmD" width={300} height={200}/></button> </NavLink>
             <br/>
-            <NavLink to={ '/StarwarsProductPage' }  activeClassName='active'> <button>LEGO STARWARS</button> </NavLink>     
+            <NavLink to={ '/StarwarsSets' }  activeClassName='active'> <button>LEGO STARWARS</button> </NavLink>     
             </div> 
 
             <div className="categories">

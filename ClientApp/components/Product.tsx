@@ -23,9 +23,6 @@ export class Product extends React.Component<RouteComponentProps<{}>, StarwarsPr
 
     componentWillMount() {
         get_product().then(products => this.setState({ ...this.state, products: products }))
-
-        // get_product().then(products => this.setState({...this.state, products: products})).then( _ =>
-        // {if (this.state.products != "loading")
         console.log("mapping", this.state.products)
     }
 
@@ -49,6 +46,7 @@ export class ProductLoad extends React.Component<LoadProducts, {}> {
         // console.log("rendering", this.props.load.name)
         return <div>
             {this.props.load.name}
+            
         </div>;
     }
 }
