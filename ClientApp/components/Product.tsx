@@ -50,4 +50,3 @@ export class ProductLoad extends React.Component<LoadProducts, {}> {
         </div>;
     }
 }
-
