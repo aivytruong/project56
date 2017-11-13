@@ -38,5 +38,15 @@ namespace project56.model
         public string Availability { get; set; }
     }
 
+     [Table("admindetails")]
+    public class Admin {
+        [Key]
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Entity {get; set;}         
+    }
+
     
 }

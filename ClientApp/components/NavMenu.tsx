@@ -17,11 +17,11 @@ export class NavMenu extends React.Component<{}, {}> {
                                 <span className='glyphicon glyphicon'></span> Sale
                             </NavLink>
                         </li>
-                        {/*<li>
+                        <li>
                             <NavLink to={ '/databasebutton' } activeClassName='active'>
                                 <span className='glyphicon glyphicon'></span> database
                             </NavLink>
-                        </li>*/}
+                        </li>
                         <li>
                             <NavLink to={ '/sets' } activeClassName='active'>
                                 <span className='glyphicon glyphicon'></span> Sets

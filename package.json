@@ -28,10 +28,18 @@
     "style-loader": "0.18.2",
     "typescript": "2.4.1",
     "url-loader": "0.5.9",
-    "webpack": "^3.6.0",
+    "webpack": "^3.8.1",
     "webpack-hot-middleware": "2.18.2"
   },
   "dependencies": {
+    "amdefine": "^1.0.1",
+    "nanomatch": "^1.2.5",
+    "posix-character-classes": "^1.0.0",
+    "snapdragon": "^0.11.0",
+    "snapdragon-node": "^2.1.1",
+    "split-string": "^3.0.2",
+    "to-regex": "^3.0.1",
+    "to-regex-range": "^3.0.0",
     "yarn": "^1.1.0"
   }
 }

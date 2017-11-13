@@ -30,7 +30,7 @@ namespace project56.Controllers
 
                 var columns = line.Split(",");
                 var Item_Number = columns[0];
-                var Name = columns[1];
+                var Name = columns[1]; 
                 var Year = columns[2];
                 var Theme = columns[3];
                 var Subtheme = columns[4];
@@ -65,7 +65,6 @@ namespace project56.Controllers
                 _context.Add(lego);
                 _context.SaveChanges();
             }
-
 
         }
         [HttpGet("Product")]

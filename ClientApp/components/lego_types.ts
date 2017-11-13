@@ -1,6 +1,6 @@
 export type Lego = {
     Item_Number : string
-    Name : string
+    name : string
     Year : string
     Theme : string
     Subtheme : string
