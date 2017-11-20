@@ -5,7 +5,7 @@ import { Link, NavLink } from 'react-router-dom';
 type regState = {firstName: string, lastName: string, userName: string, emailAdress: string, password: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string}
 
 export async function UserRegistreren(firstName: string, lastName: string, userName: string, emailAdress: string, password: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string) {
-    let res = await fetch(`./UserController/CreateUser/${firstName}/${lastName}${userName}${emailAdress}${password}${adress}${phoneNumber}${Country}${Date_of_birth}${gender}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let res = await fetch(`./UserController/CreateUser/${firstName}/${lastName}/${userName}/${emailAdress}/${password}/${adress}/${phoneNumber}/${Country}/${Date_of_birth}/${gender}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
 }
 
 
@@ -93,4 +93,3 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
         </div>; 
     }
 }
- 
