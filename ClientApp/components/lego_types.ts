@@ -7,10 +7,10 @@ export type Lego = {
     pieces : string
     minifigures : string
     image_URL : string
-    gBP_MSRP : string
-    uSD_MSRP : string
-    cAD_MSRP : string
-    eUR_MSRP : string
+    gbP_MSRP : string
+    usD_MSRP : string
+    caD_MSRP : string
+    euR_MSRP : string
     packaging : string
     availability : string
 }

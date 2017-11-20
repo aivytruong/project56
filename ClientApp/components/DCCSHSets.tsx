@@ -4,25 +4,25 @@ import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import {ProductLoad} from './ProductLoad';
 
-type StarwarsProductComponentProps = {}
-type StarwarsProductComponentState = { products: Models.Lego[] | "loading" }
+type DCCSHSetsComponentProps = {}
+type DCCSHSetsComponentState = { products: Models.Lego[] | "loading" }
 type LoadProducts = { load: Models.Lego }
 
-export async function get_starwarsproduct(theme:string): Promise<Models.Lego[]> {
-    let res = await fetch(`./custom/LegoStarwars/${theme}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+export async function get_monsterfightsproduct(theme:string): Promise<Models.Lego[]> {
+    let res = await fetch(`./custom/DCCSHSets/${theme}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = await res.json()
     console.log("received correct products", json)
     return json
 }
 
-export class StarwarsSets extends React.Component<RouteComponentProps<{}>, StarwarsProductComponentState> {
+export class DCCSHSets extends React.Component<RouteComponentProps<{}>, DCCSHSetsComponentState> {
     constructor(props, context) {
         super();
         this.state = { products: "loading" };
     }
 
     componentWillMount() {
-        get_starwarsproduct("Star Wars").then(products => this.setState({ ...this.state, products: products }))
+        get_monsterfightsproduct("DC Comics Super Heroes").then(products => this.setState({ ...this.state, products: products }))
         console.log("mapping", this.state.products)
     }
 
@@ -35,3 +35,4 @@ export class StarwarsSets extends React.Component<RouteComponentProps<{}>, Starw
         </div>;
     }
 }
+

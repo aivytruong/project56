@@ -7,20 +7,50 @@ import { Sale } from './components/Sale';
 import { Product } from './components/Product';
 import { Login } from './components/Login';
 import { Registreren } from './components/registreren';
-import { StarwarsSets } from './components/StarwarsSets';
-import { KidsSets } from './components/KidsSets';
 import { SeparateBricks } from './components/SeparateBricks';
-import { StarwarsLosseBlokken } from './components/StarwarsLosseBlokken';
 import { databasebutton } from './components/databasebutton';
 import { SeparateFigures } from './components/SeparateFigures';
 import { SeparateBricksProduct } from './components/SeparateBricksProduct';
 import { SeparateObjects } from './components/SeparateObjects';
 import { addToCart } from './components/addToCart';
 import {Newproduct1} from './Components/Newproduct1'
-import {Newproduct2} from './Components/Newproduct2'
-import {Newproduct3} from './Components/Newproduct3'
 import { KidsProductPage } from './components/KidsProductPage';
 import {filtertest} from './Components/filtertest'
+import {CorrectProduct} from './Components/DetailProduct'
+
+import { LegoCitySets } from './components/legoCitySets';
+import { AdvancedModelsSets } from './components/AdvancedModelsSets';
+import {KidsSets} from './components/DuploSets'
+import {CastleSets} from './components/CastleSets'
+import {PiratesSets} from './components/PiratesSets'
+import { StarwarsSets } from './components/StarwarsSets';
+import { HarryPotterSets } from './components/HarryPotterSets';
+import { NinjagoSets } from './components/NinjagoSets';
+import { ArchitectureSets } from './components/ArchitectureSets';
+import { LordOfTheRingsSets } from './components/LordOfTheRingsSets';
+import { MinecraftSets } from './components/MinecraftSets';
+import { MonsterFightsSets } from './components/MonsterFightsSets';
+import { ClassicSets } from './components/ClassicSets';
+import { DCCSHSets } from './components/DCCSHSets';
+import { SeriousPlaySets } from './components/SeriousPlaySets';
+import { EducationSets } from './components/EducationSets';
+import { BionicleSets } from './components/BionicleSets';
+import { HeroFactorySets } from './components/HeroFactorySets';
+import { FusionSets } from './components/FusionSets';
+import { AtlantisSets } from './components/AtlantisSets';
+import { FriendsLegoSets } from './components/FriendsLegoSets';
+import { MSHSets } from './components/MSHSets';
+import { SpaceSets } from './components/SpaceSets';
+import { PromotionalSets } from './components/PromotionalSets';
+import { SeasonalSets } from './components/SeasonalSets';
+import { GamesSets } from './components/GamesSets';
+import { ElvesSets } from './components/ElvesSets';
+import { MixelsSets } from './components/MixelsSets';
+import { DinoSets } from './components/DinoSets';
+import { TheSimpsonsSets } from './components/TheSimpsonsSets';
+import { PharaohsQuestSets } from './components/PharaohsQuestSets';
+import { JurassicWorldSets } from './components/JurassicWorldSets';
+import { PowerMinersSets } from './components/PowerMinersSets';
 
 
 export const routes = <Layout>
@@ -30,18 +60,50 @@ export const routes = <Layout>
     <Route path='/product' component={ Product } />
     <Route path='/login' component={ Login } />
     <Route path='/registreren' component={ Registreren } />
+    <Route path='/DetailProduct/:item_Number' component={ CorrectProduct } />
+
     <Route path='/StarwarsSets' component={ StarwarsSets } />
+    <Route path='/LegoCitySets' component={ LegoCitySets } />
+    <Route path='/DuploSets' component={ KidsSets } />
+    <Route path='/CastleSets' component={ CastleSets } />
+    <Route path='/PiratesSets' component={ PiratesSets } />
+    <Route path='/AdvancedModelsSets' component={ AdvancedModelsSets } />
     <Route path='/KidsSets' component={ KidsSets } />
+    <Route path='/HarryPotterSets' component={ HarryPotterSets } />
+    <Route path='/NinjagoSets' component={ NinjagoSets } />
+    <Route path='/ArchitectureSets' component={ ArchitectureSets } />
+    <Route path='/LordOfTheRingsSets' component={ LordOfTheRingsSets } />
+    <Route path='/MinecraftSets' component={ MinecraftSets } />
+    <Route path='/MonsterFightsSets' component={ MonsterFightsSets } />
+    <Route path='/ClassicSets' component={ ClassicSets } />
+    <Route path='/DCCSHSets' component={ DCCSHSets } />
+    <Route path='/SeriousPlaySets' component={ SeriousPlaySets } />
+    <Route path='/EducationSets' component={ EducationSets } />
+    <Route path='/BionicleSets' component={ BionicleSets } />
+    <Route path='/HeroFactorySets' component={ HeroFactorySets } />
+    <Route path='/FusionSets' component={ FusionSets } />
+    <Route path='/AtlantisSets' component={ AtlantisSets } />
+    <Route path='/FriendsLegoSets' component={ FriendsLegoSets } />
+    <Route path='/MSHSets' component={ MSHSets } />
+    <Route path='/SpaceSets' component={ SpaceSets } />
+    <Route path='/PromotionalSets' component={ PromotionalSets } />
+    <Route path='/SeasonalSets' component={ SeasonalSets } />
+    <Route path='/GamesSets' component={ GamesSets } />
+    <Route path='/ElvesSets' component={ ElvesSets } />
+    <Route path='/MixelsSets' component={ MixelsSets } />
+    <Route path='/DinoSets' component={ DinoSets } />
+    <Route path='/TheSimpsonsSets' component={ TheSimpsonsSets } />
+    <Route path='/PharaohsQuestSets' component={ PharaohsQuestSets } />
+    <Route path='/JurassicWorldSets' component={ JurassicWorldSets } />
+    <Route path='/PowerMinersSets' component={ PowerMinersSets } />
+
     <Route path='/SeparateBricks' component={ SeparateBricks } />
-    <Route path='/StarwarsLosseBlokken' component={ StarwarsLosseBlokken } />
     <Route path='/databasebutton' component={databasebutton} />
     <Route path='/SeparateFigures' component={SeparateFigures} />
     <Route path='/SeparateBricksProduct' component={SeparateBricksProduct} />
     <Route path='/addToCart' component={addToCart} />
     <Route path='/SeparateObjects' component={SeparateObjects} />
     <Route path='/Newproduct1' component={ Newproduct1 } />
-    <Route path='/Newproduct2' component={ Newproduct2 } />
-    <Route path='/Newproduct3' component={ Newproduct3 } />
     <Route path='/kidsproductpage' component={KidsProductPage} />
     <Route path= '/filtertest' component={filtertest}/>
 
