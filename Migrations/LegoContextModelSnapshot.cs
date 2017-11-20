@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using project56.model;
 using System;
@@ -18,6 +19,52 @@ namespace project56.Migrations
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+
+            modelBuilder.Entity("ClassUser", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Adress");
+
+                    b.Property<string>("EmailAdress");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<string>("country");
+
+                    b.Property<string>("date_of_birth");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("UserDetails");
+                });
+
+            modelBuilder.Entity("project56.model.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("admindetails");
+                });
 
             modelBuilder.Entity("project56.model.Lego", b =>
                 {

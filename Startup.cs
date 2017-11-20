@@ -25,7 +25,7 @@ namespace project56
         public void ConfigureServices(IServiceCollection services)
         {
              services.AddDbContext<LegoContext> (
-                 opt => opt.UseNpgsql(@"Host=localhost;Database=LegoDB;Username=postgres;Password=haha88"));
+                 opt => opt.UseNpgsql(@"Host=localhost;Database=LegoDB;Username=postgres;Password=12345678"));
             services.AddMvc();
         }
 

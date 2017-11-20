@@ -1,16 +1,16 @@
 export type Lego = {
-    Item_Number : string
+    item_Number : string
     name : string
-    Year : string
-    Theme : string
-    Subtheme : string
-    Pieces : string
-    Minifigures : string
-    Image_URL : string
-    GBP_MSRP : string
-    USD_MSRP : string
-    CAD_MSRP : string
-    EUR_MSRP : string
-    Packaging : string
-    Availability : string
+    year : string
+    theme : string
+    subtheme : string
+    pieces : string
+    minifigures : string
+    image_URL : string
+    gBP_MSRP : string
+    uSD_MSRP : string
+    cAD_MSRP : string
+    eUR_MSRP : string
+    packaging : string
+    availability : string
 }

@@ -23,39 +23,6 @@ namespace project56.Controllers
             _context = context;
         }
 
-
-
-         [HttpPut("User")]
-        public void put (int id,[FromBody] ClassUser User)
-        {
-           
-           
-            using ( LegoContext _user = new LegoContext())
-            {
-                var entity = _user.Users.FirstOrDefault(e =>e.ID == id);
-
-                 entity.FirstName = User.FirstName;
-                 entity.LastName = User.LastName;
-                 entity.UserName = User.UserName;
-                 entity.EmailAdress = User.EmailAdress;
-                 entity.Password = User.Password;
-                 entity.RelatedAccountId = User.RelatedAccountId;
-                 entity.Adress = User.Adress;
-                 entity.PhoneNumber = User.PhoneNumber;
-                 entity.country = User.country;
-                 entity.date_of_birth = User.date_of_birth;
-                 entity.Gender = User.Gender;
-                 
-
-                 _user.SaveChanges();
-                 _context.Add(_user);              
-               
-                }
-
-
-               
-            }
-
         [HttpPut("Lego")]
         public void FindLegoDb([FromBody]string file)
         {
@@ -101,30 +68,18 @@ namespace project56.Controllers
                 _context.SaveChanges();
             }
 
-<<<<<<< HEAD
-            
-
-
-=======
->>>>>>> 2292d3907e29d1c012a25a2bb89214751f9e00cd
         }
         [HttpGet("Product")]
         public Lego[] Product()
         {
             return _context.Legos.ToArray();
-            // var starwars = (from _starwars in _context.Legos
-            //                 let product = _context.Legos.Where(a => a.Item_Number == _starwars.Item_Number).ToList()
-            //                 select new Lego(){
-            //                     Item_Number=_starwars.Item_Number, Name=_starwars.Name, Year=_starwars.Year, Theme=_starwars.Theme, Subtheme=_starwars.Subtheme, Pieces=_starwars.Pieces, Minifigures=_starwars.Minifigures, Image_URL=_starwars.Image_URL, GBP_MSRP=_starwars.GBP_MSRP,USD_MSRP=_starwars.USD_MSRP,CAD_MSRP=_starwars.CAD_MSRP,EUR_MSRP=_starwars.EUR_MSRP,Packaging=_starwars.Packaging,Availability=_starwars.Availability
-            //                 });
-            //                 where _starwars.Item_Number == id
-            //                 select _starwars).FirstOrDefault();
-
-            
-            // return Ok(starwars.ToArray());
         }
-
-       
+        [HttpGet("GetStarwars/{theme}")]
+        public Lego[] GetStarwars(string theme){
+            var starwars = from _starwars in _context.Legos
+                           where _starwars.Theme == theme
+                           select _starwars;
+            return starwars.ToArray(); 
+        }
     }
-
 }
