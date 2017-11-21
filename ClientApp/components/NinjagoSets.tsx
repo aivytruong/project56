@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import {ProductLoad} from './ProductLoad';
+import {Search} from './SearchFunction';
 
 type NinjagoComponentProps = {}
 type NinjagoComponentState = { products: Models.Lego[] | "loading" }
@@ -17,7 +18,7 @@ export async function get_ninjagoproduct(theme:string): Promise<Models.Lego[]> {
 
 export class NinjagoSets extends React.Component<RouteComponentProps<{}>, NinjagoComponentState> {
     constructor(props, context) {
-        super();
+        super(props);
         this.state = { products: "loading" };
     }
 
@@ -30,9 +31,11 @@ export class NinjagoSets extends React.Component<RouteComponentProps<{}>, Ninjag
         if (this.state.products == "loading") return <div>loading...</div>
         else
         return <div>
-            {this.state.products.map(products => <div> <ProductLoad load={products} /> </div>)}
+            <Search products={this.state.products}/>
+           
             {console.log("render", this.state.products)}
         </div>;
     }
 }
 
+// {this.state.products.map(products => <div> <ProductLoad load={products} /> </div>)}

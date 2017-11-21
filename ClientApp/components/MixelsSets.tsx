@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import {ProductLoad} from './ProductLoad';
+import {Search} from './SearchFunction';
 
 type MixelsSetsComponentProps = {}
 type MixelsSetsComponentState = { products: Models.Lego[] | "loading" }
@@ -30,7 +31,8 @@ export class MixelsSets extends React.Component<RouteComponentProps<{}>, MixelsS
         if (this.state.products == "loading") return <div>loading...</div>
         else
         return <div>
-            {this.state.products.map(products => <div> <ProductLoad load={products} /> </div>)}
+            <Search products={this.state.products}/>
+           
             {console.log("render", this.state.products)}
         </div>;
     }
