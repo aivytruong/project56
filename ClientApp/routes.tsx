@@ -21,6 +21,7 @@ import {Newproduct2} from './Components/Newproduct2'
 import {Newproduct3} from './Components/Newproduct3'
 import { KidsProductPage } from './components/KidsProductPage';
 import {filtertest} from './Components/filtertest'
+import {adminmode} from './Components/AdminMode'
 
 
 export const routes = <Layout>
@@ -44,5 +45,5 @@ export const routes = <Layout>
     <Route path='/Newproduct3' component={ Newproduct3 } />
     <Route path='/kidsproductpage' component={KidsProductPage} />
     <Route path= '/filtertest' component={filtertest}/>
-
+    <Route path= '/AdminMode' component={adminmode}/>
 </Layout>;

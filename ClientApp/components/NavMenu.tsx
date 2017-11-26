@@ -40,6 +40,14 @@ export class NavMenu extends React.Component<{}, {}> {
                                 <span className='glyphicon glyphicon'></span> Separate Bricks
                             </NavLink>*/}
                         </li>
+                        <li>
+                            <NavLink to={ '/AdminMode' } activeClassName='active'>
+                                <span className='glyphicon glyphicon'></span> Admin
+                            </NavLink>
+                            {/*<NavLink to={ '/losseblokken' } activeClassName='active'>
+                                <span className='glyphicon glyphicon'></span> Separate Bricks
+                            </NavLink>*/}
+                        </li>
                         <li className='dropdown'>
                             <NavLink to={ '/login' } activeClassName='active'>
                                 <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20}/>

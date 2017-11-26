@@ -24,5 +24,14 @@ namespace project56.Controllers
         {
             return _context.Admins.ToArray();
         }
+
+        [HttpGet("Adminlogin/{username}/{password}")]
+        public Admin Adminlogin(string username, string password)
+        {
+            var adminloggin = from logins in _context.Admins
+                              where logins.Username == username && logins.Password == password
+                              select logins;
+            return adminloggin.FirstOrDefault();    
+        }
     }
 }

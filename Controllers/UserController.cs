@@ -45,10 +45,27 @@ namespace project56.Controllers
         [HttpGet("Login/{username}/{password}")]
         public ClassUser Login(string username, string password) 
         {
-            var loggingIn = from _login in _context.Users
-                            where _login.UserName == username && _login.Password == password
-                            select _login;
-            return loggingIn.FirstOrDefault();
+            var loggingIn = _context.Users.FirstOrDefault(user => user.UserName == username && user.Password == password);
+            if (loggingIn != null) {
+                return loggingIn;
+            }
+            else {
+                return new ClassUser() {    FirstName = "",
+                                            LastName = "",
+                                            UserName = "",
+                                            EmailAdress = "",
+                                            Password = "",
+                                            Adress = "",
+                                            PhoneNumber = "",
+                                            country = "",
+                                            date_of_birth = "",
+                                            Gender = ""};
+            }
+        }
+        [HttpPut("Change/{id}")]
+        public void ChangeUser()
+        {
+            
         }
     }
 }
