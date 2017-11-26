@@ -59,7 +59,15 @@ export class Productadmin extends React.Component<ProductProps,{expanded: boolea
     }
 
     handler(type,value) {
-        
+        if (type == "Name") {
+            this.setState({})
+        }
+        else if (type == "Price") {
+            this.setState({})
+        }
+        else if (type == "Availability") {
+            this.setState({})
+        }
     }
 
     render() {
