@@ -16,6 +16,7 @@ export type Lego = {
 }
 
 export type Users = {
+    id: string,
     userName : string
     firstName : string
     lastName : string
