@@ -19,7 +19,7 @@ export class ProductLoad extends React.Component<LoadProducts, {}> {
             <button> {this.props.load.name} </button>
             </div>
             </NavLink>
-        </div>;
+        </div>; 
     }
 }
 

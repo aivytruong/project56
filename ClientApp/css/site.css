@@ -189,14 +189,43 @@ body {
   pointer-events: none;
 }
 
+.categoriesrow{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(11, minmax(100px, 200px));
+    grid-gap: 5rem;
+    grid-auto-flow: column;
+
+}
+
 .categories{
     float: left;
-    padding: 20px;
+    padding: 50px;
+    /* display:flex;
+    justify-content:center; */
+    
+}
+
+.productrow{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, minmax(100px, 200px));
+    grid-gap: 1rem;
+    grid-auto-flow: column;
+
+}
+
+.product{
+    float: left;
+    padding: 10px;
+    /* display:flex;
+    justify-content:center; */
+    
 }
 
 .starwars{
     float: left;
-    padding: 20px;
+    padding: 20x;
 }
 
 /* align icon */

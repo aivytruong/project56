@@ -14,7 +14,7 @@ export class Sets extends React.Component<RouteComponentProps<{}>> {
             <h1>Welcome to the sets page! </h1>
             <h2>Choose a category</h2>
             <br/>
-
+            <div className="categoriesrow">
             <div className="categories">
             <NavLink to={ '/NinjagoSets' }  activeClassName='active'> <button><img src="https://pbs.twimg.com/media/Cl9q5-1WYAAfHL7.jpg:large" width={300} height={200}/></button> </NavLink>
             <br/>
@@ -212,7 +212,8 @@ export class Sets extends React.Component<RouteComponentProps<{}>> {
             <NavLink to={ '/PowerMinersSets' }  activeClassName='active'> <button><img src="https://i.ytimg.com/vi/cT_qmS0piCI/maxresdefault.jpg" width={300} height={200}/></button> </NavLink>
             <br/>
             <NavLink to={ '/PowerMinersSets' }  activeClassName='active'> <button>Power Miners</button> </NavLink>     
-            </div>                                                                                        
+            </div>   
+            </div>                                                                                     
     </div>
     
     }

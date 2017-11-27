@@ -52,7 +52,7 @@ export class ProductLoad extends React.Component<LoadProducts, {}> {
             <img src={this.props.load.image_URL} width={300} height={200}/>
             <br></br>
 
-            Price: €{ this.props.load.euR_MSRP}
+            Price: €{this.props.load.euR_MSRP}
 
             
             
