@@ -14,3 +14,23 @@ export type Lego = {
     packaging : string
     availability : string
 }
+
+export type Users = {
+    id:string
+    userName : string
+    firstName : string
+    lastName : string
+    password: string
+    emailAdress : string 
+    adress : string
+    phoneNumber : string
+    country : string
+    date_of_birth: string
+    gender : string
+}
+
+export type Admins = {
+    username : string
+    email : string 
+    password : string
+}

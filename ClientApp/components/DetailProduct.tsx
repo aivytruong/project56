@@ -51,10 +51,11 @@ export class ProductLoad extends React.Component<LoadProducts, {}> {
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200}/>
             <br></br>
-
             Price: €{this.props.load.euR_MSRP}
 
-            
+            <NavLink to={ `/WishlistRouter/${this.props.load.item_Number}` } activeClassName='active'>
+                                <button onClick={() => {}}>add </button>
+                            </NavLink>
             
         </div>;
     }

@@ -9,6 +9,8 @@ using project56.model;
 using System.IO;
 
 
+
+
 namespace project56.Controllers
 {
     [Route("custom")]
@@ -447,8 +449,15 @@ namespace project56.Controllers
                            where _powerminers.Theme == theme
                            select _powerminers;
                            
-            return powerminers.ToArray();               
+            return powerminers.ToArray();  
+        }             
                             
+        [HttpGet("GetStarwars/{theme}")]
+        public Lego[] GetStarwars(string theme){
+            var starwars = from _starwars in _context.Legos
+                           where _starwars.Theme == theme
+                           select _starwars;
+            return starwars.ToArray(); 
         }
 
         //--------------------------------------------------------
@@ -468,5 +477,4 @@ namespace project56.Controllers
 
         
     }
-
 }

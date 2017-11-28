@@ -10,6 +10,8 @@ namespace project56.model
     {
 
         public DbSet<Lego> Legos { get; set; }
+        public DbSet<ClassUser> Users { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         
 
         //Added constructor to provide the connection to the database as a service (look at: startup.cs)
@@ -44,9 +46,24 @@ namespace project56.model
         public int Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
-        public string Entity {get; set;}         
+        public string Password { get; set; }        
     }
 
     
 }
+
+[Table("UserDetails")]
+    public class ClassUser {
+        [Key]
+        public int ID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserName { get; set; }
+        public string EmailAdress { get; set; }
+        public string Password { get; set; }
+        public string Adress { get; set; }
+        public string PhoneNumber { get; set; }
+        public string country { get; set; }
+        public string date_of_birth { get; set; }
+        public string Gender { get; set; }
+    }
