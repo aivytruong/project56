@@ -6,7 +6,7 @@ import * as Models from './lego_types'
 
 type StarwarsProductComponentProps = {}
 type StarwarsProductComponentState = { products: Models.Lego | "loading" }
-type LoadProducts = { load: Models.Lego }
+type LoadProducts = { load: Models.Lego, id:string}
 
 export async function get_correctproduct(item_Number:string): Promise<Models.Lego> {
     let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
@@ -37,10 +37,24 @@ export class CorrectProduct extends React.Component<RouteComponentProps<{item_Nu
     }
 }
 
-export class ProductLoad extends React.Component<LoadProducts, {}> {
+
+type ShoppingState = {legopr:Models.Lego | "loading"}
+export class ProductLoad extends React.Component<LoadProducts, ShoppingState> {
     constructor(props: LoadProducts) {
         super(props);
-        this.state = {};
+        this.state = {id:"loading"};
+    }
+
+    componentWillMount()
+    {
+        get_correctproduct(this.props.id).then(p => this.setState({...this.state, id:p}))
+    }
+
+    componentWillUpdate(NextProps:any, NextState:any)
+    {
+       let currentlist = localStorage.getItem("wishlist")
+       let list = currentlist == null ? "empty" : currentlist.valueOf().toString() + "," + NextState.id
+       localStorage.setItem("wishlist", currentlist == null ? "" : list)
     }
 
     render() {
@@ -53,9 +67,14 @@ export class ProductLoad extends React.Component<LoadProducts, {}> {
             <br></br>
             Price: €{this.props.load.euR_MSRP}
 
-            <NavLink to={ `/WishlistRouter/${this.props.load.item_Number}` } activeClassName='active'>
+            <button onClick={() => this.setState({...this.state, id:this.props.load.item_Number})}>Add to shopping cart </button>
+            
+            {/* {localStorage.getItem("wishlist")} */}
+
+
+            {/* <NavLink to={ `/WishlistRouter/${this.props.load.item_Number}` } activeClassName='active'>
                                 <button onClick={() => {}}>add </button>
-                            </NavLink>
+                            </NavLink> */}
             
         </div>;
     }
