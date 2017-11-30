@@ -63,8 +63,24 @@ export class NavMenu extends React.Component<{}, {}> {
                                     <span className='glyphicon glyphicon'></span> Sets
                                 </NavLink>
                             </div> */}
+                        <li className='dropdown-wish'>
+                            <NavLink to={ '/wishlist' } activeClassName='active'>
+                                <img src="https://png.icons8.com/wish-list/ios7/50/000000" width={20} height={20}/>
+                            </NavLink>
+                            {/* <div className='dropdown-content'>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                                <NavLink to={ '/sets' } activeClassName='active'>
+                                    <span className='glyphicon glyphicon'></span> Sets
+                                </NavLink>
+                            </div> */}
                         </li>
-                    </ul>
+                    </li>
+                </ul>
                 </div>
     }
 }
