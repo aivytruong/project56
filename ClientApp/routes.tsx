@@ -52,8 +52,12 @@ import { PharaohsQuestSets } from './components/PharaohsQuestSets';
 import { JurassicWorldSets } from './components/JurassicWorldSets';
 import { PowerMinersSets } from './components/PowerMinersSets';
 import {adminmode} from './Components/AdminMode'
+
 import {WishlistRouter} from './components/WishlistRouter'
 import {Wishlist} from './components/Wishlist'
+
+// import {WishlistRouter} from './components/WishlistRouter'
+
 
 
 export const routes = <Layout>
@@ -64,7 +68,7 @@ export const routes = <Layout>
     <Route path='/login' component={ Login } />
     <Route path='/registreren' component={ Registreren } />
     <Route path='/DetailProduct/:item_Number' component={ CorrectProduct } />
-    <Route path='/WishlistRouter/:id' component={ WishlistRouter } />
+    {/* <Route path='/WishlistRouter/:id' component={ WishlistRouter } /> */}
 
     <Route path='/StarwarsSets' component={ StarwarsSets } />
     <Route path='/LegoCitySets' component={ LegoCitySets } />
