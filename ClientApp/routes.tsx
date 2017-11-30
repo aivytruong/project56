@@ -53,6 +53,7 @@ import { JurassicWorldSets } from './components/JurassicWorldSets';
 import { PowerMinersSets } from './components/PowerMinersSets';
 import {adminmode} from './Components/AdminMode'
 import {WishlistRouter} from './components/WishlistRouter'
+import {Wishlist} from './components/Wishlist'
 
 
 export const routes = <Layout>
@@ -110,4 +111,5 @@ export const routes = <Layout>
     <Route path='/kidsproductpage' component={KidsProductPage} />
     <Route path= '/filtertest' component={filtertest}/>
     <Route path= '/AdminMode' component={adminmode}/>
-</Layout>;
+    <Route path= '/Wishlist' component={Wishlist}/>
+</Layout>; 

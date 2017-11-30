@@ -5,6 +5,7 @@ import * as Models from './lego_types'
 
 type ShoppingState = {model:Models.Lego | "loading"}
 type ShoppingProps = {id:string}
+
 export class WishlistRouter extends React.Component<RouteComponentProps<{id:string}>, ShoppingState> {
     constructor(props:RouteComponentProps<{id:string}>) {
         super(props);

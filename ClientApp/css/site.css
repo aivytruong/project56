@@ -34,9 +34,16 @@
 }
 
 .main-nav .dropdown {  
-    position: relative;
+    position: fixed;
     float: right;
 }
+.main-nav .dropdown-wish {  
+    position: relative;
+    padding-right: 100px;
+    padding-top: 20px;
+    
+}
+
 /* .main-nav .dropdown:hover {
     background-color: yellow;
 } */
@@ -58,6 +65,8 @@
     overflow: visible;
     right: 0;
 } */
+
+
 
 .main-nav .dropdown:hover .dropdown-content {
     display: block;
@@ -235,3 +244,5 @@ body {
 /* add padding  */
 .left-addon input  { padding-left:  40px; }
 .right-addon input { padding-right: 40px; }
+
+
