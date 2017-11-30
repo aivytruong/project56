@@ -31,18 +31,18 @@ export class CorrectProduct extends React.Component<RouteComponentProps<{item_Nu
         else
         return <div>
             
-           <ProductLoad load={this.state.products} />
+           <ProductLoad load={this.state.products} id={this.props.match.params.item_Number} />
             {console.log("render", this.state.products)}
         </div>;
     }
 }
 
 
-type ShoppingState = {legopr:Models.Lego | "loading"}
+type ShoppingState = {}
 export class ProductLoad extends React.Component<LoadProducts, ShoppingState> {
     constructor(props: LoadProducts) {
         super(props);
-        this.state = {id:"loading"};
+        this.state = {};
     }
 
     componentWillMount()
@@ -69,7 +69,7 @@ export class ProductLoad extends React.Component<LoadProducts, ShoppingState> {
 
             <button onClick={() => this.setState({...this.state, id:this.props.load.item_Number})}>Add to shopping cart </button>
             
-            {/* {localStorage.getItem("wishlist")} */}
+            {localStorage.getItem("wishlist")}
 
 
             {/* <NavLink to={ `/WishlistRouter/${this.props.load.item_Number}` } activeClassName='active'>
