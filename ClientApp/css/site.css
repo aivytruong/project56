@@ -34,12 +34,12 @@
 }
 
 .main-nav .dropdown {  
-    position: fixed;
+    position: right;
     float: right;
 }
 .main-nav .dropdown-wish {  
-    position: relative;
-    padding-right: 100px;
+    position: fixed;
+    padding-right: 20px;
     padding-top: 20px;
     
 }
