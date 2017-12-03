@@ -65,7 +65,7 @@ export class ProductLoad extends React.Component<LoadProducts, ShoppingState> {
             <br></br>
             Price: €{this.props.load.euR_MSRP}
 
-            <button onClick={() => this.setState({...this.state, id:this.props.load.item_Number})}>Add to shopping cart </button>
+            <button onClick={() => this.setState({...this.state, id:this.props.load.item_Number})}>Add to wishlist </button>
         </div>;
     }
 }

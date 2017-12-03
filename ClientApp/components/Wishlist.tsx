@@ -2,9 +2,9 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
-import {ProductLoad} from './DetailProduct'
+import { ProductLoad } from './DetailProduct'
 
-export async function get_correctproduct(item_Number:string): Promise<Models.Lego> {
+export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
     let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = await res.json()
     console.log("received correct products", json)
@@ -39,24 +39,40 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{}>, Wis
 
             {this.state.legopr.map((lego: Models.Lego) =>
                 <Wishlist load={lego} id={lego.item_Number} />)}
+            <button></button>
         </div>
     }
 }
 
 type WishlistProps = { id: number }
 
-type LoadProducts = { load: Models.Lego, id:string}
+type LoadProducts = { load: Models.Lego, id: string }
 export class Wishlist extends React.Component<LoadProducts, {}> {
     constructor(props: LoadProducts) {
         super(props);
         this.state = {};
     }
 
-    componentWillUpdate(NextProps:any, NextState:any)
-    {
-       let currentlist = localStorage.getItem("wishlist")
-       let list = currentlist == null ? "empty" : currentlist.valueOf().toString() + "," + NextProps.id
-       localStorage.setItem("wishlist", currentlist == null ? "" : list)
+    componentWillUpdate(NextProps: any, NextState: any) {
+        let currentlist = localStorage.getItem("wishlist")
+        //let list = currentlist == null ? "empty" : currentlist.valueOf().toString() + "," + NextProps.id
+        //localStorage.setItem("wishlist", currentlist == null ? "" : list)
+        let newlist = currentlist.replace(NextState.id, " ");
+
+        localStorage.setItem("wishlist", newlist);
+        
+
+        //localStorage.setItem("wishlist",  currentlist == null ? newlist : newlist )     
+
+        //    localStorage.setItem("wishlist",  list == currentlist ? list : currentlist.includes(exists)? (alert("Item deleted from wishlist."), list) : currentlist )
+    }
+
+    reload3() {
+        if (!localStorage.justOnce) {
+            localStorage.setItem("justOnce", "true");
+            window.location.reload();
+            console.log(); 
+        }
     }
 
     render() {
@@ -65,9 +81,12 @@ export class Wishlist extends React.Component<LoadProducts, {}> {
             {console.log(this.props)}
             <h1>{this.props.load.name}</h1>
             <br></br>
-            <img src={this.props.load.image_URL} width={300} height={200}/>
+            <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
-            Price: €{this.props.load.euR_MSRP}            
+            Price: €{this.props.load.euR_MSRP}   <button onClick={() => this.setState({ ...this.state, id: this.props.load.item_Number },
+            ()=> this.reload3()
+            )}>Remove from wishlist </button>
+
 
         </div>;
     }
