@@ -45,16 +45,14 @@ export class ProductLoad extends React.Component<LoadProducts, ShoppingState> {
         this.state = {};
     }
 
-    componentWillMount()
-    {
-        get_correctproduct(this.props.id).then(p => this.setState({...this.state, id:p}))
-    }
-
     componentWillUpdate(NextProps:any, NextState:any)
     {
+       let exists = NextProps.id
        let currentlist = localStorage.getItem("wishlist")
-       let list = currentlist == null ? "empty" : currentlist.valueOf().toString() + "," + NextState.id
-       localStorage.setItem("wishlist", currentlist == null ? "" : list)
+       let list = currentlist == null ? NextProps.id : currentlist.valueOf().toString() + "," + NextProps.id
+    //    localStorage.setItem("wishlist", currentlist == null ? NextProps.id : list)
+    //    localStorage.setItem("wishlist",  list == null ? currentlist : list.includes(exists)? (alert("You already have this item in your wishlist."), list) : currentlist )
+       localStorage.setItem("wishlist",  currentlist == null ? list : currentlist.includes(exists)? (alert("You already have this item in your wishlist."), currentlist) : list )
     }
 
     render() {
@@ -68,14 +66,6 @@ export class ProductLoad extends React.Component<LoadProducts, ShoppingState> {
             Price: €{this.props.load.euR_MSRP}
 
             <button onClick={() => this.setState({...this.state, id:this.props.load.item_Number})}>Add to shopping cart </button>
-            
-            {localStorage.getItem("wishlist")}
-
-
-            {/* <NavLink to={ `/WishlistRouter/${this.props.load.item_Number}` } activeClassName='active'>
-                                <button onClick={() => {}}>add </button>
-                            </NavLink> */}
-            
         </div>;
     }
 }

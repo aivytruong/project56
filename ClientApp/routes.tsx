@@ -52,8 +52,7 @@ import { PharaohsQuestSets } from './components/PharaohsQuestSets';
 import { JurassicWorldSets } from './components/JurassicWorldSets';
 import { PowerMinersSets } from './components/PowerMinersSets';
 import {adminmode} from './Components/AdminMode'
-
-import {WishlistRouter} from './components/WishlistRouter'
+import {WishlistRouter} from './components/Wishlist'
 import {Wishlist} from './components/Wishlist'
 
 // import {WishlistRouter} from './components/WishlistRouter'
@@ -115,5 +114,5 @@ export const routes = <Layout>
     <Route path='/kidsproductpage' component={KidsProductPage} />
     <Route path= '/filtertest' component={filtertest}/>
     <Route path= '/AdminMode' component={adminmode}/>
-    <Route path= '/Wishlist' component={Wishlist}/>
+    <Route path= '/Wishlist' component={WishlistRouter}/>
 </Layout>; 
