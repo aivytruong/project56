@@ -31,45 +31,69 @@ export class CorrectProduct extends React.Component<RouteComponentProps<{item_Nu
         else
         return <div>
             
-           <ProductLoad load={this.state.products} id={this.props.match.params.item_Number} />
+           <ProductLoad lego={this.state.products}  />
             {console.log("render", this.state.products)}
         </div>;
     }
 }
 
 
-type ShoppingState = {}
-export class ProductLoad extends React.Component<LoadProducts, ShoppingState> {
-    constructor(props: LoadProducts) {
-        super(props);
-        this.state = {};
+type ShoppingState = {cart: boolean, wishlist: boolean}
+type ProductLoadState = {lego: Models.Lego | "loading", cart: boolean, wishlist: boolean }
+type ProductLoadProps = { lego: Models.Lego }
+export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadState> {
+    constructor(props: ProductLoadProps) {
+        super(props)
+        this.state = {lego: "loading", cart: false, wishlist: false}
     }
 
     componentWillUpdate(NextProps:any, NextState:any)
     {
-       let exists = NextProps.id
-       let currentlist = localStorage.getItem("wishlist")
-       let currentlist2 = localStorage.getItem("shoppingcart")
-       let list = currentlist == null ? NextProps.id : currentlist.valueOf().toString() + "," + NextProps.id
-       let list2 = currentlist2 == null ? NextProps.id : currentlist2.valueOf().toString() + "," + NextProps.id
-    //    localStorage.setItem("wishlist", currentlist == null ? NextProps.id : list)
+        let exists = NextState.lego.item_Number
+        console.log("exist", NextState.wishlist, NextState.cart);
+
+
+        if (NextState.wishlist == true && NextState.cart == false) {
+            let currentlist = localStorage.getItem("wishlist")
+            let list = currentlist == null ? NextState.lego.item_Number : currentlist.valueOf().toString() + "," + NextState.lego.item_Number 
+            console.log("1e", NextState);
+            this.setState({...this.state, wishlist: false})
+            return localStorage.setItem("wishlist",  currentlist == null ? list : currentlist.includes(exists)? (alert("You already have this item in your wishlist."), currentlist) : list )
+            
+        }
+
+        if (NextState.wishlist == false && NextState.cart == true) {
+            let currentlist2 = localStorage.getItem("shoppingcart")
+            let list2 = currentlist2 == null ? NextState.lego.item_Number : currentlist2.valueOf().toString() + "," + NextState.lego.item_Number
+            console.log("2e", NextState);
+            this.setState({...this.state, cart: false})
+            return localStorage.setItem("shoppingcart",  currentlist2 == null ? list2 : currentlist2.includes(exists)? (alert("You already have this item in your shoppingcart."), currentlist2) : list2 )
+            
+        }         
+        else {
+            console.log("else", NextState);
+        }  
+         //    localStorage.setItem("wishlist", currentlist == null ? NextProps.id : list)
     //    localStorage.setItem("wishlist",  list == null ? currentlist : list.includes(exists)? (alert("You already have this item in your wishlist."), list) : currentlist )
-       localStorage.setItem("wishlist",  currentlist == null ? list : currentlist.includes(exists)? (alert("You already have this item in your wishlist."), currentlist) : list )
-       localStorage.setItem("shoppingcart",  currentlist2 == null ? list2 : currentlist2.includes(exists)? (alert("You already have this item in your shoppingcart."), currentlist2) : list2 )
+       
+       
     }
 
     render() {
         // console.log("rendering", this.props.load.name)
         return <div>
             {console.log(this.props)}
-            <h1>{this.props.load.name}</h1>
+            <h1>{this.props.lego.name}</h1>
             <br></br>
-            <img src={this.props.load.image_URL} width={300} height={200}/>
+            <img src={this.props.lego.image_URL} width={300} height={200}/>
             <br></br>
-            Price: €{this.props.load.euR_MSRP}
+            Price: €{this.props.lego.euR_MSRP}
             
-            <button onClick={() => this.setState({...this.state, id:this.props.load.item_Number})}>Add to wishlist </button>
-            <button onClick={() => this.setState({...this.state, id:this.props.load.item_Number})}>Add to shoppingcart </button>
+            <button onClick={() => this.setState({...this.state, lego:this.props.lego, wishlist: true}
+            )}>Add to wishlist </button>
+            
+            <button onClick={() => this.setState({...this.state, lego:this.props.lego, cart: true}
+                )}>Add to shoppingcart </button>
         </div>;
     }
 
