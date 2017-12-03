@@ -13,14 +13,14 @@ export async function get_correctproduct(item_Number: string): Promise<Models.Le
 
 type WishlistRouterState = { legopr: Models.Lego[] }
 
-export class WishlistRouter extends React.Component<RouteComponentProps<{}>, WishlistRouterState> {
+export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>, WishlistRouterState> {
     constructor(props: RouteComponentProps<{}>) {
         super(props)
         this.state = { legopr: [] }
     }
 
     componentWillMount() {
-        let prevList = localStorage.getItem("wishlist")
+        let prevList = localStorage.getItem("shoppingcart")
         let currentList = prevList == null ? null : prevList.split(",")
         console.log({ currentList })
 
@@ -38,7 +38,7 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{}>, Wis
         return <div>
 
             {this.state.legopr.map((lego: Models.Lego) =>
-                <Wishlist load={lego} id={lego.item_Number} />)}
+                <ShoppingCart load={lego} id={lego.item_Number} />)}
             
         </div>
     }
@@ -47,19 +47,19 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{}>, Wis
 type WishlistProps = { id: number }
 
 type LoadProducts = { load: Models.Lego, id: string }
-export class Wishlist extends React.Component<LoadProducts, {}> {
+export class ShoppingCart extends React.Component<LoadProducts, {}> {
     constructor(props: LoadProducts) {
         super(props);
         this.state = {};
     }
 
     componentWillUpdate(NextProps: any, NextState: any) {
-        let currentlist = localStorage.getItem("wishlist")
+        let currentlist = localStorage.getItem("shoppingcart")
         //let list = currentlist == null ? "empty" : currentlist.valueOf().toString() + "," + NextProps.id
         //localStorage.setItem("wishlist", currentlist == null ? "" : list)
         let newlist = currentlist.replace(NextState.id, " ");
 
-        localStorage.setItem("wishlist", newlist);
+        localStorage.setItem("shoppingcart", newlist);
         
 
         //localStorage.setItem("wishlist",  currentlist == null ? newlist : newlist )     
@@ -83,8 +83,10 @@ export class Wishlist extends React.Component<LoadProducts, {}> {
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
-            Price: €{this.props.load.euR_MSRP} <button onClick={() => this.setState({ ...this.state, id: this.props.load.item_Number})}>Remove from wishlist</button>
-        </div>
+            Price: €{this.props.load.euR_MSRP}   
+            <button onClick={() => this.setState({ ...this.state, id: this.props.load.item_Number })}>Remove from shoppingcart </button>
+            <button>Checkout</button> 
+        </div>;
     }
 }
 

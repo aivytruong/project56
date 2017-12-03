@@ -49,10 +49,13 @@ export class ProductLoad extends React.Component<LoadProducts, ShoppingState> {
     {
        let exists = NextProps.id
        let currentlist = localStorage.getItem("wishlist")
+       let currentlist2 = localStorage.getItem("shoppingcart")
        let list = currentlist == null ? NextProps.id : currentlist.valueOf().toString() + "," + NextProps.id
+       let list2 = currentlist2 == null ? NextProps.id : currentlist2.valueOf().toString() + "," + NextProps.id
     //    localStorage.setItem("wishlist", currentlist == null ? NextProps.id : list)
     //    localStorage.setItem("wishlist",  list == null ? currentlist : list.includes(exists)? (alert("You already have this item in your wishlist."), list) : currentlist )
        localStorage.setItem("wishlist",  currentlist == null ? list : currentlist.includes(exists)? (alert("You already have this item in your wishlist."), currentlist) : list )
+       localStorage.setItem("shoppingcart",  currentlist2 == null ? list2 : currentlist2.includes(exists)? (alert("You already have this item in your shoppingcart."), currentlist2) : list2 )
     }
 
     render() {
@@ -64,9 +67,14 @@ export class ProductLoad extends React.Component<LoadProducts, ShoppingState> {
             <img src={this.props.load.image_URL} width={300} height={200}/>
             <br></br>
             Price: €{this.props.load.euR_MSRP}
-
+            
             <button onClick={() => this.setState({...this.state, id:this.props.load.item_Number})}>Add to wishlist </button>
+            <button onClick={() => this.setState({...this.state, id:this.props.load.item_Number})}>Add to shoppingcart </button>
         </div>;
     }
+
+    
+
+    
 }
 

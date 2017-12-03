@@ -38,9 +38,13 @@
     float: right;
 }
 .main-nav .dropdown-wish {  
-    position: fixed;
-    padding-right: 20px;
-    padding-top: 20px;
+    position: right;
+    float: right;
+    
+}
+.main-nav .dropdown-shoppingcart {  
+    position: right;
+    float: right;
     
 }
 

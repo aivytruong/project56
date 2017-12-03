@@ -9,14 +9,10 @@ import { Login } from './components/Login';
 import { Registreren } from './components/registreren';
 import { SeparateBricks } from './components/SeparateBricks';
 import { databasebutton } from './components/databasebutton';
-import { SeparateFigures } from './components/SeparateFigures';
-import { SeparateBricksProduct } from './components/SeparateBricksProduct';
-import { SeparateObjects } from './components/SeparateObjects';
-import { addToCart } from './components/addToCart';
-import {Newproduct1} from './Components/Newproduct1'
+import {Newproduct1} from './Components/Newproduct1';
 import { KidsProductPage } from './components/KidsProductPage';
-import {filtertest} from './Components/filtertest'
-import {CorrectProduct} from './Components/DetailProduct'
+import {filtertest} from './Components/filtertest';
+import {CorrectProduct} from './Components/DetailProduct';
 
 import { LegoCitySets } from './components/legoCitySets';
 import { AdvancedModelsSets } from './components/AdvancedModelsSets';
@@ -53,6 +49,7 @@ import { JurassicWorldSets } from './components/JurassicWorldSets';
 import { PowerMinersSets } from './components/PowerMinersSets';
 import {adminmode} from './Components/AdminMode'
 import {WishlistRouter} from './components/Wishlist'
+import {ShoppingCartRouter} from './components/Shoppingcart'
 import {Wishlist} from './components/Wishlist'
 
 // import {WishlistRouter} from './components/WishlistRouter'
@@ -106,13 +103,10 @@ export const routes = <Layout>
 
     <Route path='/SeparateBricks' component={ SeparateBricks } />
     <Route path='/databasebutton' component={databasebutton} />
-    <Route path='/SeparateFigures' component={SeparateFigures} />
-    <Route path='/SeparateBricksProduct' component={SeparateBricksProduct} />
-    <Route path='/addToCart' component={addToCart} />
-    <Route path='/SeparateObjects' component={SeparateObjects} />
     <Route path='/Newproduct1' component={ Newproduct1 } />
     <Route path='/kidsproductpage' component={KidsProductPage} />
     <Route path= '/filtertest' component={filtertest}/>
     <Route path= '/AdminMode' component={adminmode}/>
     <Route path= '/Wishlist' component={WishlistRouter}/>
+    <Route path= '/Shoppingcart' component={ShoppingCartRouter}/>
 </Layout>; 
