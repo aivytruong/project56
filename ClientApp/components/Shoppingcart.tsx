@@ -76,8 +76,6 @@ export class ShoppingCart extends React.Component<LoadProducts, {deleteID: strin
         // localStorage.setItem("shoppingcart", newlist);
     }
 
-
-
     render() {
         // console.log("rendering", this.props.load.name)
         return <div>

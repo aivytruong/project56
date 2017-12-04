@@ -67,6 +67,16 @@ export class adminmode extends React.Component<RouteComponentProps<{}>,Adminstat
             {!this.state.userexpand?<button onClick={() => this.usersornot(true)}>Show Users</button>:
                                  <button onClick={() => this.usersornot(false)}> Close Users</button>}
             {this.state.userexpand?<Searchusers list={this.state.users}/>:<span/>}
+            <br/>
+            <br/>
+            <NavLink to={ '/Lego/Create' } activeClassName='active'>
+            <button>Create Lego</button>
+            </NavLink>
+            <br/>
+            <br/>
+            <NavLink to={ '/Userc/Create' } activeClassName='active'>
+            <button>Create User</button>
+            </NavLink>
         </div>;
     }
 }
@@ -117,6 +127,7 @@ export class Productadmin extends React.Component<ProductProps,ProductState> {
                         <br/>
                         <NavLink to={ `/Lego/Edit/${this.props.product.item_Number}` } activeClassName='active'>
                         <button>Edit</button>
+                        
                         </NavLink>
                         <NavLink to={ `/Lego/Delete/${this.props.product.item_Number}` } activeClassName='active'>
                         <button>Delete</button>
