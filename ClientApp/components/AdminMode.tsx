@@ -28,6 +28,11 @@ export async function get_users(): Promise<Models.Users[]> {
     return json
 }
 
+export async function updateusers(id: number, firstName: string, lastName: string, userName: string, emailAdress: string, password: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string)
+{
+    let res = await fetch(`./UserController/Update/${id}/${firstName}/${lastName}/${userName}/${emailAdress}/${password}/${adress}/${phoneNumber}/${Country}/${Date_of_birth}/${gender}`, { method: 'put', credentials: 'include', headers: { 'content-type' : 'application/json' } })
+}
+
 
 export class adminmode extends React.Component<RouteComponentProps<{}>,Adminstate> {
     constructor() {
@@ -110,7 +115,12 @@ export class Productadmin extends React.Component<ProductProps,ProductState> {
                         <Input type="Price" current={this.props.product.euR_MSRP} handler={this.handler}/>
                         <Input type="Availability" current={this.props.product.availability} handler={this.handler}/>
                         <br/>
-                        <button onClick={() => this.upload()}>Upload</button>
+                        <NavLink to={ `/Lego/Edit/${this.props.product.item_Number}` } activeClassName='active'>
+                        <button>Edit</button>
+                        </NavLink>
+                        <NavLink to={ `/Lego/Delete/${this.props.product.item_Number}` } activeClassName='active'>
+                        <button>Delete</button>
+                        </NavLink>
                     </div>}
                 </div>
     }
@@ -130,6 +140,7 @@ export class Useradmin extends React.Component<UserlistProps,UserlistState> {
                         Country: "",
                         Date_of_birth: "",
                         gender: ""}
+        this.handler = this.handler.bind(this)
     }
 
     expandornot(value) {
@@ -146,10 +157,23 @@ export class Useradmin extends React.Component<UserlistProps,UserlistState> {
         else if (type == "username") {
             this.setState({...this.state, userName: value})
         }
+        console.log(this.state.firstName)
     }
     
     upload() {
-
+        var userid = this.props.user.id;
+        var newuserid = +userid;
+        updateusers(newuserid,
+                    this.state.firstName,
+                    this.state.lastName,
+                    this.state.userName,
+                    this.state.emailAdress,
+                    this.state.password,
+                    this.state.adress,
+                    this.state.phoneNumber,
+                    this.state.Country,
+                    this.state.Date_of_birth,
+                    this.state.gender)
     }
 
     render() {
@@ -172,7 +196,12 @@ export class Useradmin extends React.Component<UserlistProps,UserlistState> {
                         <Input type="dateofbirth" current={this.props.user.date_of_birth} handler={this.handler}/>
                         <Input type="gender" current={this.props.user.gender} handler={this.handler}/>
                         <br/>
-                        <button onClick={() => this.upload()}>Upload</button>
+                        <NavLink to={ `Userc/Edit/${this.props.user.id}` } activeClassName='active'>
+                        <button>Edit</button>
+                        </NavLink>
+                        <NavLink to={ `/Lego/Delete/${this.props.user.id}` } activeClassName='active'>
+                        <button>Delete</button>
+                        </NavLink>
                     </div>}
                 </div>
     }
@@ -197,14 +226,7 @@ export class Input extends React.Component<inputprops,inputstate> {
     render() {
         return  <div>
                     <h3>{this.props.type}:</h3>
-                    {!this.state.edit?<div>
-                                        <p>{this.state.text}</p>
-                                        <button onClick={() => this.edit(true)}>edit</button>
-                                      </div>:
-                    <div>
-                        <input value={this.state.text} onChange={event => this.setState({...this.state, text: event.target.value})}/>
-                        <button onClick={() => this.edit(false)}>edit</button>
-                    </div>}
+                    <p>{this.state.text}</p>
                 </div>
     }
 }
@@ -266,5 +288,5 @@ export class Searchusers extends React.Component<userproductprops, userstate>{
 
         </div>
     }
-
 }
+

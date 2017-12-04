@@ -460,7 +460,6 @@ namespace project56.Controllers
             return starwars.ToArray(); 
         }
 
-        //--------------------------------------------------------
 
         [HttpGet("CorrectProduct/{item_Number}")]
         public Lego CorrectProduct(string item_Number)
@@ -473,8 +472,5 @@ namespace project56.Controllers
             return correctproduct.FirstOrDefault();               
                             
         }
-
-
-        
     }
 }

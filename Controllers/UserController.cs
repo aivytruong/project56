@@ -28,16 +28,16 @@ namespace project56.Controllers
         [HttpPost("CreateUser/{firstName}/{lastName}/{userName}/{emailAdress}/{password}/{adress}/{phoneNumber}/{Country}/{Date_of_birth}/{gender}")]
         public void CreateUser(string firstName, string lastName, string userName, string emailAdress, string password, string adress, string phoneNumber, string Country, string Date_of_birth, string gender)
         {
-            ClassUser newuser = new ClassUser() { FirstName = firstName,
-                                            LastName = lastName,
-                                            UserName = userName,
-                                            EmailAdress = emailAdress,
-                                            Password = password,
-                                            Adress = adress,
-                                            PhoneNumber = phoneNumber,
-                                            country = Country,
-                                            date_of_birth = Date_of_birth,
-                                            Gender = gender};
+            ClassUser newuser = new ClassUser() {   FirstName = firstName,
+                                                    LastName = lastName,
+                                                    UserName = userName,
+                                                    EmailAdress = emailAdress,
+                                                    Password = password,
+                                                    Adress = adress,
+                                                    PhoneNumber = phoneNumber,
+                                                    country = Country,
+                                                    date_of_birth = Date_of_birth,
+                                                    Gender = gender};
             _context.Users.Add(newuser);
             _context.SaveChanges();
         }
@@ -62,10 +62,23 @@ namespace project56.Controllers
                                             Gender = ""};
             }
         }
-        [HttpPut("Change/{id}")]
-        public void ChangeUser()
+        [HttpPut("Update/{id}/{firstName}/{lastName}/{userName}/{emailAdress}/{password}/{adress}/{phoneNumber}/{Country}/{Date_of_birth}/{gender}")]
+        public void Update(int id, string firstName, string lastName, string userName, string emailAdress, string password, string adress, string phoneNumber, string Country, string Date_of_birth, string gender)
         {
-            
+            ClassUser updateduser = new ClassUser() {   ID = id,
+                                                        FirstName = firstName,
+                                                        LastName = lastName,
+                                                        UserName = userName,
+                                                        EmailAdress = emailAdress,
+                                                        Password = password,
+                                                        Adress = adress,
+                                                        PhoneNumber = phoneNumber,
+                                                        country = Country,
+                                                        date_of_birth = Date_of_birth,
+                                                        Gender = gender};
+            _context.Update(updateduser);
+            _context.Entry(updateduser);
+            _context.SaveChanges();
         }
     }
 }

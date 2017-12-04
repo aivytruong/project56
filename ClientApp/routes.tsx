@@ -11,7 +11,6 @@ import { SeparateBricks } from './components/SeparateBricks';
 import { databasebutton } from './components/databasebutton';
 import {Newproduct1} from './Components/Newproduct1';
 import { KidsProductPage } from './components/KidsProductPage';
-import {filtertest} from './Components/filtertest';
 import {CorrectProduct} from './Components/DetailProduct';
 
 import { LegoCitySets } from './components/legoCitySets';
@@ -47,13 +46,14 @@ import { TheSimpsonsSets } from './components/TheSimpsonsSets';
 import { PharaohsQuestSets } from './components/PharaohsQuestSets';
 import { JurassicWorldSets } from './components/JurassicWorldSets';
 import { PowerMinersSets } from './components/PowerMinersSets';
-import {adminmode} from './Components/AdminMode'
 import {WishlistRouter} from './components/Wishlist'
 import {ShoppingCartRouter} from './components/Shoppingcart'
 import {Wishlist} from './components/Wishlist'
 
 // import {WishlistRouter} from './components/WishlistRouter'
 
+import {filtertest} from './Components/filtertest'
+import {adminmode} from './Components/AdminMode'
 
 
 export const routes = <Layout>
@@ -110,3 +110,4 @@ export const routes = <Layout>
     <Route path= '/Wishlist' component={WishlistRouter}/>
     <Route path= '/Shoppingcart' component={ShoppingCartRouter}/>
 </Layout>; 
+

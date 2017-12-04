@@ -4,11 +4,10 @@ import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 
 type loginState = { userName: string, password: string, loggedin: boolean, admin: boolean}
-type Headers = { 'content-type' : 'application/json'}
 
 export async function UserInloggen(username: string, password: string) : Promise<Models.Users>
     {
-        let res = await fetch(`./UserController/Login/${username}/${password}`, {method: 'get', credentials: 'include', headers: new Headers })
+        let res = await fetch(`./UserController/Login/${username}/${password}`, {method: 'get', credentials: 'include', headers: { 'content-type' : 'application/json'}})
         let json = res.json()
         return json
     }
