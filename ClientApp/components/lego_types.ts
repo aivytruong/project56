@@ -34,3 +34,8 @@ export type Admins = {
     email : string 
     password : string
 }
+
+export type Wishlists = {
+    item_Number : string
+    id:number
+}

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace project56.Migrations
 {
-    public partial class userandadminandvalues : Migration
+    public partial class wishlist : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,6 +69,24 @@ namespace project56.Migrations
                 {
                     table.PrimaryKey("PK_UserDetails", x => x.ID);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "wishlistdetails",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int4", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    EUR_MSRP = table.Column<string>(type: "text", nullable: true),
+                    Image_URL = table.Column<string>(type: "text", nullable: true),
+                    Item_Number = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Password = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_wishlistdetails", x => x.ID);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -81,6 +99,9 @@ namespace project56.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserDetails");
+
+            migrationBuilder.DropTable(
+                name: "wishlistdetails");
         }
     }
 }

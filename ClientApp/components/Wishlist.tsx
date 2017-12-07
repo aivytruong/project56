@@ -11,20 +11,22 @@ export async function get_correctproduct(item_Number: string): Promise<Models.Le
     return json
 }
 
-type WishlistRouterState = { legopr: Models.Lego[]}
+type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading"}
 
 export class WishlistRouter extends React.Component<RouteComponentProps<{}>, WishlistRouterState> {
     constructor(props: RouteComponentProps<{}>) {
         super(props)
-        this.state = { legopr: [] }
+        this.state = { legopr: [], userStatus:"Uitgelogd", user:"loading" }
     }
 
     componentWillMount() {
+
+
         let prevList = localStorage.getItem("wishlist")
         let currentList = prevList == null ? null : prevList.split(",")
         console.log({ currentList })
 
-        currentList != null ? currentList.map(b =>
+        currentList != null? currentList.map(b =>
             get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b) }))
                 .catch(error => console.error(error))
 
@@ -34,6 +36,7 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{}>, Wis
 
     deleteItem(NextState: any)
     {
+     
         let prevListDelete = localStorage.getItem("wishlist")
         let nextList = prevListDelete != null ? (prevListDelete.replace(NextState, "")) : ""
         localStorage.setItem("wishlist", nextList != null ? nextList : nextList)
@@ -46,13 +49,15 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{}>, Wis
 
         )
             : null
+           
     }
 
 
     render() {
         console.log(this.state.legopr)
         return <div>
-
+            
+        
             {this.state.legopr.map((lego: Models.Lego) =>
                 <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)}
             

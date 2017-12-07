@@ -101,6 +101,28 @@ namespace project56.Migrations
 
                     b.ToTable("legodetails");
                 });
+
+            modelBuilder.Entity("project56.model.Wishlist", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("EUR_MSRP");
+
+                    b.Property<string>("Image_URL");
+
+                    b.Property<string>("Item_Number");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("wishlistdetails");
+                });
 #pragma warning restore 612, 618
         }
     }

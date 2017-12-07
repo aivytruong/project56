@@ -5,7 +5,7 @@ import * as Models from './lego_types'
 
 
 type StarwarsProductComponentProps = {}
-type StarwarsProductComponentState = { products: Models.Lego | "loading" }
+type StarwarsProductComponentState = { products: Models.Lego | "loading" , Item_Number:Models.Users | "loading", ID:Models.Users | "loading"}
 type LoadProducts = { load: Models.Lego, id:string}
 
 export async function get_correctproduct(item_Number:string): Promise<Models.Lego> {
@@ -15,36 +15,48 @@ export async function get_correctproduct(item_Number:string): Promise<Models.Leg
     return json
 }
 
-export class CorrectProduct extends React.Component<RouteComponentProps<{item_Number:string}>, StarwarsProductComponentState> {
+export async function CreateWishlist(Item_Number: string, ID:number)
+{
+    let res = await fetch(`./WishlistController/CreateWishlist/${Item_Number}/${ID}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
+}
+
+export class CorrectProduct extends React.Component<RouteComponentProps<{item_Number:string, ID:number}>, StarwarsProductComponentState> {
     constructor(props, context) {
         super();
-        this.state = { products: "loading" };
+        this.state = { products: "loading", Item_Number:"loading", ID:"loading"};
     }
 
     componentWillMount() {
         get_correctproduct(this.props.match.params.item_Number).then(products => this.setState({ ...this.state, products: products }))
         console.log("mapping", this.state.products)
+
+        //  CreateWishlist(this.props.match.params.item_Number, this.props.match.params.ID).then(users => this.setState({...this.state, users:users}))
+    }
+
+    Createn()
+    {
+        CreateWishlist(this.state.Item_Number, this.state.ID)
     }
 
     render() {
-        if (this.state.products == "loading") return <div>loading...</div>
+        if (this.state.products == "loading" ) return <div>loading...</div>
         else
         return <div>
             
-           <ProductLoad lego={this.state.products}  />
-            {console.log("render", this.state.products)}
+           <ProductLoad lego={this.state.products} Item_Number={this.state.Item_Number} ID={this.state.ID} />
+            
         </div>;
     }
 }
 
 
 type ShoppingState = {cart: boolean, wishlist: boolean}
-type ProductLoadState = {lego: Models.Lego | "loading", cart: boolean, wishlist: boolean }
-type ProductLoadProps = { lego: Models.Lego }
+type ProductLoadState = {lego: Models.Lego | "loading", cart: boolean, wishlist: boolean, userStatus: "Ingelogd" | 'Uitgelogd', Item_Number: Models.Wishlists | "loading", ID: Models.Wishlists | "loading" }
+type ProductLoadProps = { lego: Models.Lego, Item_Number: Models.Wishlists, ID: Models.Wishlists }
 export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadState> {
     constructor(props: ProductLoadProps) {
         super(props)
-        this.state = {lego: "loading", cart: false, wishlist: false}
+        this.state = {lego: "loading", cart: false, wishlist: false, userStatus: "Uitgelogd", Item_Number:"loading", ID:"loading"}
     }
 
     componentWillUpdate(NextProps:any, NextState:any)
@@ -91,11 +103,19 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
             <br/>
             <p>Bring all of the action of the epic {this.props.lego.theme} to your adventurous builder with the {this.props.lego.name}. Your child will take on exciting challenges and obstacles with this functional, action-packed set. Builders can take a break from screen time and take on a new challenge! They can role play with their friends and take on the evils for incredible, larger than life stories! Designed with builders of all ages in mind, this toy with {this.props.lego.pieces} pieces will encourage open-ended building play, and inspire any imagination.  </p>
             <br></br>
-            Price: €{this.props.lego.euR_MSRP}
+            <h3>Price: €{this.props.lego.euR_MSRP}</h3>
             <br></br>
             
-            <button onClick={() => this.setState({...this.state, lego:this.props.lego, wishlist: true}
-            )}>Add to wishlist </button>
+            
+            <button onClick={event => sessionStorage.getItem("userStatus") == "Ingelogd"? 
+            this.setState({...this.state, lego:this.props.lego, wishlist: true, Item_Number: this.props.Item_Number,ID: this.props.ID })
+            : 
+            this.setState({...this.state, lego:this.props.lego, wishlist:true })}>Add to wishlist </button>
+            
+            
+            
+            
+            
             <button onClick={() => this.setState({...this.state, lego:this.props.lego, cart: true}
                 )}>Add to shoppingcart </button>
 

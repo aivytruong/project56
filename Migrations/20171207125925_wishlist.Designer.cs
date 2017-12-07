@@ -11,8 +11,8 @@ using System;
 namespace project56.Migrations
 {
     [DbContext(typeof(LegoContext))]
-    [Migration("20171127105916_user and admin and values")]
-    partial class userandadminandvalues
+    [Migration("20171207125925_wishlist")]
+    partial class wishlist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -101,6 +101,28 @@ namespace project56.Migrations
                     b.HasKey("Item_Number");
 
                     b.ToTable("legodetails");
+                });
+
+            modelBuilder.Entity("project56.model.Wishlist", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("EUR_MSRP");
+
+                    b.Property<string>("Image_URL");
+
+                    b.Property<string>("Item_Number");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("wishlistdetails");
                 });
 #pragma warning restore 612, 618
         }
