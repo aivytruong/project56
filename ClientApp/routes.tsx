@@ -49,6 +49,7 @@ import { PowerMinersSets } from './components/PowerMinersSets';
 import {WishlistRouter} from './components/Wishlist'
 import {ShoppingCartRouter} from './components/Shoppingcart'
 import {Wishlist} from './components/Wishlist'
+import {loggedIn} from './components/LoggedIn'
 
 // import {WishlistRouter} from './components/WishlistRouter'
 
@@ -109,5 +110,6 @@ export const routes = <Layout>
     <Route path= '/AdminMode' component={adminmode}/>
     <Route path= '/Wishlist' component={WishlistRouter}/>
     <Route path= '/Shoppingcart' component={ShoppingCartRouter}/>
+    <Route path= '/LoggedIn' component ={loggedIn} />
 </Layout>; 
 

@@ -49,9 +49,20 @@ export class NavMenu extends React.Component<{}, {}> {
                             </NavLink>*/}
                         </li>
                         <li className='dropdown'>
-                            <NavLink to={ '/login' } activeClassName='active'>
-                                <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20}/>
-                            </NavLink>
+
+                          { sessionStorage.getItem("userStatus") == "Ingelogd" ?  
+                           
+                             
+                            <a href ={'/'}
+                            onClick= {() => (sessionStorage.removeItem('user'), sessionStorage.removeItem('userStatus'))}
+                            
+                            >logout</a>
+                        :
+                        <NavLink to={ '/login' } activeClassName='active'>
+                        <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20}/>
+                    </NavLink>
+                     
+                    }
                     {/*<NavLink to={ '/losseblokken' } activeClassName='active'>
                                 <span className='glyphicon glyphicon'></span> Separate Bricks
                             </NavLink>*/}

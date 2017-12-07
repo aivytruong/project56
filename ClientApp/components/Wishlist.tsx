@@ -11,7 +11,7 @@ export async function get_correctproduct(item_Number: string): Promise<Models.Le
     return json
 }
 
-type WishlistRouterState = { legopr: Models.Lego[] }
+type WishlistRouterState = { legopr: Models.Lego[]}
 
 export class WishlistRouter extends React.Component<RouteComponentProps<{}>, WishlistRouterState> {
     constructor(props: RouteComponentProps<{}>) {

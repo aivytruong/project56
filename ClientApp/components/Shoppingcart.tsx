@@ -55,7 +55,10 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>,
 
             {this.state.legopr.map((lego: Models.Lego) =>
                 <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)}
-            
+                <br></br>
+                Total price = 
+                <br></br>
+                <button>Checkout</button> 
         </div>
     }
 }
@@ -86,7 +89,7 @@ export class ShoppingCart extends React.Component<LoadProducts, {deleteID: strin
             <br></br>
             Price: €{this.props.load.euR_MSRP}   
             <button onClick={() => this.props.deleteItem(this.props.load.item_Number)}>Remove from shoppingcart </button>
-            <button>Checkout</button> 
+            
         </div>;
     }
 }
