@@ -56,7 +56,7 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>,
             {this.state.legopr.map((lego: Models.Lego) =>
                 <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)}
                 <br></br>
-                Total price = 
+                Total price = {localStorage.getItem("price")}
                 <br></br>
                 <button>Checkout</button> 
         </div>

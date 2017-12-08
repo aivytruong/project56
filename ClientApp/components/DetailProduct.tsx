@@ -63,6 +63,11 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         }
 
         if (NextState.wishlist == false && NextState.cart == true) {
+            let price = parseInt(localStorage.getItem("price"));
+            let price2 = price + NextState.lego.euR_MSRP
+            localStorage.setItem("price", price2);
+          
+        
             let currentlist2 = localStorage.getItem("shoppingcart")
             let list2 = currentlist2 == null ? NextState.lego.item_Number : currentlist2.valueOf().toString() + "," + NextState.lego.item_Number
             console.log("2e", NextState);
