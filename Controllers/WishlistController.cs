@@ -24,6 +24,16 @@ namespace project56.Controllers
         {
             return _context.Wishlists.ToArray();
         }
+
+        [HttpGet("CorrectUser/{user_id}")]
+        public Wishlist[] CorrectUser(int user_id)
+        {
+            var user = from _user in _context.Wishlist
+                           where _user.user_id == user_id
+                           select _user;
+                           
+            return user.ToArray();  
+        }
         
         
         [HttpPost("CreateWishlist/{Item_Number}/{user_id}")]
