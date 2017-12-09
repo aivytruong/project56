@@ -18,11 +18,22 @@ namespace project56.Controllers
         {
             _context = context;
         }
+    
 
         [HttpGet("Wishlist")]
         public Wishlist[] allWishlist() 
         {
             return _context.Wishlists.ToArray();
+        }
+
+        [HttpGet("CorrectUser/{user_id}")]
+        public Wishlist[] CorrectUser(int user_id)
+        {
+            var user = from _user in _context.Wishlists
+                           where _user.user_id == user_id
+                           select _user;
+                           
+            return user.ToArray();  
         }
         
         
@@ -47,6 +58,5 @@ namespace project56.Controllers
             _context.Entry(updatewishlist);
             _context.SaveChanges();
         }
-
-}
+    }
 }

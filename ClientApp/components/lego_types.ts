@@ -35,7 +35,7 @@ export type Admins = {
     password : string
 }
 
-export type Wishlists = {
+export type Wishlist = {
     item_Number : string
-    user_id:number
+    user_id : number
 }

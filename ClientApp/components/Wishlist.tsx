@@ -11,16 +11,27 @@ export async function get_correctproduct(item_Number: string): Promise<Models.Le
     return json
 }
 
-type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading"}
+export async function get_correctuser(user_id: number): Promise<Models.Wishlist[]> {
+    let res = await fetch(`./WishlistController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let json = await res.json()
+    console.log("received correct users", json)
+    return json
+}
 
-export class WishlistRouter extends React.Component<RouteComponentProps<{}>, WishlistRouterState> {
-    constructor(props: RouteComponentProps<{}>) {
+type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading", wishlist2:Models.Wishlist[]}
+
+export class WishlistRouter extends React.Component<RouteComponentProps<{ wishlist:number}>, WishlistRouterState> {
+    constructor(props: RouteComponentProps<{wishlist:number}>) {
         super(props)
-        this.state = { legopr: [], userStatus:"Uitgelogd", user:"loading" }
+        this.state = { legopr: [], userStatus:"Uitgelogd", user:"loading", wishlist2:[]}
     }
 
     componentWillMount() {
-
+        console.log("componentwillmount", this.state.wishlist2)
+        this.state.wishlist2 != null? 
+        get_correctuser(1).then(pr => this.setState({...this.state, wishlist2:pr.concat(this.state.wishlist2)})).catch(error => console.error(error))
+        :
+            null
 
         let prevList = localStorage.getItem("wishlist")
         let currentList = prevList == null ? null : prevList.split(",")
@@ -57,9 +68,13 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{}>, Wis
         console.log(this.state.legopr)
         return <div>
             
-        
-            {this.state.legopr.map((lego: Models.Lego) =>
-                <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)}
+            {sessionStorage.getItem("userStatus") == "Ingelogd"?
+                this.state.legopr.map((lego: Models.Lego) =>
+                <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)
+            :
+                this.state.legopr.map((lego: Models.Lego) =>
+                <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)
+            }
             
         </div>
     }
