@@ -37,5 +37,5 @@ export type Admins = {
 
 export type Wishlists = {
     item_Number : string
-    id:number
+    user_id:number
 }

@@ -20,7 +20,23 @@ namespace project56.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
 
-            modelBuilder.Entity("ClassUser", b =>
+            modelBuilder.Entity("project56.model.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("admindetails");
+                });
+
+            modelBuilder.Entity("project56.model.ClassUser", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -48,22 +64,6 @@ namespace project56.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("UserDetails");
-                });
-
-            modelBuilder.Entity("project56.model.Admin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("Username");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("admindetails");
                 });
 
             modelBuilder.Entity("project56.model.Lego", b =>
@@ -104,22 +104,14 @@ namespace project56.Migrations
 
             modelBuilder.Entity("project56.model.Wishlist", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("EUR_MSRP");
-
-                    b.Property<string>("Image_URL");
 
                     b.Property<string>("Item_Number");
 
-                    b.Property<string>("Name");
+                    b.Property<int>("user_id");
 
-                    b.Property<string>("Password");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("ID");
+                    b.HasKey("id");
 
                     b.ToTable("wishlistdetails");
                 });

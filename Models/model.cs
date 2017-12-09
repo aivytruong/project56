@@ -21,7 +21,7 @@ namespace project56.model
         }
 
         
-}
+    }
     [Table("legodetails")]
     public class Lego {
         [Key]
@@ -52,18 +52,17 @@ namespace project56.model
 
     [Table("wishlistdetails")]
     public class Wishlist {
+        [Key]
+        public int id {get; set;}
+
         [ForeignKey("legodetails")]
         public string Item_Number { get; set; } 
-        public string Name { get; set; }
-        public string Image_URL { get; set; }
-        public string EUR_MSRP { get; set; }
 
         [ForeignKey("UserDetails")]
-        public int ID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public int user_id { get; set; }
+
     }    
-}
+
 
 [Table("UserDetails")]
     public class ClassUser {
@@ -80,3 +79,4 @@ namespace project56.model
         public string date_of_birth { get; set; }
         public string Gender { get; set; }
     }
+}

@@ -8,16 +8,19 @@ type StarwarsProductComponentProps = {}
 type StarwarsProductComponentState = { products: Models.Lego | "loading" , Item_Number:Models.Users | "loading", ID:Models.Users | "loading"}
 type LoadProducts = { load: Models.Lego, id:string}
 
+
 export async function get_correctproduct(item_Number:string): Promise<Models.Lego> {
-    let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: new Headers ({ 'content-type': 'application/json' } )})
     let json = await res.json()
     console.log("received correct products", json)
     return json
 }
 
-export async function CreateWishlist(Item_Number: string, ID:number)
+export async function CreateWishlist(Item_Number: string, user_id:number)
 {
-    let res = await fetch(`./WishlistController/CreateWishlist/${Item_Number}/${ID}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let res = await fetch(`./WishlistController/CreateWishlist/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers:  new Headers ({ 'content-type': 'application/json' }) })
+    
+    return console.log("made wishlist", res)
 }
 
 export class CorrectProduct extends React.Component<RouteComponentProps<{item_Number:string, ID:number}>, StarwarsProductComponentState> {
@@ -33,17 +36,12 @@ export class CorrectProduct extends React.Component<RouteComponentProps<{item_Nu
         //  CreateWishlist(this.props.match.params.item_Number, this.props.match.params.ID).then(users => this.setState({...this.state, users:users}))
     }
 
-    Createn()
-    {
-        CreateWishlist(this.state.Item_Number, this.state.ID)
-    }
-
     render() {
         if (this.state.products == "loading" ) return <div>loading...</div>
         else
         return <div>
             
-           <ProductLoad lego={this.state.products} Item_Number={this.state.Item_Number} ID={this.state.ID} />
+           <ProductLoad lego={this.state.products} />
             
         </div>;
     }
@@ -51,16 +49,18 @@ export class CorrectProduct extends React.Component<RouteComponentProps<{item_Nu
 
 
 type ShoppingState = {cart: boolean, wishlist: boolean}
-type ProductLoadState = {lego: Models.Lego | "loading", cart: boolean, wishlist: boolean, userStatus: "Ingelogd" | 'Uitgelogd', Item_Number: Models.Wishlists | "loading", ID: Models.Wishlists | "loading" }
-type ProductLoadProps = { lego: Models.Lego, Item_Number: Models.Wishlists, ID: Models.Wishlists }
+type ProductLoadState = {lego: Models.Lego | "loading", cart: boolean, wishlist: boolean, userStatus: "Ingelogd" | 'Uitgelogd', ID: Models.Users | "loading" }
+type ProductLoadProps = { lego: Models.Lego}
 export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadState> {
     constructor(props: ProductLoadProps) {
         super(props)
-        this.state = {lego: "loading", cart: false, wishlist: false, userStatus: "Uitgelogd", Item_Number:"loading", ID:"loading"}
+        this.state = {lego: "loading", cart: false, wishlist: false, userStatus: "Uitgelogd", ID:"loading"}
     }
 
     componentWillUpdate(NextProps:any, NextState:any)
     {
+       
+
         let exists = NextState.lego.item_Number
         console.log("exist", NextState.wishlist, NextState.cart);
 
@@ -85,10 +85,18 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         else {
             console.log("else", NextState);
         }  
-         //    localStorage.setItem("wishlist", currentlist == null ? NextProps.id : list)
-    //    localStorage.setItem("wishlist",  list == null ? currentlist : list.includes(exists)? (alert("You already have this item in your wishlist."), list) : currentlist )
-       
-       
+
+    }
+
+    Createn()
+    {
+        let user =  JSON.parse(sessionStorage.getItem("user"))
+
+        if (user != null)
+        {
+            CreateWishlist(this.props.lego.item_Number,
+                user)
+        }
     }
 
     render() {
@@ -107,8 +115,8 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
             <br></br>
             
             
-            <button onClick={event => sessionStorage.getItem("userStatus") == "Ingelogd"? 
-            this.setState({...this.state, lego:this.props.lego, wishlist: true, Item_Number: this.props.Item_Number,ID: this.props.ID })
+            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
+            this.Createn()
             : 
             this.setState({...this.state, lego:this.props.lego, wishlist:true })}>Add to wishlist </button>
             

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace project56.Migrations
 {
-    public partial class wishlist : Migration
+    public partial class database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -74,18 +74,14 @@ namespace project56.Migrations
                 name: "wishlistdetails",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int4", nullable: false)
+                    id = table.Column<int>(type: "int4", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    EUR_MSRP = table.Column<string>(type: "text", nullable: true),
-                    Image_URL = table.Column<string>(type: "text", nullable: true),
                     Item_Number = table.Column<string>(type: "text", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: true),
-                    UserName = table.Column<string>(type: "text", nullable: true)
+                    user_id = table.Column<int>(type: "int4", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_wishlistdetails", x => x.ID);
+                    table.PrimaryKey("PK_wishlistdetails", x => x.id);
                 });
         }
 

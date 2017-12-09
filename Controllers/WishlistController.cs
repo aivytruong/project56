@@ -26,27 +26,22 @@ namespace project56.Controllers
         }
         
         
-        [HttpPost("CreateWishlist/{Item_Number}/{Name}/{Image_URL}/{EUR_MSRP}/{ID}/{UserName}/{Password}")]
-        public void CreateWishlist(string Item_Number, string Name, string Image_URL, string EUR_MSRP, int ID, string UserName, string Password)
+        [HttpPost("CreateWishlist/{Item_Number}/{user_id}")]
+        public void CreateWishlist(string Item_Number, int user_id)
         {
             Wishlist newwishlist = new Wishlist() {Item_Number = Item_Number,
-                                                   Name = Name,
-                                                   Image_URL = Image_URL,
-                                                   EUR_MSRP = EUR_MSRP, 
-                                                   ID = ID,
-                                                   UserName = UserName,
-                                                   Password = Password
+                                                   user_id = user_id,
                                                    };
             _context.Wishlists.Add(newwishlist);
             _context.SaveChanges();
         }
 
-        [HttpPut("Update/{Item_Number}/{ID}/")]
-        public void Update(string Item_Number, int ID)
+        [HttpPut("Update/{Item_Number}/{user_id}/")]
+        public void Update(string Item_Number, int user_id)
         {
            
             Wishlist updatewishlist = new Wishlist() {Item_Number = Item_Number,
-                                                   ID = ID
+                                                   user_id = user_id
                                                    };
             _context.Update(updatewishlist);
             _context.Entry(updatewishlist);
