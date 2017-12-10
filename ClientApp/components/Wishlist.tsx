@@ -65,12 +65,13 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{ wishli
 
 
     render() {
-        console.log(this.state.legopr)
+        console.log(this.state.wishlist2)
         return <div>
             
             {sessionStorage.getItem("userStatus") == "Ingelogd"?
-                this.state.legopr.map((lego: Models.Lego) =>
-                <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)
+            <div>hi</div>
+            //    this.state.wishlist2.map(
+            //        (lego: Models.Wishlist) => <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)}/>)
             :
                 this.state.legopr.map((lego: Models.Lego) =>
                 <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)
@@ -83,10 +84,10 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{ wishli
 type WishlistProps = { id: number }
 
 type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
-export class Wishlist extends React.Component<LoadProducts, {}> {
+export class Wishlist extends React.Component<LoadProducts, {bla : Models.Lego | "loading"}> {
     constructor(props: LoadProducts) {
         super(props);
-        this.state = {};
+        this.state = {bla: "loading"};
     }
 
     componentWillUpdate(NextProps: any, NextState: any) {
