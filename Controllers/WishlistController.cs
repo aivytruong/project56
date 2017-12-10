@@ -47,7 +47,7 @@ namespace project56.Controllers
             _context.SaveChanges();
         }
 
-        [HttpPut("Update/{Item_Number}/{user_id}/")]
+        [HttpPut("Update/{Item_Number}/{user_id}")]
         public void Update(string Item_Number, int user_id)
         {
            
@@ -57,6 +57,16 @@ namespace project56.Controllers
             _context.Update(updatewishlist);
             _context.Entry(updatewishlist);
             _context.SaveChanges();
+        }
+
+        [HttpDelete("Delete/{user_id}/{Item_Number}")]
+        public void Delete(int user_id, string Item_Number)
+        {
+            var user = from _user in _context.Wishlists
+                       where _user.user_id == user_id && _user.Item_Number == Item_Number
+                       select _user;
+            _context.Wishlists.Remove(user.FirstOrDefault());
+            _context.SaveChanges();                     
         }
     }
 }

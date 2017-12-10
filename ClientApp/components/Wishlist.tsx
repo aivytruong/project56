@@ -18,6 +18,12 @@ export async function get_correctuser(user_id: number): Promise<Models.Wishlist[
     return json
 }
 
+export async function delete_correctproduct(user_id: number, item_number:string) {
+    let res = await fetch(`./WishlistController/Delete/${user_id}/${item_number}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    return console.log("deleted correct product")
+    
+}
+
 type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading", wishlist2:Models.Wishlist[]}
 
 export class WishlistRouter extends React.Component<RouteComponentProps<{ wishlist:number, lego:Models.Lego}>, WishlistRouterState> {
@@ -55,19 +61,26 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{ wishli
 
     deleteItem(NextState: any)
     {
-     
+        
         let prevListDelete = localStorage.getItem("wishlist")
-        let nextList = prevListDelete != null ? (prevListDelete.replace(NextState, "")) : ""
-        localStorage.setItem("wishlist", nextList != null ? nextList : nextList)
         let prevList = localStorage.getItem("wishlist")
-        let currentList = prevList == null ? null : prevList.split(",").reverse()
+        let nextList = prevListDelete != null ? (prevListDelete.replace(NextState, "")) 
+        : ""
+        let currentList = prevList == null ? null 
+        : prevList.split(",").reverse()
+        localStorage.setItem("wishlist", nextList != null ? nextList 
+        : nextList)
 
+        
         currentList != null ? currentList.map(b =>
             get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b)}), () => location.reload())
                 .catch(error => console.error(error))
-
-        )
+            )
             : null
+        
+        
+        
+        
            
     }
 
@@ -96,6 +109,13 @@ export class Wishlist extends React.Component<LoadProducts, {}> {
     componentWillUpdate(NextProps: any, NextState: any) {
     }
 
+    productDeleten()
+    {   let user =  JSON.parse(sessionStorage.getItem("user"))
+        user != null? 
+        delete_correctproduct(user, this.props.load.item_Number).then(() => location.reload())
+        : null  
+    }
+
     render() {
         // console.log("rendering", this.props.load.name)
         return <div>
@@ -105,7 +125,11 @@ export class Wishlist extends React.Component<LoadProducts, {}> {
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
             Price: €{this.props.load.euR_MSRP} 
-            <button onClick={() => this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </button>
+
+            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
+            this.productDeleten()
+            :
+            this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </button>
         </div>
     }
 }
