@@ -39,7 +39,6 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>,
         localStorage.setItem("shoppingcart", nextList != null ? nextList : nextList)
         let prevList = localStorage.getItem("shoppingcart")
         let currentList = prevList == null ? null : prevList.split(",").reverse()
-
         currentList != null ? currentList.map(b =>
             get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b)}), () => location.reload())
                 .catch(error => console.error(error))
@@ -47,6 +46,20 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>,
         )
             : null
     }
+    prices()
+    {
+        let prices: string[] = [localStorage.getItem("price")];
+        
+    }
+
+   calcTotalPrice()
+   {
+       let i = 0
+       this.state.legopr.map(lg => i = i + parseFloat(lg.euR_MSRP))
+       return i
+   }
+    
+
 
 
     render() {
@@ -56,7 +69,8 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>,
             {this.state.legopr.map((lego: Models.Lego) =>
                 <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)}
                 <br></br>
-                Total price = {localStorage.getItem("price")}
+                
+                Total price = {this.calcTotalPrice()}
                 <br></br>
                 <button>Checkout</button> 
         </div>
