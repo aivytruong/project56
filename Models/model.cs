@@ -13,6 +13,7 @@ namespace project56.model
         public DbSet<ClassUser> Users { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<Shoppingcart> Shoppingcarts { get; set; }
         
 
         //Added constructor to provide the connection to the database as a service (look at: startup.cs)
@@ -62,6 +63,19 @@ namespace project56.model
         public int user_id { get; set; }
 
     }    
+
+    [Table("shoppingcartdetails")]
+    public class Shoppingcart {
+        [Key]
+        public int id {get; set;}
+
+        [ForeignKey("legodetails")]
+        public string Item_Number { get; set; } 
+
+        [ForeignKey("UserDetails")]
+        public int user_id { get; set; }
+
+    }
 
 
 [Table("UserDetails")]

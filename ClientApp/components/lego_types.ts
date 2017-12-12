@@ -39,3 +39,8 @@ export type Wishlist = {
     item_Number : string
     user_id : number
 }
+
+export type Shoppingcart = {
+    item_Number : string
+    user_id : number
+}

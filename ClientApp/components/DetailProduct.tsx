@@ -23,6 +23,13 @@ export async function CreateWishlist(Item_Number: string, user_id:number)
     return console.log("made wishlist", res)
 }
 
+export async function CreateShoppingcart(Item_Number: string, user_id:number)
+{
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers:  new Headers ({ 'content-type': 'application/json' }) })
+    
+    return console.log("made shoppingcart", res)
+}
+
 export class CorrectProduct extends React.Component<RouteComponentProps<{item_Number:string, ID:number}>, StarwarsProductComponentState> {
     constructor(props, context) {
         super();
@@ -99,6 +106,17 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         }
     }
 
+    Createnshop()
+    {
+        let user =  JSON.parse(sessionStorage.getItem("user"))
+
+        if (user != null)
+        {
+            CreateShoppingcart(this.props.lego.item_Number,
+                user)
+        }
+    }
+
     render() {
         // console.log("rendering", this.props.load.name)
         return <div>
@@ -123,11 +141,12 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
             
             
             
-            
-            <button onClick={() => this.setState({...this.state, lego:this.props.lego, cart: true}
-                )}>Add to shoppingcart </button>
+            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
+            this.Createnshop()
+            :
+            this.setState({...this.state, lego:this.props.lego, cart: true})}>Add to shoppingcart </button>
 
-                
+
         </div>;
     }
 

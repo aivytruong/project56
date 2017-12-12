@@ -49,6 +49,20 @@ namespace project56.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "shoppingcartdetails",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int4", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Item_Number = table.Column<string>(type: "text", nullable: true),
+                    user_id = table.Column<int>(type: "int4", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shoppingcartdetails", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserDetails",
                 columns: table => new
                 {
@@ -92,6 +106,9 @@ namespace project56.Migrations
 
             migrationBuilder.DropTable(
                 name: "legodetails");
+
+            migrationBuilder.DropTable(
+                name: "shoppingcartdetails");
 
             migrationBuilder.DropTable(
                 name: "UserDetails");

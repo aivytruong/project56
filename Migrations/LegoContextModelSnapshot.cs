@@ -102,6 +102,20 @@ namespace project56.Migrations
                     b.ToTable("legodetails");
                 });
 
+            modelBuilder.Entity("project56.model.Shoppingcart", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Item_Number");
+
+                    b.Property<int>("user_id");
+
+                    b.HasKey("id");
+
+                    b.ToTable("shoppingcartdetails");
+                });
+
             modelBuilder.Entity("project56.model.Wishlist", b =>
                 {
                     b.Property<int>("id")

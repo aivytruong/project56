@@ -11,7 +11,7 @@ using System;
 namespace project56.Migrations
 {
     [DbContext(typeof(LegoContext))]
-    [Migration("20171209113734_database")]
+    [Migration("20171211104432_database")]
     partial class database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,6 +101,20 @@ namespace project56.Migrations
                     b.HasKey("Item_Number");
 
                     b.ToTable("legodetails");
+                });
+
+            modelBuilder.Entity("project56.model.Shoppingcart", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Item_Number");
+
+                    b.Property<int>("user_id");
+
+                    b.HasKey("id");
+
+                    b.ToTable("shoppingcartdetails");
                 });
 
             modelBuilder.Entity("project56.model.Wishlist", b =>

@@ -24,7 +24,7 @@ export async function delete_correctproduct(user_id: number, item_number:string)
     
 }
 
-type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading", wishlist2:Models.Wishlist[]}
+type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading", wishlist2:Models.Shoppingcart[]}
 
 export class WishlistRouter extends React.Component<RouteComponentProps<{ wishlist:number, lego:Models.Lego}>, WishlistRouterState> {
     constructor(props: RouteComponentProps<{wishlist:number, lego:Models.Lego}>) {
@@ -51,7 +51,7 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{ wishli
         this.state.wishlist2 != null && sessionStorage.getItem("userStatus") == "Ingelogd"? 
         (get_correctuser(parseInt(sessionStorage.getItem("user"))).
             then(pr => this.setState({...this.state, wishlist2:pr.concat(this.state.wishlist2)}, 
-                () => this.state.wishlist2.map((p: Models.Wishlist) => get_correctproduct(p.item_Number).
+                () => this.state.wishlist2.map((p: Models.Shoppingcart) => get_correctproduct(p.item_Number).
                 then(p => this.setState({...this.state, legopr:this.state.legopr.concat(p)})))))).
                 catch(error => console.error(error))
         :
