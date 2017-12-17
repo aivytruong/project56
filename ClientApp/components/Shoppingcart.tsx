@@ -21,21 +21,21 @@ export async function get_correctuser(user_id: number): Promise<Models.Shoppingc
 
 export async function delete_correctproduct(user_id: number, item_number:string) {
     let res = await fetch(`./ShoppingcartController/Delete/${user_id}/${item_number}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
-    return console.log("deleted correct product")
+    return console.log("deleted correct product from shoppingcart")
     
 }
 
 export async function delete_correctproduct2(user_id: number, item_number:string) {
     let res = await fetch(`./HistoryController/Delete/${user_id}/${item_number}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
-    return console.log("deleted correct product")
+    return console.log("deleted correct product from history")
     
 }
-type WishlistRouterState = { legopr: Models.Lego[] , wishlist2:Models.Shoppingcart[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading"}
+type WishlistRouterState = { legopr: Models.Lego[] , wishlist2:Models.Shoppingcart[], history:Models.History[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading"}
 
 export class ShoppingCartRouter extends React.Component<RouteComponentProps<{wishlist:number, lego:Models.Lego}>, WishlistRouterState> {
     constructor(props: RouteComponentProps<{wishlist:number, lego:Models.Lego}>) {
         super(props)
-        this.state = { legopr: [], wishlist2:[], userStatus:"Uitgelogd", user:"loading" }
+        this.state = { legopr: [], wishlist2:[], history:[], userStatus:"Uitgelogd", user:"loading" }
     }
 
     componentWillMount() {
@@ -123,7 +123,7 @@ export class ShoppingCart extends React.Component<LoadProducts, {deleteID: strin
     {   let user =  JSON.parse(sessionStorage.getItem("user"))
         user != null? 
         (delete_correctproduct(user, this.props.load.item_Number).then(() => location.reload()),
-        delete_correctproduct2(user, this.props.load.item_Number).then(() => location.reload()) )
+        delete_correctproduct2(user, this.props.load.item_Number).then(() => location.reload()))
         : null  
     }
 
