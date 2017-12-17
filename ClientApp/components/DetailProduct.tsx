@@ -30,6 +30,13 @@ export async function CreateShoppingcart(Item_Number: string, user_id:number)
     return console.log("made shoppingcart", res)
 }
 
+export async function CreateHistory(Item_Number: string, user_id:number)
+{
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers:  new Headers ({ 'content-type': 'application/json' }) })
+    
+    return console.log("made history", res)
+}
+
 export class CorrectProduct extends React.Component<RouteComponentProps<{item_Number:string, ID:number}>, StarwarsProductComponentState> {
     constructor(props, context) {
         super();
@@ -113,6 +120,8 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         if (user != null)
         {
             CreateShoppingcart(this.props.lego.item_Number,
+                user)
+            CreateHistory(this.props.lego.item_Number,
                 user)
         }
     }

@@ -25,6 +25,20 @@ namespace project56.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "historydetails",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int4", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Item_Number = table.Column<string>(type: "text", nullable: true),
+                    user_id = table.Column<int>(type: "int4", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_historydetails", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "legodetails",
                 columns: table => new
                 {
@@ -103,6 +117,9 @@ namespace project56.Migrations
         {
             migrationBuilder.DropTable(
                 name: "admindetails");
+
+            migrationBuilder.DropTable(
+                name: "historydetails");
 
             migrationBuilder.DropTable(
                 name: "legodetails");

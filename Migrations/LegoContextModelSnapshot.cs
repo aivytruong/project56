@@ -66,6 +66,20 @@ namespace project56.Migrations
                     b.ToTable("UserDetails");
                 });
 
+            modelBuilder.Entity("project56.model.History", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Item_Number");
+
+                    b.Property<int>("user_id");
+
+                    b.HasKey("id");
+
+                    b.ToTable("historydetails");
+                });
+
             modelBuilder.Entity("project56.model.Lego", b =>
                 {
                     b.Property<string>("Item_Number")

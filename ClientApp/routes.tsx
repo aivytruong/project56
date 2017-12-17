@@ -48,6 +48,8 @@ import {WishlistRouter} from './components/Wishlist'
 import {ShoppingCartRouter} from './components/Shoppingcart'
 import {Wishlist} from './components/Wishlist'
 import {loggedIn} from './components/LoggedIn'
+import {Checkout} from './components/Checkout'
+
 
 // import {WishlistRouter} from './components/WishlistRouter'
 
@@ -107,5 +109,7 @@ export const routes = <Layout>
     <Route path= '/Wishlist' component={WishlistRouter}/>
     <Route path= '/Shoppingcart' component={ShoppingCartRouter}/>
     <Route path= '/LoggedIn' component ={loggedIn} />
+    <Route path= '/Checkout' component ={Checkout} />
+    
 </Layout>; 
 
