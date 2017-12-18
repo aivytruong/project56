@@ -13,16 +13,16 @@ export async function get_correctproduct(item_Number: string): Promise<Models.Le
     return json
 }
 
-type WishlistRouterState = { legopr: Models.Lego[]}
+type HistoryState = { legopr: Models.Lego[]}
 
-export class WishlistRouter extends React.Component<RouteComponentProps<{}>, WishlistRouterState> {
+export class HistoryPage extends React.Component<RouteComponentProps<{}>, HistoryState> {
     constructor(props: RouteComponentProps<{}>) {
         super(props)
         this.state = { legopr: [] }
     }
 
     componentWillMount() {
-        let prevList = localStorage.getItem("wishlist")
+        let prevList = localStorage.getItem("history")
         let currentList = prevList == null ? null : prevList.split(",")
         console.log({ currentList })
 
@@ -36,10 +36,10 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{}>, Wis
 
     deleteItem(NextState: any)
     {
-        let prevListDelete = localStorage.getItem("wishlist")
+        let prevListDelete = localStorage.getItem("history")
         let nextList = prevListDelete != null ? (prevListDelete.replace(NextState, "")) : ""
-        localStorage.setItem("wishlist", nextList != null ? nextList : nextList)
-        let prevList = localStorage.getItem("wishlist")
+        localStorage.setItem("history", nextList != null ? nextList : nextList)
+        let prevList = localStorage.getItem("history")
         let currentList = prevList == null ? null : prevList.split(",").reverse()
 
         currentList != null ? currentList.map(b =>
@@ -62,7 +62,7 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{}>, Wis
     }
 }
 
-type WishlistProps = { id: number }
+
 
 type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
 export class Wishlist extends React.Component<LoadProducts, {}> {
@@ -83,7 +83,7 @@ export class Wishlist extends React.Component<LoadProducts, {}> {
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
             Price: €{this.props.load.euR_MSRP} 
-            <button onClick={() => this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </button>
+            <button onClick={() => this.props.deleteItem(this.props.load.item_Number)}>Remove from history </button>
         </div>
     }
 }

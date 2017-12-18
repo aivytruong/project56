@@ -9,6 +9,7 @@ export class ProductLoad extends React.Component<LoadProducts, {}> {
     constructor(props: LoadProducts) {
         super(props);
         this.state = {};
+    
     }
 
     render() {

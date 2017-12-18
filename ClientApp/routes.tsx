@@ -12,6 +12,7 @@ import { databasebutton } from './components/databasebutton';
 import {Newproduct1} from './Components/Newproduct1';
 import { KidsProductPage } from './components/KidsProductPage';
 import {CorrectProduct} from './Components/DetailProduct';
+import { HistoryPage } from './components/HistoryPage';
 
 import { LegoCitySets } from './components/legoCitySets';
 import { AdvancedModelsSets } from './components/AdvancedModelsSets';
@@ -57,6 +58,8 @@ import {filtertest} from './Components/filtertest'
 import {adminmode} from './Components/AdminMode'
 
 
+
+
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
     <Route path='/sale' component={ Sale } />
@@ -66,6 +69,7 @@ export const routes = <Layout>
     <Route path='/registreren' component={ Registreren } />
     <Route path='/DetailProduct/:item_Number' component={ CorrectProduct } />
     {/* <Route path='/WishlistRouter/:id' component={ WishlistRouter } /> */}
+    <Route path='/historypage' component={ HistoryPage } />
 
     <Route path='/StarwarsSets' component={ StarwarsSets } />
     <Route path='/LegoCitySets' component={ LegoCitySets } />

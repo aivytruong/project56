@@ -30,7 +30,8 @@
     left: 0;
     right: 0;
     z-index: 1;
-    background-color: red;
+    background-color: rgb(243, 240, 240);
+    font-family: helvetica, sans-serif;
 }
 
 .main-nav .dropdown {  

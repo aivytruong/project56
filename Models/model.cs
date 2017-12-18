@@ -12,6 +12,7 @@ namespace project56.model
         public DbSet<Lego> Legos { get; set; }
         public DbSet<ClassUser> Users { get; set; }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
         
 
         //Added constructor to provide the connection to the database as a service (look at: startup.cs)
@@ -20,7 +21,7 @@ namespace project56.model
         }
 
         
-}
+    }
     [Table("legodetails")]
     public class Lego {
         [Key]
@@ -49,8 +50,19 @@ namespace project56.model
         public string Password { get; set; }        
     }
 
-    
-}
+    [Table("wishlistdetails")]
+    public class Wishlist {
+        [Key]
+        public int id {get; set;}
+
+        [ForeignKey("legodetails")]
+        public string Item_Number { get; set; } 
+
+        [ForeignKey("UserDetails")]
+        public int user_id { get; set; }
+
+    }    
+
 
 [Table("UserDetails")]
     public class ClassUser {
@@ -67,3 +79,4 @@ namespace project56.model
         public string date_of_birth { get; set; }
         public string Gender { get; set; }
     }
+}
