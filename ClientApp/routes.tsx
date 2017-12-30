@@ -9,8 +9,6 @@ import { Login } from './components/Login';
 import { Registreren } from './components/registreren';
 import { SeparateBricks } from './components/SeparateBricks';
 import { databasebutton } from './components/databasebutton';
-import {Newproduct1} from './Components/Newproduct1';
-import { KidsProductPage } from './components/KidsProductPage';
 import {CorrectProduct} from './Components/DetailProduct';
 import { HistoryPage } from './components/HistoryPage';
 
@@ -51,6 +49,8 @@ import {WishlistRouter} from './components/Wishlist'
 import {ShoppingCartRouter} from './components/Shoppingcart'
 import {Wishlist} from './components/Wishlist'
 import {loggedIn} from './components/LoggedIn'
+import {Checkout} from './components/Checkout'
+
 
 // import {WishlistRouter} from './components/WishlistRouter'
 
@@ -108,12 +108,12 @@ export const routes = <Layout>
 
     <Route path='/SeparateBricks' component={ SeparateBricks } />
     <Route path='/databasebutton' component={databasebutton} />
-    <Route path='/Newproduct1' component={ Newproduct1 } />
-    <Route path='/kidsproductpage' component={KidsProductPage} />
     <Route path= '/filtertest' component={filtertest}/>
     <Route path= '/AdminMode' component={adminmode}/>
     <Route path= '/Wishlist' component={WishlistRouter}/>
     <Route path= '/Shoppingcart' component={ShoppingCartRouter}/>
     <Route path= '/LoggedIn' component ={loggedIn} />
+    <Route path= '/Checkout' component ={Checkout} />
+    
 </Layout>; 
 

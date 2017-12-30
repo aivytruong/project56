@@ -9,27 +9,27 @@ using project56.model;
 
 namespace project56.Controllers
 {
-    [Route("WishlistController")]
-    public class WishlistController : Controller 
+    [Route("HistoryController")]
+    public class HistoryController : Controller 
     {
         private readonly LegoContext _context;
 
-        public WishlistController(LegoContext context) 
+        public HistoryController(LegoContext context) 
         {
             _context = context;
         }
     
 
-        [HttpGet("Wishlist")]
-        public Wishlist[] allWishlist() 
+        [HttpGet("History")]
+        public History[] allWishlist() 
         {
-            return _context.Wishlists.ToArray();
+            return _context.Historys.ToArray();
         }
 
         [HttpGet("CorrectUser/{user_id}")]
-        public Wishlist[] CorrectUser(int user_id)
+        public History[] CorrectUser(int user_id)
         {
-            var user = from _user in _context.Wishlists
+            var user = from _user in _context.Historys
                            where _user.user_id == user_id
                            select _user;
                            
@@ -37,13 +37,13 @@ namespace project56.Controllers
         }
         
         
-        [HttpPost("CreateWishlist/{Item_Number}/{user_id}")]
-        public void CreateWishlist(string Item_Number, int user_id)
+        [HttpPost("CreateHistory/{Item_Number}/{user_id}")]
+        public void CreateHistory(string Item_Number, int user_id)
         {
-            Wishlist newwishlist = new Wishlist() {Item_Number = Item_Number,
+            History newwishlist = new History() {Item_Number = Item_Number,
                                                    user_id = user_id,
                                                    };
-            _context.Wishlists.Add(newwishlist);
+            _context.Historys.Add(newwishlist);
             _context.SaveChanges();
         }
 
@@ -51,7 +51,7 @@ namespace project56.Controllers
         public void Update(string Item_Number, int user_id)
         {
            
-            Wishlist updatewishlist = new Wishlist() {Item_Number = Item_Number,
+            History updatewishlist = new History() {Item_Number = Item_Number,
                                                    user_id = user_id
                                                    };
             _context.Update(updatewishlist);
@@ -62,11 +62,12 @@ namespace project56.Controllers
         [HttpDelete("Delete/{user_id}/{Item_Number}")]
         public void Delete(int user_id, string Item_Number)
         {
-            var user = from _user in _context.Wishlists
+            var user = from _user in _context.Historys
                        where _user.user_id == user_id && _user.Item_Number == Item_Number
                        select _user;
-            _context.Wishlists.Remove(user.FirstOrDefault());
+            _context.Historys.Remove(user.FirstOrDefault());
             _context.SaveChanges();                     
         }
+
     }
 }

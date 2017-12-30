@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import { ProductLoad } from './DetailProduct'
+import {Checkout} from './Checkout'
 
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
     let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
@@ -11,12 +12,30 @@ export async function get_correctproduct(item_Number: string): Promise<Models.Le
     return json
 }
 
-type WishlistRouterState = { legopr: Models.Lego[] }
+export async function get_correctuser(user_id: number): Promise<Models.Shoppingcart[]> {
+    let res = await fetch(`./ShoppingcartController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let json = await res.json()
+    console.log("received correct users", json)
+    return json
+}
 
-export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>, WishlistRouterState> {
-    constructor(props: RouteComponentProps<{}>) {
+export async function delete_correctproduct(user_id: number, item_number:string) {
+    let res = await fetch(`./ShoppingcartController/Delete/${user_id}/${item_number}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    return console.log("deleted correct product from shoppingcart")
+    
+}
+
+export async function delete_correctproduct2(user_id: number, item_number:string) {
+    let res = await fetch(`./HistoryController/Delete/${user_id}/${item_number}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    return console.log("deleted correct product from history")
+    
+}
+type WishlistRouterState = { legopr: Models.Lego[] , wishlist2:Models.Shoppingcart[], history:Models.History[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading"}
+
+export class ShoppingCartRouter extends React.Component<RouteComponentProps<{wishlist:number, lego:Models.Lego}>, WishlistRouterState> {
+    constructor(props: RouteComponentProps<{wishlist:number, lego:Models.Lego}>) {
         super(props)
-        this.state = { legopr: [] }
+        this.state = { legopr: [], wishlist2:[], history:[], userStatus:"Uitgelogd", user:"loading" }
     }
 
     componentWillMount() {
@@ -24,12 +43,25 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>,
         let currentList = prevList == null ? null : prevList.split(",")
         console.log({ currentList })
 
+        
+        sessionStorage.getItem("userStatus") != "Ingelogd"?
         currentList != null ? currentList.map(b =>
             get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b) }))
                 .catch(error => console.error(error))
 
         )
             : null
+
+        :
+
+        this.state.wishlist2 != null && sessionStorage.getItem("userStatus") == "Ingelogd"? 
+            (get_correctuser(parseInt(sessionStorage.getItem("user"))).
+                then(pr => this.setState({...this.state, wishlist2:pr.concat(this.state.wishlist2)}, 
+                    () => this.state.wishlist2.map((p: Models.Shoppingcart) => get_correctproduct(p.item_Number).
+                    then(p => this.setState({...this.state, legopr:this.state.legopr.concat(p)})))))).
+                    catch(error => console.error(error))
+            :
+                null     
     }
 
     deleteItem(NextState: any)
@@ -62,6 +94,7 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>,
 
 
 
+
     render() {
         console.log(this.state.legopr)
         return <div>
@@ -69,10 +102,10 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{}>,
             {this.state.legopr.map((lego: Models.Lego) =>
                 <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)}
                 <br></br>
-                
                 Total price = {this.calcTotalPrice()}
                 <br></br>
-                <button>Checkout</button> 
+                <NavLink to={'/checkout'}> <button onClick={() => this.setState({...this.state, userStatus:"Ingelogd"})}>Checkout</button></NavLink> 
+               
         </div>
     }
 }
@@ -93,6 +126,14 @@ export class ShoppingCart extends React.Component<LoadProducts, {deleteID: strin
         // localStorage.setItem("shoppingcart", newlist);
     }
 
+    productDeleten()
+    {   let user =  JSON.parse(sessionStorage.getItem("user"))
+        user != null? 
+        (delete_correctproduct(user, this.props.load.item_Number).then(() => location.reload()),
+        delete_correctproduct2(user, this.props.load.item_Number).then(() => location.reload()))
+        : null  
+    }
+
     render() {
         // console.log("rendering", this.props.load.name)
         return <div>
@@ -101,8 +142,12 @@ export class ShoppingCart extends React.Component<LoadProducts, {deleteID: strin
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
-            Price: €{this.props.load.euR_MSRP}   
-            <button onClick={() => this.props.deleteItem(this.props.load.item_Number)}>Remove from shoppingcart </button>
+            Price: €{this.props.load.euR_MSRP}  
+
+            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
+            this.productDeleten()
+            : 
+            this.props.deleteItem(this.props.load.item_Number)}>Remove from shoppingcart </button>
             
         </div>;
     }

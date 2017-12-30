@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
+import * as Models from './lego_types'
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
         return <div className='main-nav'>
@@ -13,12 +13,27 @@ export class NavMenu extends React.Component<{}, {}> {
                     </NavLink>
                 </li>
                 <li>
+                
+                {sessionStorage.getItem("userStatus") == "Ingelogd"? 
                     <NavLink to={'/historypage'} activeClassName='active'>
                         <span className='glyphicon glyphicon'></span> History
                             </NavLink>
+                :
+                null
+                }
                 </li>
                
                 
+                {/* <li>
+                            <NavLink to={ '/sale' } activeClassName='active'>
+                                <span className='glyphicon glyphicon'></span> Sale
+                            </NavLink>
+                        </li> */}
+                 <li>
+                            <NavLink to={ '/databasebutton' } activeClassName='active'>
+                                <span className='glyphicon glyphicon'></span> database
+                            </NavLink>
+                        </li> 
                 <li>
                     <NavLink to={'/sets'} activeClassName='active'>
                         <span className='glyphicon glyphicon'></span> Sets
