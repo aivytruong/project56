@@ -6,57 +6,54 @@ import { ProductLoad } from './DetailProduct'
 
  type Headers = { 'content-type': 'application/json' }
 
+
+
+export async function get_correctuser(user_id: number): Promise<Models.Shoppingcart[]> {
+    let res = await fetch(`./ShoppingcartController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let json = await res.json()
+    console.log("received correct users", json)
+    return json
+}
+
+export async function get_history(): Promise<Models.History[]> {
+    let res = await fetch(`./HistoryController/History`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let json = await res.json()
+    console.log("received correct users", json)
+    return json
+}
+
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
-    let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: new Headers })
+    let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = await res.json()
     console.log("received correct products", json)
     return json
 }
 
-type HistoryState = { legopr: Models.Lego[]}
+
+type HistoryState = { history:Models.History[], legopr: Models.Lego[] }
 
 export class HistoryPage extends React.Component<RouteComponentProps<{}>, HistoryState> {
     constructor(props: RouteComponentProps<{}>) {
         super(props)
-        this.state = { legopr: [] }
+        this.state = { history: [], legopr:[]}
     }
 
-    componentWillMount() {
-        let prevList = localStorage.getItem("history")
-        let currentList = prevList == null ? null : prevList.split(",")
-        console.log({ currentList })
-
-        currentList != null ? currentList.map(b =>
-            get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b) }))
-                .catch(error => console.error(error))
-
-        )
-            : null
+    componentWillMount(){
+        (get_correctuser(parseInt(sessionStorage.getItem("user"))).
+        then(pr => this.setState({...this.state, history:pr.concat(this.state.history)}, 
+            () => this.state.history.map((p: Models.History) => get_correctproduct(p.item_Number).
+            then(p => this.setState({...this.state, legopr:this.state.legopr.concat(p)})))))).
+            catch(error => console.error(error))
     }
-
-    deleteItem(NextState: any)
-    {
-        let prevListDelete = localStorage.getItem("history")
-        let nextList = prevListDelete != null ? (prevListDelete.replace(NextState, "")) : ""
-        localStorage.setItem("history", nextList != null ? nextList : nextList)
-        let prevList = localStorage.getItem("history")
-        let currentList = prevList == null ? null : prevList.split(",").reverse()
-
-        currentList != null ? currentList.map(b =>
-            get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b)}), () => location.reload())
-                .catch(error => console.error(error))
-
-        )
-            : null
-    }
-
 
     render() {
-        console.log(this.state.legopr)
+     
         return <div>
-
+            
             {this.state.legopr.map((lego: Models.Lego) =>
-                <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)}
+                <History load={lego} id={lego.item_Number} />)}
+
+           
             
         </div>
     }
@@ -64,26 +61,24 @@ export class HistoryPage extends React.Component<RouteComponentProps<{}>, Histor
 
 
 
-type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
-export class Wishlist extends React.Component<LoadProducts, {}> {
+type LoadProducts = {load: Models.Lego,id:string}
+export class History extends React.Component<LoadProducts, {}> {
     constructor(props: LoadProducts) {
         super(props);
         this.state = {};
     }
 
-    componentWillUpdate(NextProps: any, NextState: any) {
-    }
 
     render() {
         // console.log("rendering", this.props.load.name)
         return <div>
-            {console.log(this.props)}
-            <h1>{this.props.load.name}</h1>
+            {this.props.load.name}
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
-            Price: €{this.props.load.euR_MSRP} 
-            <button onClick={() => this.props.deleteItem(this.props.load.item_Number)}>Remove from history </button>
+            {this.props.load.name}
+            
+            
         </div>
     }
 }
