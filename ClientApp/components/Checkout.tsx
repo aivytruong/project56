@@ -5,33 +5,35 @@ import * as Models from './lego_types'
 import { ProductLoad } from './DetailProduct'
 import { ShoppingCart } from './Shoppingcart'
 
+type Headers = { 'content-type': 'application/json' }
+
 export async function UserInloggen(username: string, password: string): Promise<Models.Users> {
-    let res = await fetch(`./UserController/Login/${username}/${password}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let res = await fetch(`./UserController/Login/${username}/${password}`, { method: 'get', credentials: 'include', headers: new Headers })
     let json = res.json()
     return json
 }
 
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
-    let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers:  new Headers })
     let json = await res.json()
     console.log("received correct products", json)
     return json
 }
 
 export async function get_correctuser(user_id: number): Promise<Models.Wishlist[]> {
-    let res = await fetch(`./ShoppingcartController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let res = await fetch(`./ShoppingcartController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers:  new Headers })
     let json = await res.json()
     console.log("received correct users", json)
     return json
 }
 
 export async function delete_correctsc(user_id: number) {
-    let res = await fetch(`./ShoppingcartController/DeleteUserSC/${user_id}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let res = await fetch(`./ShoppingcartController/DeleteUserSC/${user_id}`, { method: 'delete', credentials: 'include', headers:  new Headers })
     return console.log("deleted shoppinglist")
 }
 
 type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
-type loginState = { userName: string, password: string, loggedin: boolean, admin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", legopr: Models.Lego[], wishlist2:Models.Wishlist[] }
+type loginState = { userName: string, password: string, loggedin: boolean, admin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", legopr: Models.Lego[], wishlist2:Models.Wishlist[], firstName: string, lastName: string, emailAdress: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
 
 export class Checkout extends React.Component<RouteComponentProps<{}>, loginState> {
     constructor(props, conetxt) {
@@ -44,7 +46,15 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
             admin: false,
             user: "loading",
             legopr: [],
-            wishlist2:[]
+            wishlist2:[],
+            firstName: "",
+            lastName: "",
+            emailAdress: "",
+            adress: "",
+            phoneNumber: "",
+            Country: "",
+            Date_of_birth: "",
+            gender: ""
         }
     }
 
@@ -94,7 +104,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
                     <Purchase/>
                 :
                 <div>
-                    <h1>Already have an account?</h1>
+                    <h2>Already have an account?</h2>
                     <div className='css-card'>
                         <div className='css-container css-red'>
                             <h2>Inloggen</h2>
@@ -121,10 +131,48 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
                     </div>
 
                     <br />
-                    <h1>Don't have an account? Please make one to continue the checkout</h1>
+                    <h2>Don't have an account? Please make one to continue the checkout</h2>
                     <NavLink to={'/registreren'} activeClassName='active'>
                         <button className='css-btn'>Registreren</button>
                     </NavLink>
+
+                    {/* <h2>Want to continue without registering?</h2>
+                    <div><div className='css-card'>
+            <div className='css-container css-red'>
+            </div><br/>
+            <div className='css-container'>
+                <p>
+                    <span className='css-text-red'>First Name:</span>
+                    <input className='css-input css-lightred' value={this.state.firstName} onChange={event => this.setState({...this.state, firstName: event.target.value})}/>
+                </p>
+                <p>
+                    <span className='css-text-red'>Last Name:</span>
+                    <input className='css-input css-lightred' value={this.state.lastName} onChange={event => this.setState({...this.state, lastName: event.target.value})}/>
+                </p>
+                <p>
+                    <span className='css-text-red'>Email adress:</span>
+                    <input className='css-input css-lightred' value={this.state.emailAdress} onChange={event => this.setState({...this.state, emailAdress: event.target.value})}/>
+                </p>
+                <p>
+                    <span className='css-text-red'>Adress:</span>
+                    <input className='css-input css-lightred' value={this.state.adress} onChange={event => this.setState({...this.state, adress: event.target.value})}/>
+                </p>
+                <p>
+                    <span className='css-text-red'>Phone Number:</span>
+                    <input className='css-input css-lightred' value={this.state.phoneNumber} onChange={event => this.setState({...this.state, phoneNumber: event.target.value})}/>
+                </p>
+                <p>
+                    <span className='css-text-red'>Country:</span>
+                    <input className='css-input css-lightred' value={this.state.Country} onChange={event => this.setState({...this.state, Country: event.target.value})}/>
+                </p>
+                <p>
+                    
+                    <button className='css-btn' onClick={() => this.product} > Go to checkout </button>
+                    
+                </p>
+            </div>
+            </div>
+        </div> */}
                 </div>
             }
 
@@ -142,7 +190,7 @@ export class Purchase extends React.Component<{}, {}> {
     productDeleten() {
         let user = JSON.parse(sessionStorage.getItem("user"))
         user != null ?
-        delete_correctsc(user).then(() => location.reload())
+        delete_correctsc(user)
             : null
     }
 
@@ -152,8 +200,9 @@ export class Purchase extends React.Component<{}, {}> {
         return <div>
             
             Order has been made!
-
             {this.productDeleten()}
+
+
         </div>
 
     }
