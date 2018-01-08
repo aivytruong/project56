@@ -62,14 +62,13 @@ export class CorrectProduct extends React.Component<RouteComponentProps<{item_Nu
 }
 
 
-type ShoppingState = {cart: boolean, wishlist: boolean, history : boolean}
-type ProductLoadState = {lego: Models.Lego | "loading", cart: boolean, wishlist: boolean, history: boolean, userStatus: "Ingelogd" | 'Uitgelogd', ID: Models.Users | "loading"  }
-type ProductLoadProps = { lego: Models.Lego }
+type ShoppingState = {cart: boolean, wishlist: boolean}
+type ProductLoadState = {lego: Models.Lego | "loading", cart: boolean, wishlist: boolean, userStatus: "Ingelogd" | 'Uitgelogd', ID: Models.Users | "loading" }
+type ProductLoadProps = { lego: Models.Lego}
 export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadState> {
     constructor(props: ProductLoadProps) {
         super(props)
-        this.state = {lego: "loading", cart: false, wishlist: false, history: true, userStatus: "Uitgelogd", ID:"loading"}
-
+        this.state = {lego: "loading", cart: false, wishlist: false, userStatus: "Uitgelogd", ID:"loading"}
     }
 
     componentWillUpdate(NextProps:any, NextState:any)
@@ -80,7 +79,7 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         console.log("exist", NextState.wishlist, NextState.cart);
 
 
-        if (NextState.wishlist == true && NextState.cart == false && NextState.history == false) {
+        if (NextState.wishlist == true && NextState.cart == false) {
             let currentlist = localStorage.getItem("wishlist")
             let list = currentlist == null ? NextState.lego.item_Number : currentlist.valueOf().toString() + "," + NextState.lego.item_Number 
             console.log("1e", NextState);
@@ -89,20 +88,7 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
             
         }
 
-        if (NextState.wishlist == false && NextState.cart == true && NextState.history == true){
-            let currenthistory = localStorage.getItem("history")
-            let history = currenthistory == null ? NextState.lego.item_Number : currenthistory.valueOf().toString() + "," + NextState.lego.item_Number 
-            console.log("1e", NextState);
-            this.setState({...this.state, history: false})
-            return localStorage.setItem("history",  currenthistory == null ? history : currenthistory.includes(exists)?  (currenthistory) : history)             
-        }
-
-        if (NextState.wishlist == false && NextState.cart == true && NextState.history == true) {
-            let price = parseInt(localStorage.getItem("price"));
-            let price2 = price + NextState.lego.euR_MSRP
-            localStorage.setItem("price", price2);
-          
-        
+        if (NextState.wishlist == false && NextState.cart == true) {
             let currentlist2 = localStorage.getItem("shoppingcart")
             let list2 = currentlist2 == null ? NextState.lego.item_Number : currentlist2.valueOf().toString() + "," + NextState.lego.item_Number
             console.log("2e", NextState);
@@ -148,14 +134,10 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
     //     var random = Math.floor(Math.random() * (max - min + 1)) + min;
     //     return random;
     // }
-
     render() {
         // console.log("rendering", this.props.load.name)
-
         return <div>
             {console.log(this.props)}
-            
-            
             <h1>{this.props.lego.name}</h1>
             <br></br>
             <img src={this.props.lego.image_URL} width={300} height={200}/>
@@ -173,11 +155,6 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
 
             <br></br>
             
-            {/* <button onClick={() => this.setState({...this.state, lego:this.props.lego, wishlist: true}
-            )}>Add to wishlist </button> */}
-            {/* <button onClick={() => this.setState({...this.state, lego:this.props.lego, cart: true}
-                )}>Add to shoppingcart </button> */}
-            
             
             <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
             this.Createn()
@@ -193,7 +170,6 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
             this.setState({...this.state, lego:this.props.lego, cart: true})}>Add to shoppingcart </button>
 
 
-
         </div>;
     }
 
@@ -201,4 +177,3 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
 
     
 }
-

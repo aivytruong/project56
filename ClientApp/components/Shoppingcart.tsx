@@ -87,7 +87,7 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{wis
    calcTotalPrice()
    {
        let i = 0
-       this.state.legopr.map(lg => i = i + parseFloat(lg.euR_MSRP))
+       this.state.legopr.map(lg => i = i + parseFloat(lg.euR_MSRP || lg.usD_MSRP))
        return i
    }
     
