@@ -26,6 +26,20 @@ export async function delete_correctproduct(user_id: number, item_number:string)
     
 }
 
+export async function CreateShoppingcart(Item_Number: string, user_id:number)
+{
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers:  new Headers ({ 'content-type': 'application/json' }) })
+    
+    return console.log("made shoppingcart", res)
+}
+
+export async function CreateHistory(Item_Number: string, user_id:number)
+{
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers:  new Headers ({ 'content-type': 'application/json' }) })
+    
+    return console.log("made history", res)
+}
+
 type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading", wishlist2:Models.Shoppingcart[]}
 
 export class WishlistRouter extends React.Component<RouteComponentProps<{ wishlist:number, lego:Models.Lego}>, WishlistRouterState> {
@@ -92,7 +106,7 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{ wishli
         return <div>
             
                 {this.state.legopr.map((lego: Models.Lego) =>
-                <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} />)}
+                <Wishlist load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)}/>)}
             
             
         </div>
@@ -101,21 +115,53 @@ export class WishlistRouter extends React.Component<RouteComponentProps<{ wishli
 
 type WishlistProps = { id: number }
 
-type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
-export class Wishlist extends React.Component<LoadProducts, {}> {
+type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void}
+export class Wishlist extends React.Component<LoadProducts,{cart:boolean, load: Models.Lego | "loading"}> {
     constructor(props: LoadProducts) {
         super(props);
-        this.state = {};
+        this.state = {cart :false, load:"loading"};
     }
 
-    componentWillUpdate(NextProps: any, NextState: any) {
+    componentWillUpdate(NextProps:any, NextState:any)
+    {
+       
+
+        let exists = NextState.load.item_Number
+        console.log("exist", NextState.wishlist, NextState.cart);
+
+        if ( NextState.cart == true) {
+            let currentlist2 = localStorage.getItem("shoppingcart")
+            let list2 = currentlist2 == null ? NextState.load.item_Number : currentlist2.valueOf().toString() + "," + NextState.load.item_Number
+            console.log("2e", NextState);
+            this.setState({...this.state, cart: false})
+            return localStorage.setItem("shoppingcart",  currentlist2 == null ? list2 : currentlist2.includes(exists)? (alert("You already have this item in your shoppingcart."), currentlist2) : list2 )
+            
+        }         
+        else {
+            console.log("else", NextState);
+        }  
+
     }
+
 
     productDeleten()
     {   let user =  JSON.parse(sessionStorage.getItem("user"))
         user != null? 
         delete_correctproduct(user, this.props.load.item_Number).then(() => location.reload())
         : null  
+    }
+
+    Createnshop()
+    {
+        let user =  JSON.parse(sessionStorage.getItem("user"))
+
+        if (user != null)
+        {
+            CreateShoppingcart(this.props.load.item_Number,
+                user)
+            CreateHistory(this.props.load.item_Number,
+                user)
+        }
     }
 
     render() {
@@ -126,12 +172,20 @@ export class Wishlist extends React.Component<LoadProducts, {}> {
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
-            Price: €{this.props.load.euR_MSRP} 
+            {this.props.load.euR_MSRP == "NA" ?
+            <h3>Price: €{this.props.load.usD_MSRP}</h3> 
+            :
+            <h3>Price: €{this.props.load.euR_MSRP}</h3>}
 
             <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
             this.productDeleten()
             :
             this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </button>
+           
+           <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
+           this.Createnshop()
+           :
+           this.setState({...this.state, load:this.props.load, cart: true})}>Add to shoppingcart </button>
         </div>
     }
 }

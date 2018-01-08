@@ -140,13 +140,14 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         }
     }
 
-     DoyourThing()
-    {
-        for ( let i = 0 ; i <=1 ; i++)
-        {
-            this.setState({...this.state, lego:this.props.lego, history: true})
-        }
-    }  
+    // randomCalculator()
+    // {
+    //     var min = 15;
+    //     var max = 100;
+    //     // and the formula is:
+    //     var random = Math.floor(Math.random() * (max - min + 1)) + min;
+    //     return random;
+    // }
 
     render() {
         // console.log("rendering", this.props.load.name)
@@ -163,7 +164,13 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
             <br/>
             <p>Bring all of the action of the epic {this.props.lego.theme} to your adventurous builder with the {this.props.lego.name}. Your child will take on exciting challenges and obstacles with this functional, action-packed set. Builders can take a break from screen time and take on a new challenge! They can role play with their friends and take on the evils for incredible, larger than life stories! Designed with builders of all ages in mind, this toy with {this.props.lego.pieces} pieces will encourage open-ended building play, and inspire any imagination.  </p>
             <br></br>
-            <h3>Price: €{this.props.lego.euR_MSRP}</h3>
+
+
+            {this.props.lego.euR_MSRP == "NA" ?
+            <h3>Price: €{this.props.lego.usD_MSRP}</h3> 
+            :
+            <h3>Price: €{this.props.lego.euR_MSRP}</h3>}
+
             <br></br>
             
             {/* <button onClick={() => this.setState({...this.state, lego:this.props.lego, wishlist: true}

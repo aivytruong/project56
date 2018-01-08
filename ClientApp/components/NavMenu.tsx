@@ -13,87 +13,73 @@ export class NavMenu extends React.Component<{}, {}> {
                     </NavLink>
                 </li>
                 <li>
-                
-                {sessionStorage.getItem("userStatus") == "Ingelogd"? 
-                    <NavLink to={'/historypage'} activeClassName='active'>
-                        <span className='glyphicon glyphicon'></span> History
-                            </NavLink>
-                :
-                null
-                }
+                    {sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                        <NavLink to={'/HistoryPage'} activeClassName='active'>
+                            <span className='glyphicon glyphicon'></span> History
+                    </NavLink>
+                        :
+                        null}
                 </li>
-               
-                
+
                 {/* <li>
-                            <NavLink to={ '/sale' } activeClassName='active'>
-                                <span className='glyphicon glyphicon'></span> Sale
-                            </NavLink>
-                        </li> */}
-                 <li>
                             <NavLink to={ '/databasebutton' } activeClassName='active'>
                                 <span className='glyphicon glyphicon'></span> database
                             </NavLink>
-                        </li> 
+                        </li>  */}
                 <li>
                     <NavLink to={'/sets'} activeClassName='active'>
                         <span className='glyphicon glyphicon'></span> Sets
                             </NavLink>
                 </li>
-               
                 <li>
                     <NavLink to={'/separatebricks'} activeClassName='active'>
                         <span className='glyphicon glyphicon'></span> Minifigures
                             </NavLink>
-                   
                 </li>
-                        <li>
-                            <NavLink to={ '/AdminMode' } activeClassName='active'>
-                                <span className='glyphicon glyphicon'></span> Admin
-                            </NavLink>
-                            
-                        </li>
-                        <li className='dropdown'>
 
-                          { sessionStorage.getItem("userStatus") == "Ingelogd" ?  
-                           
-                             
-                            <a href ={'/'}
-                            onClick= {() => (sessionStorage.removeItem('user'), sessionStorage.removeItem('userStatus'))}
-                            
-                            >logout</a>
-                        :
-                        <NavLink to={ '/login' } activeClassName='active'> s
-                        <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20}/>
+                <li>
+                    {sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
+                        <NavLink to={'/AdminMode'} activeClassName='active'>
+                            <span className='glyphicon glyphicon'></span> Admin
                     </NavLink>
-                     
-                    }
-                    {/*<NavLink to={ '/losseblokken' } activeClassName='active'>
-                                <span className='glyphicon glyphicon'></span> Separate Bricks
-                            </NavLink>*/}
+                        :
+                        null}
                 </li>
-                    {/* <div className='dropdown-content'>
-                                <NavLink to={ '/sets' } activeClassName='active'>
-                                    <span className='glyphicon glyphicon'></span> Sets
-                                </NavLink>
-                                <NavLink to={ '/sets' } activeClassName='active'>
-                                    <span className='glyphicon glyphicon'></span> Sets
-                                </NavLink>
-                                <NavLink to={ '/sets' } activeClassName='active'>
-                                    <span className='glyphicon glyphicon'></span> Sets
-                                </NavLink>
-                            </div> */}
-                    <li className='dropdown-wish'>
-                        <NavLink to={'/wishlist'} activeClassName='active'>
-                            <img src="https://png.icons8.com/wish-list/ios7/50/000000" width={20} height={20} />
-                        </NavLink>
-                        </li>
 
-                        <li className='dropdown-shoppingcart'>
-                        <NavLink to={'/Shoppingcart'} activeClassName='active'>
-                            <img src="https://png.icons8.com/shopping-cart/dotty/50/000000" width={20} height={20} />
-                        </NavLink>
-                        </li>
-                        {/* <div className='dropdown-content'>
+                <li className='dropdown'>
+
+                    {sessionStorage.getItem("userStatus") == "Ingelogd" ?
+
+
+                        <a href={'/'}
+                            onClick={() => (sessionStorage.removeItem('user'), sessionStorage.removeItem('admin'), sessionStorage.removeItem('userStatus'))}
+
+                        >logout</a>
+                        :
+                        sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
+                            <a href={'/'}
+                                onClick={() => (sessionStorage.removeItem('admin'), sessionStorage.removeItem('user'), sessionStorage.removeItem('userStatus'))}
+
+                            >logout</a>
+                            :
+                            <NavLink to={'/login'} activeClassName='active'>
+                                <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20} />
+                            </NavLink>
+
+                    }
+                </li>
+                <li className='dropdown-wish'>
+                    <NavLink to={'/wishlist'} activeClassName='active'>
+                        <img src="https://png.icons8.com/wish-list/ios7/50/000000" width={20} height={20} />
+                    </NavLink>
+                </li>
+
+                <li className='dropdown-shoppingcart'>
+                    <NavLink to={'/Shoppingcart'} activeClassName='active'>
+                        <img src="https://png.icons8.com/shopping-cart/dotty/50/000000" width={20} height={20} />
+                    </NavLink>
+                </li>
+                {/* <div className='dropdown-content'>
                                 <NavLink to={ '/sets' } activeClassName='active'>
                                     <span className='glyphicon glyphicon'></span> Sets
                                 </NavLink>

@@ -10,7 +10,7 @@ import { Registreren } from './components/registreren';
 import { SeparateBricks } from './components/SeparateBricks';
 import { databasebutton } from './components/databasebutton';
 import {CorrectProduct} from './Components/DetailProduct';
-import { HistoryPage } from './components/HistoryPage';
+
 
 import { LegoCitySets } from './components/legoCitySets';
 import { AdvancedModelsSets } from './components/AdvancedModelsSets';
@@ -50,7 +50,7 @@ import {ShoppingCartRouter} from './components/Shoppingcart'
 import {Wishlist} from './components/Wishlist'
 import {loggedIn} from './components/LoggedIn'
 import {Checkout} from './components/Checkout'
-
+import {HistoryPage} from './components/HistoryPage'
 
 // import {WishlistRouter} from './components/WishlistRouter'
 
@@ -114,6 +114,7 @@ export const routes = <Layout>
     <Route path= '/Shoppingcart' component={ShoppingCartRouter}/>
     <Route path= '/LoggedIn' component ={loggedIn} />
     <Route path= '/Checkout' component ={Checkout} />
+    <Route path= '/HistoryPage' component ={HistoryPage} />
     
 </Layout>; 
 
