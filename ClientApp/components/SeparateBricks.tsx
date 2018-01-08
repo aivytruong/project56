@@ -23,7 +23,7 @@ export class SeparateBricks extends React.Component<RouteComponentProps<{}>, Com
     }
 
     componentWillMount() {
-        get_monsterfightsproduct("history").then(products => this.setState({ ...this.state, products: products }))
+        get_monsterfightsproduct("Collectable Minifigures").then(products => this.setState({ ...this.state, products: products }))
         console.log("mapping", this.state.products)
     }
 
