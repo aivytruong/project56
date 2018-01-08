@@ -31,43 +31,16 @@ export class NavMenu extends React.Component<{}, {}> {
                         <span className='glyphicon glyphicon'></span> Sets
                             </NavLink>
                 </li>
-<<<<<<< HEAD
-               
-=======
->>>>>>> b6f1ae00c920b07cbb931d70f90541787832f138
                 <li>
                     <NavLink to={'/separatebricks'} activeClassName='active'>
                         <span className='glyphicon glyphicon'></span> Minifigures
                             </NavLink>
-<<<<<<< HEAD
-                   
-                </li>
-                        <li>
-                            <NavLink to={ '/AdminMode' } activeClassName='active'>
-                                <span className='glyphicon glyphicon'></span> Admin
-                            </NavLink>
-                            
-                        </li>
-                        <li className='dropdown'>
-
-                          { sessionStorage.getItem("userStatus") == "Ingelogd" ?  
-                           
-                             
-                            <a href ={'/'}
-                            onClick= {() => (sessionStorage.removeItem('user'), sessionStorage.removeItem('userStatus'))}
-                            
-                            >logout</a>
-                        :
-                        <NavLink to={ '/login' } activeClassName='active'> s
-                        <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20}/>
-=======
                 </li>
 
                 <li>
                     {sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
                         <NavLink to={'/AdminMode'} activeClassName='active'>
                             <span className='glyphicon glyphicon'></span> Admin
->>>>>>> b6f1ae00c920b07cbb931d70f90541787832f138
                     </NavLink>
                         :
                         null}
