@@ -60,31 +60,31 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
                 </p>
                 <p>
                     <span className='css-text-red'>Email adress:</span>
-                    <input className='css-input css-lightred' value={this.state.emailAdress} onChange={event => this.setState({...this.state, emailAdress: event.target.value})}/>
+                    <input type="email adress" className='css-input css-lightred' value={this.state.emailAdress} onChange={event => this.setState({...this.state, emailAdress: event.target.value})}/>
                 </p>
                 <p>
                     <span className='css-text-red'>Password:</span>
-                    <input className='css-input css-lightred' value={this.state.password} onChange={event => this.setState({...this.state, password: event.target.value})}/>
+                    <input type="password" className='css-input css-lightred' value={this.state.password} onChange={event => this.setState({...this.state, password: event.target.value})}/>
                 </p>
                 <p>
                     <span className='css-text-red'>Adress:</span>
-                    <input className='css-input css-lightred' value={this.state.adress} onChange={event => this.setState({...this.state, adress: event.target.value})}/>
+                    <input  type="adress" className='css-input css-lightred' value={this.state.adress} onChange={event => this.setState({...this.state, adress: event.target.value})}/>
                 </p>
                 <p>
                     <span className='css-text-red'>Phone Number:</span>
-                    <input className='css-input css-lightred' value={this.state.phoneNumber} onChange={event => this.setState({...this.state, phoneNumber: event.target.value})}/>
+                    <input type="number" className='css-input css-lightred' value={this.state.phoneNumber} onChange={event => this.setState({...this.state, phoneNumber: event.target.value})}/>
                 </p>
                 <p>
                     <span className='css-text-red'>Country:</span>
-                    <input className='css-input css-lightred' value={this.state.Country} onChange={event => this.setState({...this.state, Country: event.target.value})}/>
+                    <input type="country" className='css-input css-lightred' value={this.state.Country} onChange={event => this.setState({...this.state, Country: event.target.value})}/>
                 </p>
                 <p>
                     <span className='css-text-red'>Date of Birth(DD-MM-YY): </span>
-                    <input className='css-input css-lightred' value={this.state.Date_of_birth} onChange={event => this.setState({...this.state, Date_of_birth: event.target.value})}/>
+                    <input type="date" className='css-input css-lightred' value={this.state.Date_of_birth} onChange={event => this.setState({...this.state, Date_of_birth: event.target.value})}/>
                 </p>
                 <p>
                     <span className='css-text-red'>Gender(M/V):</span>
-                    <input className='css-input css-lightred' value={this.state.gender} onChange={event => this.setState({...this.state, gender: event.target.value})}/>
+                    <input type="checkbox" className='css-input css-lightred' value={this.state.gender} onChange={event => this.setState({...this.state, gender: event.target.value})}/>
                 </p>
                 <p>
                     <button className='css-btn' onClick={() => this.Registreren()}>Create account</button>

@@ -126,7 +126,10 @@ export class Wishlist extends React.Component<LoadProducts, {}> {
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
-            Price: €{this.props.load.euR_MSRP} 
+            {this.props.load.euR_MSRP == "NA" ?
+            <h3>Price: €{this.props.load.usD_MSRP}</h3> 
+            :
+            <h3>Price: €{this.props.load.euR_MSRP}</h3>}
 
             <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
             this.productDeleten()

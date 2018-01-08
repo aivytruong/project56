@@ -21,7 +21,7 @@ namespace project56.Controllers
     
 
         [HttpGet("History")]
-        public History[] allWishlist() 
+        public History[] History() 
         {
             return _context.Historys.ToArray();
         }

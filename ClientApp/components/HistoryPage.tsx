@@ -8,8 +8,8 @@ import { ProductLoad } from './DetailProduct'
 
 
 
-export async function get_correctuser(user_id: number): Promise<Models.Shoppingcart[]> {
-    let res = await fetch(`./ShoppingcartController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+export async function get_correctuser(user_id: number): Promise<Models.History[]> {
+    let res = await fetch(`./HistoryController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = await res.json()
     console.log("received correct users", json)
     return json
@@ -18,7 +18,7 @@ export async function get_correctuser(user_id: number): Promise<Models.Shoppingc
 export async function get_history(): Promise<Models.History[]> {
     let res = await fetch(`./HistoryController/History`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = await res.json()
-    console.log("received correct users", json)
+    console.log("received correct history", json)
     return json
 }
 
@@ -76,7 +76,14 @@ export class History extends React.Component<LoadProducts, {}> {
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
-            {this.props.load.name}
+            {this.props.load.euR_MSRP == "NA" ?
+            <h3>Price: €{this.props.load.usD_MSRP}</h3> 
+            :
+            <h3>Price: €{this.props.load.euR_MSRP}</h3>}
+            <br></br>
+            <br></br>
+            <br></br>
+            
             
             
         </div>

@@ -10,7 +10,6 @@ import { Registreren } from './components/registreren';
 import { SeparateBricks } from './components/SeparateBricks';
 import { databasebutton } from './components/databasebutton';
 import {CorrectProduct} from './Components/DetailProduct';
-import { HistoryPage } from './components/HistoryPage';
 
 import { LegoCitySets } from './components/legoCitySets';
 import { AdvancedModelsSets } from './components/AdvancedModelsSets';
@@ -50,14 +49,11 @@ import {ShoppingCartRouter} from './components/Shoppingcart'
 import {Wishlist} from './components/Wishlist'
 import {loggedIn} from './components/LoggedIn'
 import {Checkout} from './components/Checkout'
-
+import {HistoryPage} from './components/HistoryPage'
 
 // import {WishlistRouter} from './components/WishlistRouter'
-
 import {filtertest} from './Components/filtertest'
 import {adminmode} from './Components/AdminMode'
-
-
 
 
 export const routes = <Layout>
@@ -69,7 +65,6 @@ export const routes = <Layout>
     <Route path='/registreren' component={ Registreren } />
     <Route path='/DetailProduct/:item_Number' component={ CorrectProduct } />
     {/* <Route path='/WishlistRouter/:id' component={ WishlistRouter } /> */}
-    <Route path='/historypage' component={ HistoryPage } />
 
     <Route path='/StarwarsSets' component={ StarwarsSets } />
     <Route path='/LegoCitySets' component={ LegoCitySets } />
@@ -114,6 +109,6 @@ export const routes = <Layout>
     <Route path= '/Shoppingcart' component={ShoppingCartRouter}/>
     <Route path= '/LoggedIn' component ={loggedIn} />
     <Route path= '/Checkout' component ={Checkout} />
+    <Route path= '/HistoryPage' component ={HistoryPage} />
     
 </Layout>; 
-
