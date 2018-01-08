@@ -13,9 +13,9 @@ export class ProductLoad extends React.Component<LoadProducts, {}> {
     }
 
     render() {
-        return <div>
+        return <div className="figuurtjesrow">
             <NavLink to={`/DetailProduct/${this.props.load.item_Number}`}>
-            <div> <img src={this.props.load.image_URL} width={300} height={200}/>
+            <div className="figuurtjes"> <img src={this.props.load.image_URL} width={300} height={200}/>
             <br></br>
             <button> {this.props.load.name} </button>
             </div>
