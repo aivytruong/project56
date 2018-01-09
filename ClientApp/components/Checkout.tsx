@@ -7,6 +7,20 @@ import { ShoppingCart } from './Shoppingcart'
 
 type Headers = { 'content-type': 'application/json' }
 
+type regState = { firstName: string, lastName: string, userName: string, emailAdress: string, password: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
+
+export async function CreateShoppingcart(Item_Number: string, user_id: number) {
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+
+    return console.log("made shoppingcart", res)
+}
+
+export async function CreateHistory(Item_Number: string, user_id: number) {
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+
+    return console.log("made history", res)
+}
+
 export async function UserInloggen(username: string, password: string): Promise<Models.Users> {
     let res = await fetch(`./UserController/Login/${username}/${password}`, { method: 'get', credentials: 'include', headers: new Headers })
     let json = res.json()
@@ -14,26 +28,26 @@ export async function UserInloggen(username: string, password: string): Promise<
 }
 
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
-    let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers:  new Headers })
+    let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: new Headers })
     let json = await res.json()
     console.log("received correct products", json)
     return json
 }
 
 export async function get_correctuser(user_id: number): Promise<Models.Wishlist[]> {
-    let res = await fetch(`./ShoppingcartController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers:  new Headers })
+    let res = await fetch(`./ShoppingcartController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers: new Headers })
     let json = await res.json()
     console.log("received correct users", json)
     return json
 }
 
 export async function delete_correctsc(user_id: number) {
-    let res = await fetch(`./ShoppingcartController/DeleteUserSC/${user_id}`, { method: 'delete', credentials: 'include', headers:  new Headers })
+    let res = await fetch(`./ShoppingcartController/DeleteUserSC/${user_id}`, { method: 'delete', credentials: 'include', headers: new Headers })
     return console.log("deleted shoppinglist")
 }
 
 type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
-type loginState = { userName: string, password: string, loggedin: boolean, admin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", legopr: Models.Lego[], wishlist2:Models.Wishlist[], firstName: string, lastName: string, emailAdress: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
+type loginState = { userName: string, password: string, loggedin: boolean, admin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", legopr: Models.Lego[], wishlist2: Models.Wishlist[], firstName: string, lastName: string, emailAdress: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
 
 export class Checkout extends React.Component<RouteComponentProps<{}>, loginState> {
     constructor(props, conetxt) {
@@ -46,7 +60,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
             admin: false,
             user: "loading",
             legopr: [],
-            wishlist2:[],
+            wishlist2: [],
             firstName: "",
             lastName: "",
             emailAdress: "",
@@ -65,22 +79,22 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
     }
 
     Inloggen() {
+
         UserInloggen(this.state.userName, this.state.password)
             .then(value => {
-                if (value.firstName != "") { this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }) }
+                if (value.firstName != "") {
+                    this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }), () =>
+                        CreateShoppingcart(localStorage.getItem("shoppingcart"), JSON.parse(sessionStorage.getItem("user"))),
+                    CreateHistory(localStorage.getItem("shoppingcart"), JSON.parse(sessionStorage.getItem("user")))
+                }
                 else { this.setState({ loggedin: false }) }
             })
 
+
+
+
     }
 
-    Admin(e) {
-        if (e.target.checked) {
-            this.setState({ ...this.state, admin: true })
-        }
-        else {
-            this.setState({ ...this.state, admin: false })
-        }
-    }
 
     deleteItem(NextState: any) {
         let prevListDelete = localStorage.getItem("shoppingcart")
@@ -99,9 +113,9 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
 
     render() {
         return <div>
-            
+
             {sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                    <Purchase/>
+                <Purchase />
                 :
                 <div>
                     <h2>Already have an account?</h2>
@@ -121,9 +135,6 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
                                     onChange={event => this.setState({ ...this.state, password: event.target.value })} placeholder='Wachtwoord' />
                             </p>
                             <p>
-                                <input type="checkbox" onChange={event => this.Admin(event)} />
-                            </p>
-                            <p>
 
                                 <button className='css-btn' onClick={() => this.Inloggen()}>Log in</button>
                             </p>
@@ -131,10 +142,52 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
                     </div>
 
                     <br />
-                    <h2>Don't have an account? Please make one to continue the checkout</h2>
+                    <h2>Don't have an account? Make one for free!</h2>
                     <NavLink to={'/registreren'} activeClassName='active'>
                         <button className='css-btn'>Registreren</button>
                     </NavLink>
+
+                    <h2>Want to continue your purchase without account?</h2>
+                    <div><div className='css-card'>
+                        <div className='css-container css-red'>
+                            <h2>Personal information</h2>
+                        </div><br />
+                        <div className='css-container'>
+                            <p>
+                                <span className='css-text-red'>First Name:</span>
+                                <input className='css-input css-lightred' />
+                            </p>
+                            <p>
+                                <span className='css-text-red'>Last Name:</span>
+                                <input className='css-input css-lightred' />
+                            </p>
+                            <p>
+                                <span className='css-text-red'>Email adress:</span>
+                                <input className='css-input css-lightred' />
+                            </p>
+                            <p>
+                                <span className='css-text-red'>Adress:</span>
+                                <input className='css-input css-lightred' />
+                            </p>
+                            <p>
+                                <span className='css-text-red'>Phone Number:</span>
+                                <input className='css-input css-lightred' />
+                            </p>
+                            <p>
+                                <span className='css-text-red'>Country:</span>
+                                <input className='css-input css-lightred' />
+                            </p>
+                            <p>
+                                <span className='css-text-red'>Date of Birth(DD-MM-YY): </span>
+                                <input className='css-input css-lightred' />
+                            </p>
+                            <p>
+                              <a href={'/PurchaseRoute'}> <button className='css-btn' >Purchase</button> </a>
+                            </p>
+                        </div>
+                    </div>
+                    </div>;
+
 
                     {/* <h2>Want to continue without registering?</h2>
                     <div><div className='css-card'>
@@ -181,16 +234,31 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
     }
 }
 
+export class PurchaseRoute extends React.Component<RouteComponentProps<{}>,  {}> {
+    constructor(props, conetxt) {
+        super(props)
+        this.state = {}
+    }
+
+    render() {
+        return <div>
+            <Purchase/>
+        </div>
+
+    }
+}
+
 export class Purchase extends React.Component<{}, {}> {
     constructor(props, conetxt) {
         super(props)
         this.state = {}
     }
 
+
     productDeleten() {
         let user = JSON.parse(sessionStorage.getItem("user"))
         user != null ?
-        delete_correctsc(user)
+            delete_correctsc(user)
             : null
     }
 
@@ -198,9 +266,11 @@ export class Purchase extends React.Component<{}, {}> {
     render() {
         console.log("render")
         return <div>
-            
+
             Order has been made!
+
             {this.productDeleten()}
+
 
 
         </div>

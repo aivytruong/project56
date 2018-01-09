@@ -50,6 +50,7 @@ import {Wishlist} from './components/Wishlist'
 import {loggedIn} from './components/LoggedIn'
 import {Checkout} from './components/Checkout'
 import {HistoryPage} from './components/HistoryPage'
+import {PurchaseRoute} from './components/Checkout'
 
 // import {WishlistRouter} from './components/WishlistRouter'
 
@@ -111,6 +112,7 @@ export const routes = <Layout>
     <Route path= '/LoggedIn' component ={loggedIn} />
     <Route path= '/Checkout' component ={Checkout} />
     <Route path= '/HistoryPage' component ={HistoryPage} />
+    <Route path= '/PurchaseRoute' component ={PurchaseRoute} />
     
 </Layout>; 
 

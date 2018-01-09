@@ -5,6 +5,20 @@ import * as Models from './lego_types'
 
 type loginState = { userName: string, password: string, loggedin: boolean, userStatus: "Ingelogd" | "Uitgelogd" | "AdminIngelogd", user: Models.Users | "loading", admin: Models.Admins | 'loading' }
 
+export async function CreateShoppingcart(Item_Number: string, user_id:number)
+{
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers:  new Headers ({ 'content-type': 'application/json' }) })
+    
+    return console.log("made shoppingcart", res)
+}
+
+export async function CreateHistory(Item_Number: string, user_id:number)
+{
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers:  new Headers ({ 'content-type': 'application/json' }) })
+    
+    return console.log("made history", res)
+}
+
 export async function UserInloggen(username: string, password: string): Promise<Models.Users> {
     let res = await fetch(`./UserController/Login/${username}/${password}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = res.json()
@@ -39,9 +53,12 @@ export class Login extends React.Component<RouteComponentProps<{}>, loginState> 
     Inloggen() {
         UserInloggen(this.state.userName, this.state.password)
             .then(value => {
-                if (value.firstName != "") { this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }) }
+                if (value.firstName != "") { this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }), 
+                () => 
+                CreateShoppingcart(localStorage.getItem("shoppingcart"), JSON.parse(sessionStorage.getItem("user")))}
                 else { this.setState({ loggedin: false }) }
-            })
+            }),
+            
         AdminInloggen(this.state.userName, this.state.password)
             .then(value => {
                 if (value.username != "") { this.setState({ ...this.state, loggedin: true, admin: value, userStatus: "AdminIngelogd" }) }

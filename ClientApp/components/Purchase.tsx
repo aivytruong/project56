@@ -11,6 +11,9 @@ export async function delete_correctproduct(user_id: number, item_number:string)
 
 type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
 
+
+
+
 export class Purchase extends React.Component<LoadProducts,  {deleteID: string}> {
     constructor(props, conetxt) {
         super(props)
