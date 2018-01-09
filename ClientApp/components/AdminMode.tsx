@@ -132,6 +132,8 @@ export class Productadmin extends React.Component<ProductProps,ProductState> {
                         <NavLink to={ `/Lego/Delete/${this.props.product.item_Number}` } activeClassName='active'>
                         <button>Delete</button>
                         </NavLink>
+                        <br/>
+                        <br/>
                     </div>}
                 </div>
     }
