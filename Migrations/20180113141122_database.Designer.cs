@@ -11,7 +11,7 @@ using System;
 namespace project56.Migrations
 {
     [DbContext(typeof(LegoContext))]
-    [Migration("20171216172514_database")]
+    [Migration("20180113141122_database")]
     partial class database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +74,8 @@ namespace project56.Migrations
 
                     b.Property<string>("Item_Number");
 
+                    b.Property<int>("amount");
+
                     b.Property<int>("user_id");
 
                     b.HasKey("id");
@@ -123,6 +125,8 @@ namespace project56.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Item_Number");
+
+                    b.Property<int>("amount");
 
                     b.Property<int>("user_id");
 

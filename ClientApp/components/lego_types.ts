@@ -1,3 +1,5 @@
+
+
 export type Lego = {
     item_Number : string
     name : string
@@ -13,6 +15,7 @@ export type Lego = {
     euR_MSRP : string
     packaging : string
     availability : string
+    
 }
 
 export type Users = {
@@ -43,9 +46,16 @@ export type Wishlist = {
 export type Shoppingcart = {
     item_Number : string
     user_id : number
+    amount : number
 }
 
 export type History = {
     item_Number : string
     user_id : number
+    amount : number
+}
+
+export type Beiden = {
+    products : Lego
+    shoppingcart : Shoppingcart
 }

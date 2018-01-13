@@ -5,17 +5,15 @@ import * as Models from './lego_types'
 
 type loginState = { userName: string, password: string, loggedin: boolean, userStatus: "Ingelogd" | "Uitgelogd" | "AdminIngelogd", user: Models.Users | "loading", admin: Models.Admins | 'loading' }
 
-export async function CreateShoppingcart(Item_Number: string, user_id:number)
-{
-    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers:  new Headers ({ 'content-type': 'application/json' }) })
-    
+export async function CreateShoppingcart(Item_Number: string, user_id: number) {
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+
     return console.log("made shoppingcart", res)
 }
 
-export async function CreateHistory(Item_Number: string, user_id:number)
-{
-    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers:  new Headers ({ 'content-type': 'application/json' }) })
-    
+export async function CreateHistory(Item_Number: string, user_id: number) {
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+
     return console.log("made history", res)
 }
 
@@ -48,22 +46,26 @@ export class Login extends React.Component<RouteComponentProps<{}>, loginState> 
         sessionStorage.setItem("user", JSON.stringify(NextState.user.id))
         sessionStorage.setItem("admin", NextState.admin.username)
         sessionStorage.setItem("userStatus", NextState.userStatus)
-   }
+    }
 
     Inloggen() {
         UserInloggen(this.state.userName, this.state.password)
-            .then(value => {
-                if (value.firstName != "") { this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }), 
-                () => 
-                CreateShoppingcart(localStorage.getItem("shoppingcart"), JSON.parse(sessionStorage.getItem("user")))}
-                else { this.setState({ loggedin: false }) }
-            }),
-            
-        AdminInloggen(this.state.userName, this.state.password)
-            .then(value => {
-                if (value.username != "") { this.setState({ ...this.state, loggedin: true, admin: value, userStatus: "AdminIngelogd" }) }
-                else { this.setState({ loggedin: false }) }
-            })
+        .then(value => {
+            if (value.firstName != "") 
+            {
+                this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }, () =>
+                {let prevList = localStorage.getItem("shoppingcart")
+                let currentList = prevList == null ? null : prevList.split(",").reverse()
+                currentList.map(e =>  CreateShoppingcart(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map shoppingcart"))})
+            }
+            else { this.setState({ loggedin: false }), console.log("else") }
+        }),
+
+            AdminInloggen(this.state.userName, this.state.password)
+                .then(value => {
+                    if (value.username != "") { this.setState({ ...this.state, loggedin: true, admin: value, userStatus: "AdminIngelogd" }) }
+                    else { this.setState({ loggedin: false }) }
+                })
     }
 
     // Admin(e) 
@@ -79,7 +81,7 @@ export class Login extends React.Component<RouteComponentProps<{}>, loginState> 
     public render() {
 
         return <div>
-            {sessionStorage.getItem("userStatus") == "Ingelogd" || sessionStorage.getItem("userStatus") == "AdminIngelogd"?
+            {sessionStorage.getItem("userStatus") == "Ingelogd" || sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
                 <Redirect to={'/'}> </Redirect> :
                 <div>
                     <div className='css-card'>
@@ -97,9 +99,6 @@ export class Login extends React.Component<RouteComponentProps<{}>, loginState> 
                                 <input type='password' className='css-input css-lightred' value={this.state.password}
                                     onChange={event => this.setState({ ...this.state, password: event.target.value })} placeholder='Wachtwoord' />
                             </p>
-                            {/* <p>
-                    <input type="checkbox" onChange={event => this.Admin(event)}/>
-                </p> */}
                             <p>
 
                                 <button className='css-btn' onClick={() => this.Inloggen()}>Log in</button>

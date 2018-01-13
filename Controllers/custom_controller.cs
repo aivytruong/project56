@@ -75,6 +75,8 @@ namespace project56.Controllers
             return _context.Legos.ToArray();
         }
 
+       
+
 
 
 

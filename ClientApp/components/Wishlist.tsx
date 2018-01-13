@@ -38,7 +38,7 @@ export async function CreateHistory(Item_Number: string, user_id:number)
     return console.log("made history", res)
 }
 
-type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading", wishlist2:Models.Shoppingcart[]}
+type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user:Models.Users | "loading", wishlist2:Models.Wishlist[]}
 
 export class WishlistRouter extends React.Component<RouteComponentProps<{ wishlist:number, lego:Models.Lego}>, WishlistRouterState> {
     constructor(props: RouteComponentProps<{wishlist:number, lego:Models.Lego}>) {

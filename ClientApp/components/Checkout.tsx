@@ -47,7 +47,7 @@ export async function delete_correctsc(user_id: number) {
 }
 
 type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
-type loginState = { userName: string, password: string, loggedin: boolean, admin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", legopr: Models.Lego[], wishlist2: Models.Wishlist[], firstName: string, lastName: string, emailAdress: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
+type loginState = { userName: string, password: string, loggedin: boolean, admin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", legopr: Models.Lego[], wishlist2: Models.Shoppingcart[], firstName: string, lastName: string, emailAdress: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
 
 export class Checkout extends React.Component<RouteComponentProps<{}>, loginState> {
     constructor(props, conetxt) {
@@ -79,20 +79,18 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
     }
 
     Inloggen() {
-
+        console.log("inloggen")
         UserInloggen(this.state.userName, this.state.password)
             .then(value => {
-                if (value.firstName != "") {
-                    this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }), () =>
-                        CreateShoppingcart(localStorage.getItem("shoppingcart"), JSON.parse(sessionStorage.getItem("user"))),
-                    CreateHistory(localStorage.getItem("shoppingcart"), JSON.parse(sessionStorage.getItem("user")))
+                if (value.firstName != "") 
+                {
+                    this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }, () =>
+                    {let prevList = localStorage.getItem("shoppingcart")
+                    let currentList = prevList == null ? null : prevList.split(",").reverse()
+                    currentList.map(e =>  CreateHistory(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map history"))})
                 }
-                else { this.setState({ loggedin: false }) }
+                else { this.setState({ loggedin: false }), console.log("else") }
             })
-
-
-
-
     }
 
 
@@ -254,11 +252,16 @@ export class Purchase extends React.Component<{}, {}> {
         this.state = {}
     }
 
+    componentWillMount(){
+        localStorage.getItem("userStatus")
+    }
+
 
     productDeleten() {
         let user = JSON.parse(sessionStorage.getItem("user"))
         user != null ?
             delete_correctsc(user)
+
             : null
     }
 

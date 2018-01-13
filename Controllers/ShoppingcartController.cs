@@ -10,18 +10,18 @@ using project56.model;
 namespace project56.Controllers
 {
     [Route("ShoppingcartController")]
-    public class ShoppingcartController : Controller 
+    public class ShoppingcartController : Controller
     {
         private readonly LegoContext _context;
 
-        public ShoppingcartController(LegoContext context) 
+        public ShoppingcartController(LegoContext context)
         {
             _context = context;
         }
-    
+
 
         [HttpGet("Shoppingcart")]
-        public Shoppingcart[] allWishlist() 
+        public Shoppingcart[] allWishlist()
         {
             return _context.Shoppingcarts.ToArray();
         }
@@ -30,19 +30,35 @@ namespace project56.Controllers
         public Shoppingcart[] CorrectUser(int user_id)
         {
             var user = from _user in _context.Shoppingcarts
-                           where _user.user_id == user_id
-                           select _user;
-                           
-            return user.ToArray();  
+                       where _user.user_id == user_id
+                       select _user;
+
+            return user.ToArray();
         }
-        
-        
+
+        [HttpPost("Amount/{item_number}/{amount}")]
+        public void Amount(string item_number, int amount)
+        {
+            Shoppingcart newamount = new Shoppingcart()
+            {
+                Item_Number = item_number
+                                            ,
+                amount = amount
+            };
+            _context.Shoppingcarts.Update(newamount);
+            _context.Entry(newamount);
+            _context.SaveChanges();
+        }
+
+
         [HttpPost("CreateShoppingcart/{Item_Number}/{user_id}")]
         public void CreateShoppingcart(string Item_Number, int user_id)
         {
-            Shoppingcart newwishlist = new Shoppingcart() {Item_Number = Item_Number,
-                                                   user_id = user_id,
-                                                   };
+            Shoppingcart newwishlist = new Shoppingcart()
+            {
+                Item_Number = Item_Number,
+                user_id = user_id,
+            };
             _context.Shoppingcarts.Add(newwishlist);
             _context.SaveChanges();
         }
@@ -50,10 +66,12 @@ namespace project56.Controllers
         [HttpPut("Update/{Item_Number}/{user_id}")]
         public void Update(string Item_Number, int user_id)
         {
-           
-            Shoppingcart updatewishlist = new Shoppingcart() {Item_Number = Item_Number,
-                                                   user_id = user_id
-                                                   };
+
+            Shoppingcart updatewishlist = new Shoppingcart()
+            {
+                Item_Number = Item_Number,
+                user_id = user_id
+            };
             _context.Update(updatewishlist);
             _context.Entry(updatewishlist);
             _context.SaveChanges();
@@ -66,7 +84,7 @@ namespace project56.Controllers
                        where _user.user_id == user_id && _user.Item_Number == Item_Number
                        select _user;
             _context.Shoppingcarts.Remove(user.FirstOrDefault());
-            _context.SaveChanges();                     
+            _context.SaveChanges();
         }
 
         [HttpDelete("DeleteUserSC/{user_id}")]
@@ -76,7 +94,7 @@ namespace project56.Controllers
                        where _user.user_id == user_id
                        select _user;
             _context.Shoppingcarts.Remove(user.FirstOrDefault());
-            _context.SaveChanges();                     
+            _context.SaveChanges();
         }
     }
 }

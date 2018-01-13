@@ -93,7 +93,7 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
             let list2 = currentlist2 == null ? NextState.lego.item_Number : currentlist2.valueOf().toString() + "," + NextState.lego.item_Number
             console.log("2e", NextState);
             this.setState({...this.state, cart: false})
-            return localStorage.setItem("shoppingcart",  currentlist2 == null ? list2 : currentlist2.includes(exists)? (alert("You already have this item in your shoppingcart."), currentlist2) : list2 )
+            return localStorage.setItem("shoppingcart",  currentlist2 == null ? list2 : currentlist2.includes(exists)? (alert("You already have this item in your shoppingcart, if you want to have more please change the amount in the shoppingcart."), currentlist2) : list2 )
             
         }         
         else {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace project56.Migrations
 {
-    public partial class legodbb : Migration
+    public partial class database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,6 +22,21 @@ namespace project56.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_admindetails", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "historydetails",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int4", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Item_Number = table.Column<string>(type: "text", nullable: true),
+                    amount = table.Column<int>(type: "int4", nullable: false),
+                    user_id = table.Column<int>(type: "int4", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_historydetails", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,6 +61,21 @@ namespace project56.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_legodetails", x => x.Item_Number);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "shoppingcartdetails",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int4", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Item_Number = table.Column<string>(type: "text", nullable: true),
+                    amount = table.Column<int>(type: "int4", nullable: false),
+                    user_id = table.Column<int>(type: "int4", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shoppingcartdetails", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,7 +121,13 @@ namespace project56.Migrations
                 name: "admindetails");
 
             migrationBuilder.DropTable(
+                name: "historydetails");
+
+            migrationBuilder.DropTable(
                 name: "legodetails");
+
+            migrationBuilder.DropTable(
+                name: "shoppingcartdetails");
 
             migrationBuilder.DropTable(
                 name: "UserDetails");

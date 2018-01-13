@@ -73,6 +73,8 @@ namespace project56.Migrations
 
                     b.Property<string>("Item_Number");
 
+                    b.Property<int>("amount");
+
                     b.Property<int>("user_id");
 
                     b.HasKey("id");
@@ -122,6 +124,8 @@ namespace project56.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Item_Number");
+
+                    b.Property<int>("amount");
 
                     b.Property<int>("user_id");
 
