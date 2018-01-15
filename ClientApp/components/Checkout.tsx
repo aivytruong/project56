@@ -90,6 +90,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
                     let currentList = prevList == null ? null : prevList.split(",").reverse()
                     currentList.map(e =>  CreateHistory(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map history"))})
                     localStorage.removeItem("shoppingcart")
+                    
                 }
                 else { this.setState({ loggedin: false }), console.log("else") }
             })

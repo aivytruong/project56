@@ -28,7 +28,10 @@ namespace project56.Controllers
         [HttpPost("CreateUser/{firstName}/{lastName}/{userName}/{emailAdress}/{password}/{adress}/{phoneNumber}/{Country}/{Date_of_birth}/{gender}")]
         public void CreateUser(string firstName, string lastName, string userName, string emailAdress, string password, string adress, string phoneNumber, string Country, string Date_of_birth, string gender)
         {
-            ClassUser newuser = new ClassUser() {   FirstName = firstName,
+            var item = _context.Users.FirstOrDefault(u => u.UserName == userName && u.EmailAdress == emailAdress);
+            if (item == null)
+            {
+                ClassUser newuser = new ClassUser() {   FirstName = firstName,
                                                     LastName = lastName,
                                                     UserName = userName,
                                                     EmailAdress = emailAdress,
@@ -38,8 +41,12 @@ namespace project56.Controllers
                                                     country = Country,
                                                     date_of_birth = Date_of_birth,
                                                     Gender = gender};
-            _context.Users.Add(newuser);
-            _context.SaveChanges();
+                _context.Users.Add(newuser);
+                _context.SaveChanges();
+            }
+            else {
+                throw new Exception("wrong");
+            }
         }
 
         [HttpGet("Login/{username}/{password}")]

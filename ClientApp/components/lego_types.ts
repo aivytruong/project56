@@ -44,6 +44,7 @@ export type Wishlist = {
 }
 
 export type Shoppingcart = {
+    id : number
     item_Number : string
     user_id : number
     amount : number

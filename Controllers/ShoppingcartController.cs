@@ -36,17 +36,43 @@ namespace project56.Controllers
             return user.ToArray();
         }
 
-        [HttpPost("Amount/{item_number}/{amount}")]
-        public void Amount(string item_number, int amount)
+        [HttpPost("Amount/{item_number}/{user_id}")]
+        public void Amount(string item_number, int user_id)
         {
-            Shoppingcart newamount = new Shoppingcart()
-            {
-                Item_Number = item_number
-                                            ,
-                amount = amount
-            };
-            _context.Shoppingcarts.Update(newamount);
-            _context.Entry(newamount);
+            // Shoppingcart newamount = new Shoppingcart()
+            // {
+            //     Item_Number = item_number
+            //                                 ,
+            //     amount = amount,
+            //     user_id = user_id
+            // };
+            // _context.Shoppingcarts.Update(newamount);
+            // _context.Entry(newamount);
+            // _context.SaveChanges();
+
+            var am = _context.Shoppingcarts.FirstOrDefault(d => d.Item_Number == item_number && d.user_id == user_id);
+            am.amount = am.amount + 1;
+
+            _context.SaveChanges();
+        }
+
+        [HttpPost("AmountMin/{item_number}/{user_id}")]
+        public void AmountMin(string item_number, int user_id)
+        {
+            // Shoppingcart newamount = new Shoppingcart()
+            // {
+            //     Item_Number = item_number
+            //                                 ,
+            //     amount = amount,
+            //     user_id = user_id
+            // };
+            // _context.Shoppingcarts.Update(newamount);
+            // _context.Entry(newamount);
+            // _context.SaveChanges();
+
+            var am = _context.Shoppingcarts.FirstOrDefault(d => d.Item_Number == item_number && d.user_id == user_id);
+            am.amount = am.amount - 1;
+
             _context.SaveChanges();
         }
 

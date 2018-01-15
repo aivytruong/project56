@@ -54,7 +54,7 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
             this.state.Date_of_birth,
             this.state.gender)
 
-       
+            
     }
 
     public render() {
@@ -111,7 +111,7 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
                     <input className='css-input css-lightred' value={this.state.gender} onChange={event => this.setState({ ...this.state, gender: event.target.value })} />
                 </p>
                 <p>
-                   <NavLink to={'/'}><button className='css-btn' onClick={() => this.Registreren()}>Create account</button> </NavLink> 
+                   <button className='css-btn' onClick={() => this.Registreren()}>Create account</button> 
                 </p>
                 
             </div>

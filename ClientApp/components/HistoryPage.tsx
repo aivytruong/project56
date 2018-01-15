@@ -81,9 +81,6 @@ export class History extends React.Component<LoadProducts, {}> {
             <h4>Status: pending...</h4>
             <br></br>
             <br></br>
-            
-            
-            
         </div>
     }
 }

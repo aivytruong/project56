@@ -39,10 +39,16 @@ export async function delete_correctproduct2(user_id: number, item_number: strin
 
 }
 
-export async function updateamount(item_number: string, amount: number) {
-    let res = await fetch(`./ShoppingcartController/Amount/{item_number}/{amount}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
-    let json = await res.json()
-    return console.log("updated amount", json)
+export async function updateamount(item_number: string,  user_id:number) {
+    let res = await fetch(`./ShoppingcartController/Amount/${item_number}/${user_id}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    // let json = await res.json()
+    return console.log("updated amount", res.status)
+}
+
+export async function updateminamount(item_number: string,  user_id:number) {
+    let res = await fetch(`./ShoppingcartController/AmountMin/${item_number}/${user_id}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    // let json = await res.json()
+    return console.log("updated amount", res.status)
 }
 
 export async function CreateHistory(Item_Number: string, user_id: number) {
@@ -132,10 +138,10 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
     render() {
         console.log(this.state.legopr)
         return <div>
-            {/* 
+            
             {this.state.legopr.map((lego: Models.Lego) =>
-                <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} amount={this.state.amount}/>)
-            } */}
+                <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)}  shopcart = {this.state.shopcart.find(p => p.item_Number == lego.item_Number)}/>)
+            }
 
             <br></br>
             Total price = {this.calcTotalPrice()}
@@ -148,17 +154,24 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
 
 // type WishlistProps = { id: number }
 
-type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void, amount: number, shopcart: Models.Shoppingcart }
-export class ShoppingCart extends React.Component<LoadProducts, { deleteID: string, shopcart: Models.Shoppingcart | 'loading' }> {
+type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void, shopcart: Models.Shoppingcart }
+export class ShoppingCart extends React.Component<LoadProducts, { deleteID: string }> {
     constructor(props: LoadProducts) {
         super(props);
-        this.state = { deleteID: "", shopcart: 'loading' };
+        this.state = { deleteID: "" };
     }
 
     addToAmount() {
 
+        
+        return updateamount(this.props.shopcart.item_Number, JSON.parse(sessionStorage.getItem("user"))), location.reload()
 
-        return updateamount(this.props.shopcart.item_Number, (this.props.shopcart.amount + 1))
+    }
+
+    deleteFromAmount() {
+
+        
+        return updateminamount(this.props.shopcart.item_Number, JSON.parse(sessionStorage.getItem("user"))), location.reload()
 
     }
 
@@ -182,7 +195,7 @@ export class ShoppingCart extends React.Component<LoadProducts, { deleteID: stri
             <h4>Price: €{this.props.load.usD_MSRP}</h4>
 
 
-            Amount: <button>-</button> {this.props.shopcart.amount} <button onClick={() => this.addToAmount()}>+</button>
+            Amount: <button onClick={() => this.deleteFromAmount()}>-</button> { this.props.shopcart.amount} <button onClick={() => this.addToAmount()}>+</button>
 
             <br />
             <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
