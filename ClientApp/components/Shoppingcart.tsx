@@ -39,13 +39,13 @@ export async function delete_correctproduct2(user_id: number, item_number: strin
 
 }
 
-export async function updateamount(item_number: string,  user_id:number) {
+export async function updateamount(item_number: string, user_id: number) {
     let res = await fetch(`./ShoppingcartController/Amount/${item_number}/${user_id}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
     // let json = await res.json()
     return console.log("updated amount", res.status)
 }
 
-export async function updateminamount(item_number: string,  user_id:number) {
+export async function updateminamount(item_number: string, user_id: number) {
     let res = await fetch(`./ShoppingcartController/AmountMin/${item_number}/${user_id}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
     // let json = await res.json()
     return console.log("updated amount", res.status)
@@ -71,15 +71,26 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
         console.log({ currentList })
 
 
-        sessionStorage.getItem("userStatus") != "Ingelogd" ?
-            currentList != null ? currentList.map(b =>
-                get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b) }))
-                    .catch(error => console.error(error))
+        if (sessionStorage.getItem("userStatus") != "Ingelogd") {
 
-            )
-                : null
-
+            let cartlijst = JSON.parse(localStorage.getItem("cart"))
+            cartlijst != null ?
+            cartlijst.map((item : any) =>
+                     get_correctproduct(item.lego).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b) }))
+                         .catch(error => console.error(error)))
             :
+            null
+        }
+        // currentList != null ? currentList.map(b =>
+        //     get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b) }))
+        //         .catch(error => console.error(error))
+
+        // )
+        //     : null
+
+
+
+        else {
 
             this.state.shopcart != null && sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 (get_correctuser(parseInt(sessionStorage.getItem("user"))).
@@ -89,21 +100,38 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
                     catch(error => console.error(error))
                 :
                 null
+        }
     }
 
     deleteItem(NextState: any) {
-        let prevListDelete = localStorage.getItem("shoppingcart")
-        let nextList = prevListDelete != null ? (prevListDelete.replace(NextState, "")) : ""
-        localStorage.setItem("shoppingcart", nextList != null ? nextList : nextList)
-        let prevList = localStorage.getItem("shoppingcart")
-        let currentList = prevList == null ? null : prevList.split(",").reverse()
+        // let prevListDelete = localStorage.getItem("shoppingcart")
+        // let nextList = prevListDelete != null ? (prevListDelete.replace(NextState, "")) : ""
+        // localStorage.setItem("shoppingcart", nextList != null ? nextList : nextList)
+        // let prevList = localStorage.getItem("shoppingcart")
+        // let currentList = prevList == null ? null : prevList.split(",").reverse()
 
-        currentList != null ? currentList.map(b =>
-            get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b) }), () => location.reload())
-                .catch(error => console.error(error))
+        // currentList != null ? currentList.map(b =>
+        //     get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b) }), () => location.reload())
+        //         .catch(error => console.error(error))
 
-        )
-            : null
+        // )
+        //     : null
+
+        let cart = localStorage.getItem("cart")
+        let cartlijst = JSON.parse(cart)
+        cartlijst != null ?
+            cartlijst.map((e: any) => e.lego == NextState ?
+                cartlijst.splice(cartlijst.indexOf(e), 1)
+                :
+                console.log("else"))
+                
+            :
+            console.log("localstorage cart is empty")
+            localStorage.setItem("cart", JSON.stringify(cartlijst))
+            location.reload()
+
+
+
     }
 
 
@@ -122,22 +150,22 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
     checkout() {
         this.setState({ ...this.state, userStatus: "Ingelogd" })
 
-        
+
         {
             let user = sessionStorage.getItem("user")
             sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 (this.state.legopr.map(e => CreateHistory(e.item_Number, JSON.parse(sessionStorage.getItem("user")))), location.replace('/checkout'))
-            :
-            location.replace('/checkout')
+                :
+                location.replace('/checkout')
         }
     }
 
     render() {
         console.log(this.state.legopr)
         return <div>
-            
+
             {this.state.legopr.map((lego: Models.Lego) =>
-                <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)}  shopcart = {this.state.shopcart.find(p => p.item_Number == lego.item_Number)}/>)
+                <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} shopcart={this.state.shopcart.find(p => p.item_Number == lego.item_Number)} />)
             }
 
             <br></br>
@@ -152,22 +180,24 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
 // type WishlistProps = { id: number }
 
 type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void, shopcart: Models.Shoppingcart }
-export class ShoppingCart extends React.Component<LoadProducts, { deleteID: string }> {
+export class ShoppingCart extends React.Component<LoadProducts, { deleteID: string, amount: number }> {
     constructor(props: LoadProducts) {
         super(props);
-        this.state = { deleteID: "" };
+        this.state = { deleteID: "", amount: 0 };
     }
+
+
 
     addToAmount() {
 
-        
+
         return updateamount(this.props.shopcart.item_Number, JSON.parse(sessionStorage.getItem("user"))), location.reload()
 
     }
 
     deleteFromAmount() {
 
-        
+
         return updateminamount(this.props.shopcart.item_Number, JSON.parse(sessionStorage.getItem("user"))), location.reload()
 
     }
@@ -178,6 +208,37 @@ export class ShoppingCart extends React.Component<LoadProducts, { deleteID: stri
             (delete_correctproduct(user, this.props.load.item_Number).then(() => location.reload()),
                 delete_correctproduct2(user, this.props.load.item_Number).then(() => location.reload()))
             : null
+    }
+
+    AddToLocalStoragePlus() {
+        let cart = localStorage.getItem("cart")
+        let cartlijst = JSON.parse(cart)
+        cartlijst != null ?
+            cartlijst.map((e: any) => e.lego == this.props.load.item_Number ?
+                e.amount = e.amount + 1
+                :
+                null)
+                
+            :
+            console.log("localstorage cart is empty")
+            localStorage.setItem("cart", JSON.stringify(cartlijst))
+
+
+    }
+
+    AddToLocalStorageMin() {
+        let cart = localStorage.getItem("cart")
+        let cartlijst = JSON.parse(cart)
+        cartlijst != null ?
+            cartlijst.map((e: any) => e.lego == this.props.load.item_Number ?
+                e.amount = e.amount - 1
+                :
+                null)
+            :
+            console.log("localstorage cart is empty")
+            localStorage.setItem("cart", JSON.stringify(cartlijst))
+
+
     }
 
 
@@ -191,8 +252,30 @@ export class ShoppingCart extends React.Component<LoadProducts, { deleteID: stri
 
             <h4>Price: €{this.props.load.usD_MSRP}</h4>
 
+            {/* <button onClick={() => this.deleteFromAmount()}>-</button> { this.props.shopcart.amount} <button onClick={() => this.addToAmount()}>+</button> */}
 
-            Amount: <button onClick={() => this.deleteFromAmount()}>-</button> { this.props.shopcart.amount} <button onClick={() => this.addToAmount()}>+</button>
+            <h4>Amount:
+            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+
+                    this.deleteFromAmount()
+                    :
+                    this.AddToLocalStorageMin()
+                }>-</button>
+
+                {sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                    <div>{this.props.shopcart.amount}</div>
+                    :
+                    <div>{sessionStorage.getItem("amount")}</div>
+                }
+
+                <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+
+                    this.addToAmount()
+                    :
+                    this.AddToLocalStoragePlus()
+
+                }>+</button>
+            </h4>
 
             <br />
             <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?

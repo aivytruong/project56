@@ -53,7 +53,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
     constructor(props, conetxt) {
         super(props)
         this.state = {
-            lego:'loading',
+            lego: 'loading',
             userStatus: "Uitgelogd",
             userName: "",
             password: "",
@@ -80,45 +80,48 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
     }
 
     Inloggen() {
-        console.log("inloggen")
+        // console.log("inloggen")
+        // UserInloggen(this.state.userName, this.state.password)
+        //     .then(value => {
+        //         if (value.firstName != "") 
+        //         {
+        //             this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }, () =>
+        //             {let prevList = localStorage.getItem("shoppingcart")
+        //             let currentList = prevList == null ? null : prevList.split(",").reverse()
+        //             currentList.map(e =>  CreateHistory(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map history"))})
+        //             localStorage.removeItem("shoppingcart")
+
+        //         }
+        //         else { this.setState({ loggedin: false }), console.log("else") }
+        //     })
+
         UserInloggen(this.state.userName, this.state.password)
             .then(value => {
-                if (value.firstName != "") 
-                {
-                    this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }, () =>
-                    {let prevList = localStorage.getItem("shoppingcart")
-                    let currentList = prevList == null ? null : prevList.split(",").reverse()
-                    currentList.map(e =>  CreateHistory(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map history"))})
-                    localStorage.removeItem("shoppingcart")
-                    
+                if (value.userName != "") {
+                    this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" },
+                        () => {
+                            let cart = localStorage.getItem("cart")
+                            let cartlijst = JSON.parse(cart)
+                            cartlijst != null ?
+                                cartlijst.map((e: any) => CreateHistory(e.lego, JSON.parse(sessionStorage.getItem("user"))), localStorage.removeItem("cart"))
+                                :
+                                console.log("localstorage cart is empty")
+                        }
+                    )
                 }
                 else { this.setState({ loggedin: false }), console.log("else") }
             })
     }
 
 
-    deleteItem(NextState: any) {
-        let prevListDelete = localStorage.getItem("shoppingcart")
-        let nextList = prevListDelete != null ? (prevListDelete.replace(NextState, "")) : ""
-        localStorage.setItem("shoppingcart", nextList != null ? nextList : nextList)
-        let prevList = localStorage.getItem("shoppingcart")
-        let currentList = prevList == null ? null : prevList.split(",").reverse()
-
-        currentList != null ? currentList.map(b =>
-            get_correctproduct(b).then(b => this.setState({ ...this.state, legopr: this.state.legopr.concat(b) }), () => location.reload())
-                .catch(error => console.error(error))
-
-        )
-            : null
-    }
 
     render() {
         return <div>
-            
+
             {sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                 
-                    <Purchase/>
-                
+
+                <Purchase />
+
                 :
                 <div>
                     <h2>Already have an account?</h2>
@@ -185,7 +188,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
                                 <input className='css-input css-lightred' />
                             </p>
                             <p>
-                              <a href={'/PurchaseRoute'}> <button className='css-btn' >Purchase</button> </a>
+                                <a href={'/PurchaseRoute'}> <button className='css-btn' >Purchase</button> </a>
                             </p>
                         </div>
                     </div>
@@ -237,7 +240,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
     }
 }
 
-export class PurchaseRoute extends React.Component<RouteComponentProps<{}>,  {}> {
+export class PurchaseRoute extends React.Component<RouteComponentProps<{}>, {}> {
     constructor(props, conetxt) {
         super(props)
         this.state = {}
@@ -245,20 +248,20 @@ export class PurchaseRoute extends React.Component<RouteComponentProps<{}>,  {}>
 
     render() {
         return <div>
-            <Purchase/>
+            <Purchase />
         </div>
 
     }
 }
 
-export type PurchaseProps = {lego:Models.Lego}
+export type PurchaseProps = { lego: Models.Lego }
 export class Purchase extends React.Component<{}, {}> {
     constructor(props, conetxt) {
         super(props)
         this.state = {}
     }
 
-    componentWillMount(){
+    componentWillMount() {
         localStorage.getItem("userStatus")
     }
 
@@ -285,7 +288,7 @@ export class Purchase extends React.Component<{}, {}> {
     render() {
         console.log("render")
         return <div>
-            
+
             Order has been made! Go back to the homepage.
             {/* {this.CreateHis()} */}
             {this.productDeleten()}

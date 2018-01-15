@@ -50,34 +50,44 @@ export class Login extends React.Component<RouteComponentProps<{}>, loginState> 
 
     Inloggen() {
         UserInloggen(this.state.userName, this.state.password)
-        .then(value => {
-            if (value.userName != "") 
-            {
-                this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }, () =>
-                {let prevList = localStorage.getItem("shoppingcart")
-                let currentList = prevList == null ? null : prevList.split(",").reverse()
-                currentList.map(e => CreateShoppingcart(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map shoppingcart")), location.replace('/')})
-                localStorage.removeItem("shoppingcart")
-            }
-            else { this.setState({ loggedin: false }), console.log("else") }
-        })
+            .then(value => {
+                if (value.userName != "") {
+                    //this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }, () =>
+                    // {let prevList = localStorage.getItem("shoppingcart")
+                    // let currentList = prevList == null ? null : prevList.split(",").reverse()
+                    // currentList.map(e => CreateShoppingcart(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map shoppingcart")), location.replace('/')})
+                    // localStorage.removeItem("shoppingcart")
 
-            AdminInloggen(this.state.userName, this.state.password)
-                .then(value => {
-                    if (value.username != "") { this.setState({ ...this.state, loggedin: true, admin: value, userStatus: "AdminIngelogd" }) }
-                    else { this.setState({ loggedin: false }) }
-                })
+                    this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" },
+                        () => {
+                            let cart = localStorage.getItem("cart")
+                            let cartlijst = JSON.parse(cart)
+                            cartlijst != null ?
+                                cartlijst.map((e: any) => CreateShoppingcart(e.lego, JSON.parse(sessionStorage.getItem("user"))),localStorage.removeItem("cart"), location.replace('/'))
+                                :
+                                console.log("localstorage cart is empty")
+                        }
+                    )
+                }
+                else { this.setState({ loggedin: false }), console.log("else") }
+            })
+
+        AdminInloggen(this.state.userName, this.state.password)
+            .then(value => {
+                if (value.username != "") { this.setState({ ...this.state, loggedin: true, admin: value, userStatus: "AdminIngelogd" }) }
+                else { this.setState({ loggedin: false }) }
+            })
     }
 
 
-  
+
 
     public render() {
 
         return <div>
             {sessionStorage.getItem("userStatus") == "Ingelogd" || sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
                 // <Redirect to={'/'}> </Redirect> 
-                <div/>
+                <div />
                 :
                 <div>
                     <div className='css-card'>

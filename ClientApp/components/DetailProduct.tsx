@@ -71,6 +71,7 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
     componentWillUpdate(NextProps: any, NextState: any) {
 
 
+
         let exists = NextState.lego.item_Number
         console.log("exist", NextState.wishlist, NextState.cart);
 
@@ -85,11 +86,35 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         }
 
         if (NextState.wishlist == false && NextState.cart == true) {
-            let currentlist2 = localStorage.getItem("shoppingcart")
-            let list2 = currentlist2 == null ? NextState.lego.item_Number : currentlist2.valueOf().toString() + "," + NextState.lego.item_Number
-            console.log("2e", NextState);
-            this.setState({ ...this.state, cart: false })
-            return localStorage.setItem("shoppingcart", currentlist2 == null ? list2 : currentlist2.includes(exists) ? (alert("You already have this item in your shoppingcart, if you want to have more please change the amount in the shoppingcart."), currentlist2) : list2)
+            // let currentlist2 = localStorage.getItem("shoppingcart")
+            // let list2 = currentlist2 == null ? NextState.lego.item_Number : currentlist2.valueOf().toString() + "," + NextState.lego.item_Number
+            // console.log("2e", NextState);
+            // this.setState({ ...this.state, cart: false })
+            // return localStorage.setItem("shoppingcart", currentlist2 == null ? list2 : currentlist2.includes(exists) ? (alert("You already have this item in your shoppingcart, if you want to have more please change the amount in the shoppingcart."), currentlist2) : list2)
+            
+            let lijst = []
+            let cart = localStorage.getItem("cart")
+            if (cart != null)
+            {
+                if (cart.includes(exists))
+                {
+                    alert("you already have this in your shoppingcart! Change the amount in the shoppingcart.")
+                }
+                else
+                {
+                let cartlijst = JSON.parse(cart)
+                let item = {lego: NextState.lego.item_Number, amount: 1}
+                localStorage.setItem("cart", JSON.stringify(cartlijst.concat(item)))
+                }
+                
+            }
+            else
+            { 
+                let item = {lego: NextState.lego.item_Number, amount: 1}
+                console.log({item})
+                localStorage.setItem("cart", JSON.stringify(lijst.concat(item)))  
+                console.log("concat", lijst)  
+            }
 
         }
         else {
