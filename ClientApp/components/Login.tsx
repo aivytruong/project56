@@ -51,7 +51,7 @@ export class Login extends React.Component<RouteComponentProps<{}>, loginState> 
     Inloggen() {
         UserInloggen(this.state.userName, this.state.password)
         .then(value => {
-            if (value.firstName != "") 
+            if (value.userName != "") 
             {
                 this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }, () =>
                 {let prevList = localStorage.getItem("shoppingcart")

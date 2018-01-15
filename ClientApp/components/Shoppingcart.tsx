@@ -122,10 +122,7 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
     checkout() {
         this.setState({ ...this.state, userStatus: "Ingelogd" })
 
-        //checken of user is ingleogd
-        //als user is ingelogd, voeg toe aan history en verwijder uit shoppingcart
-        //als dit is gelukt, verwijs de user naar purchase page
-        //als user is uitgelogd, geef m de optie om in te loggen enz.
+        
         {
             let user = sessionStorage.getItem("user")
             sessionStorage.getItem("userStatus") == "Ingelogd" ?

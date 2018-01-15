@@ -5,8 +5,15 @@ import * as Models from './lego_types'
 
 type regState = { firstName: string, lastName: string, userName: string, emailAdress: string, password: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string, loggedin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading" }
 
-export async function UserRegistreren(firstName: string, lastName: string, userName: string, emailAdress: string, password: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string) {
+export async function UserRegistreren(firstName: string, lastName: string,
+                                     userName: string, emailAdress: string,
+                                     password: string, adress: string, 
+                                     phoneNumber: string, Country: string,
+                                     Date_of_birth: string, gender: string) : Promise<Models.Users> 
+{
     let res = await fetch(`./UserController/CreateUser/${firstName}/${lastName}/${userName}/${emailAdress}/${password}/${adress}/${phoneNumber}/${Country}/${Date_of_birth}/${gender}`, { method: 'post', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let json = res.json()
+    return json
 }
 
 export async function UserInloggen(username: string, password: string): Promise<Models.Users> {
@@ -42,8 +49,14 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
         }
     }
 
+    componentWillUpdate(NextProps: any, NextState: any) {
+
+        sessionStorage.setItem("user", JSON.stringify(NextState.user.id))
+        sessionStorage.setItem("userStatus", NextState.userStatus)
+    }
+
     Registreren() {
-        UserRegistreren(this.state.firstName,
+        var registered = UserRegistreren(this.state.firstName,
             this.state.lastName,
             this.state.userName,
             this.state.emailAdress,
@@ -52,9 +65,8 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
             this.state.phoneNumber,
             this.state.Country,
             this.state.Date_of_birth,
-            this.state.gender)
-
-            
+            this.state.gender).then(r => { if (r != null) this.setState({...this.state, user: r,userStatus:"Ingelogd"}); else  alert("Username of Email already taken")})
+        console.log("register", registered)
     }
 
     public render() {

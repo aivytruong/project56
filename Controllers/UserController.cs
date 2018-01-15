@@ -26,12 +26,14 @@ namespace project56.Controllers
         }
 
         [HttpPost("CreateUser/{firstName}/{lastName}/{userName}/{emailAdress}/{password}/{adress}/{phoneNumber}/{Country}/{Date_of_birth}/{gender}")]
-        public void CreateUser(string firstName, string lastName, string userName, string emailAdress, string password, string adress, string phoneNumber, string Country, string Date_of_birth, string gender)
+        public ClassUser CreateUser(string firstName, string lastName, string userName, string emailAdress, string password, string adress, string phoneNumber, string Country, string Date_of_birth, string gender)
         {
             var item = _context.Users.FirstOrDefault(u => u.UserName == userName && u.EmailAdress == emailAdress);
             if (item == null)
             {
-                ClassUser newuser = new ClassUser() {   FirstName = firstName,
+                ClassUser newuser = new ClassUser() {   
+                                                    ID = _context.Users.Max(u => u.ID) + 1,
+                                                    FirstName = firstName,
                                                     LastName = lastName,
                                                     UserName = userName,
                                                     EmailAdress = emailAdress,
@@ -43,9 +45,10 @@ namespace project56.Controllers
                                                     Gender = gender};
                 _context.Users.Add(newuser);
                 _context.SaveChanges();
+                return newuser;
             }
             else {
-                throw new Exception("wrong");
+                return null;
             }
         }
 
