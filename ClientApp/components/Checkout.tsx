@@ -47,12 +47,13 @@ export async function delete_correctsc(user_id: number) {
 }
 
 type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
-type loginState = { userName: string, password: string, loggedin: boolean, admin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", legopr: Models.Lego[], wishlist2: Models.Shoppingcart[], firstName: string, lastName: string, emailAdress: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
+type loginState = { lego: Models.Lego | 'loading', userName: string, password: string, loggedin: boolean, admin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", legopr: Models.Lego[], wishlist2: Models.Shoppingcart[], firstName: string, lastName: string, emailAdress: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
 
 export class Checkout extends React.Component<RouteComponentProps<{}>, loginState> {
     constructor(props, conetxt) {
         super(props)
         this.state = {
+            lego:'loading',
             userStatus: "Uitgelogd",
             userName: "",
             password: "",
@@ -88,6 +89,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
                     {let prevList = localStorage.getItem("shoppingcart")
                     let currentList = prevList == null ? null : prevList.split(",").reverse()
                     currentList.map(e =>  CreateHistory(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map history"))})
+                    localStorage.removeItem("shoppingcart")
                 }
                 else { this.setState({ loggedin: false }), console.log("else") }
             })
@@ -111,9 +113,11 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
 
     render() {
         return <div>
-
+            
             {sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                <Purchase />
+                 
+                    <Purchase/>
+                
                 :
                 <div>
                     <h2>Already have an account?</h2>
@@ -246,6 +250,7 @@ export class PurchaseRoute extends React.Component<RouteComponentProps<{}>,  {}>
     }
 }
 
+export type PurchaseProps = {lego:Models.Lego}
 export class Purchase extends React.Component<{}, {}> {
     constructor(props, conetxt) {
         super(props)
@@ -265,13 +270,23 @@ export class Purchase extends React.Component<{}, {}> {
             : null
     }
 
+    // CreateHis(){
+    //     let user =  JSON.parse(sessionStorage.getItem("user"))
+
+    //     if (user != null)
+    //     {
+    //         CreateHistory(this.props.lego.item_Number,
+    //             user)
+    //     }
+    // }
+
 
     render() {
         console.log("render")
         return <div>
-
-            Order has been made!
-
+            
+            Order has been made! Go back to the homepage.
+            {/* {this.CreateHis()} */}
             {this.productDeleten()}
 
 

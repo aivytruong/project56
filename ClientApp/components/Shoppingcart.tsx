@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, Redirect } from 'react-router-dom';
 import * as Models from './lego_types'
 import { ProductLoad } from './DetailProduct'
 import { Checkout } from './Checkout'
@@ -13,7 +13,7 @@ export async function get_correctproduct(item_Number: string): Promise<Models.Le
     return json
 }
 
-export async function get_beiden(products: Lego, shoppingcart:Shoppingcart): Promise<Models.Lego> {
+export async function get_beiden(products: Lego, shoppingcart: Shoppingcart): Promise<Models.Lego> {
     let res = await fetch(`./custom/CorrectProduct/${products}/${shoppingcart}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = await res.json()
     console.log("beiden", json)
@@ -45,12 +45,18 @@ export async function updateamount(item_number: string, amount: number) {
     return console.log("updated amount", json)
 }
 
-type WishlistRouterState = { legopr: Models.Lego[], wishlist2: Models.Shoppingcart[], history: Models.History[], userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", amount:number, beiden:Models.Beiden[]  }
+export async function CreateHistory(Item_Number: string, user_id: number) {
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+
+    return console.log("made history", res)
+}
+
+type WishlistRouterState = { legopr: Models.Lego[], shopcart: Models.Shoppingcart[], history: Models.History[], userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", amount: number, beiden: Models.Beiden[] }
 
 export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wishlist: number, lego: Models.Lego }>, WishlistRouterState> {
     constructor(props: RouteComponentProps<{ wishlist: number, lego: Models.Lego }>) {
         super(props)
-        this.state = { legopr: [], wishlist2: [], history: [], userStatus: "Uitgelogd", user: "loading" , amount:1, beiden:[]}
+        this.state = { legopr: [], shopcart: [], history: [], userStatus: "Uitgelogd", user: "loading", amount: 1, beiden: [] }
     }
 
     componentWillMount() {
@@ -69,10 +75,10 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
 
             :
 
-            this.state.wishlist2 != null && sessionStorage.getItem("userStatus") == "Ingelogd" ?
+            this.state.shopcart != null && sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 (get_correctuser(parseInt(sessionStorage.getItem("user"))).
-                    then(pr => this.setState({ ...this.state, wishlist2: pr.concat(this.state.wishlist2) },
-                        () => this.state.wishlist2.map((p: Models.Shoppingcart) => get_correctproduct(p.item_Number).
+                    then(pr => this.setState({ ...this.state, shopcart: pr.concat(this.state.shopcart) },
+                        () => this.state.shopcart.map((p: Models.Shoppingcart) => get_correctproduct(p.item_Number).
                             then(p => this.setState({ ...this.state, legopr: this.state.legopr.concat(p) })))))).
                     catch(error => console.error(error))
                 :
@@ -94,6 +100,7 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
             : null
     }
 
+
     // deleteItem(NextState: any) {
     //     let prevListDelete = localStorage.getItem("shoppingcart")
     //     let nextList = localStorage.removeItem(NextState)
@@ -102,23 +109,38 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
 
     calcTotalPrice() {
         let i = 0
-        this.state.legopr.map(lg => i = i + parseFloat(lg.euR_MSRP))
+        this.state.legopr.map(lg => i = i + parseFloat(lg.usD_MSRP))
         return i
     }
 
-   
+    checkout() {
+        this.setState({ ...this.state, userStatus: "Ingelogd" })
+
+        //checken of user is ingleogd
+        //als user is ingelogd, voeg toe aan history en verwijder uit shoppingcart
+        //als dit is gelukt, verwijs de user naar purchase page
+        //als user is uitgelogd, geef m de optie om in te loggen enz.
+        {
+            let user = sessionStorage.getItem("user")
+            sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                (this.state.legopr.map(e => CreateHistory(e.item_Number, JSON.parse(sessionStorage.getItem("user")))), location.replace('/checkout'))
+            :
+            location.replace('/checkout')
+        }
+    }
+
     render() {
         console.log(this.state.legopr)
         return <div>
-
+            {/* 
             {this.state.legopr.map((lego: Models.Lego) =>
-                <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} amount={this.state.amount} wishlist2={this.state.wishlist2}/>)
-            }
+                <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} amount={this.state.amount}/>)
+            } */}
 
             <br></br>
             Total price = {this.calcTotalPrice()}
             <br></br>
-            <NavLink to={'/checkout'}> <button onClick={() => this.setState({ ...this.state, userStatus: "Ingelogd" })}>Checkout</button></NavLink>
+            <button onClick={() => this.checkout()}>Checkout</button>
 
         </div>
     }
@@ -126,29 +148,18 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
 
 // type WishlistProps = { id: number }
 
-type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void,  amount:number, wishlist2 : Models.Shoppingcart }
-export class ShoppingCart extends React.Component<LoadProducts, { deleteID: string , wishlist2: Models.Shoppingcart | 'loading' }> {
+type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void, amount: number, shopcart: Models.Shoppingcart }
+export class ShoppingCart extends React.Component<LoadProducts, { deleteID: string, shopcart: Models.Shoppingcart | 'loading' }> {
     constructor(props: LoadProducts) {
         super(props);
-        this.state = { deleteID: "", wishlist2: 'loading' };
+        this.state = { deleteID: "", shopcart: 'loading' };
     }
 
-    componentWillUpdate(NextProps: any, NextState: any) {
-
-        // let currentlist = localStorage.getItem("shoppingcart")
-        // let newlist = currentlist.replace(NextState.id, " ");
-        // localStorage.setItem("shoppingcart", newlist);
-    }
     addToAmount() {
-        
-        // let i = 1
-        // i = this.props.amount + i
-        // console.log("addtoamaount", i)
-        // return i
 
 
-        return updateamount(this.props.wishlist2.item_Number, (this.props.wishlist2.amount + 1))
-        
+        return updateamount(this.props.shopcart.item_Number, (this.props.shopcart.amount + 1))
+
     }
 
     productDeleten() {
@@ -160,21 +171,18 @@ export class ShoppingCart extends React.Component<LoadProducts, { deleteID: stri
     }
 
 
-
     render() {
-        // console.log("rendering", this.props.load.name)
         return <div>
             {console.log(this.props)}
             <h1>{this.props.load.name}</h1>
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
-            {this.props.load.euR_MSRP == "NA" ?
-                <h4>Price: €{this.props.load.usD_MSRP}</h4>
-                :
-                <h4>Price: €{this.props.load.euR_MSRP}</h4>}
 
-            Amount: <button>-</button> {this.props.wishlist2.amount} <button onClick={() => this.addToAmount()}>+</button> 
+            <h4>Price: €{this.props.load.usD_MSRP}</h4>
+
+
+            Amount: <button>-</button> {this.props.shopcart.amount} <button onClick={() => this.addToAmount()}>+</button>
 
             <br />
             <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?

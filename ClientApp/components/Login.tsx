@@ -56,10 +56,11 @@ export class Login extends React.Component<RouteComponentProps<{}>, loginState> 
                 this.setState({ ...this.state, loggedin: true, user: value, userStatus: "Ingelogd" }, () =>
                 {let prevList = localStorage.getItem("shoppingcart")
                 let currentList = prevList == null ? null : prevList.split(",").reverse()
-                currentList.map(e =>  CreateShoppingcart(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map shoppingcart"))})
+                currentList.map(e => CreateShoppingcart(e, JSON.parse(sessionStorage.getItem("user"))), console.log("map shoppingcart")), location.replace('/')})
+                localStorage.removeItem("shoppingcart")
             }
             else { this.setState({ loggedin: false }), console.log("else") }
-        }),
+        })
 
             AdminInloggen(this.state.userName, this.state.password)
                 .then(value => {
@@ -68,21 +69,16 @@ export class Login extends React.Component<RouteComponentProps<{}>, loginState> 
                 })
     }
 
-    // Admin(e) 
-    // {
-    //     if (e.target.checked){
-    //         this.setState({...this.state, admin: true})
-    //     }
-    //     else {
-    //         this.setState({...this.state, admin: false})
-    //     }
-    // }
+
+  
 
     public render() {
 
         return <div>
             {sessionStorage.getItem("userStatus") == "Ingelogd" || sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
-                <Redirect to={'/'}> </Redirect> :
+                // <Redirect to={'/'}> </Redirect> 
+                <div/>
+                :
                 <div>
                     <div className='css-card'>
                         <div className='css-container css-red'>
