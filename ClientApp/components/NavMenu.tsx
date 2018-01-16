@@ -21,11 +21,11 @@ export class NavMenu extends React.Component<{}, {}> {
                         null}
                 </li>
 
-                <li>
+                {/* <li>
                             <NavLink to={ '/databasebutton' } activeClassName='active'>
                                 <span className='glyphicon glyphicon'></span> database
                             </NavLink>
-                        </li> 
+                </li>  */}
                 <li>
                     <NavLink to={'/sets'} activeClassName='active'>
                         <span className='glyphicon glyphicon'></span> Sets
@@ -68,17 +68,20 @@ export class NavMenu extends React.Component<{}, {}> {
 
                     }
                 </li>
+
+                {sessionStorage.getItem("userStatus") != "AdminIngelogd" ? <div>
                 <li className='dropdown-wish'>
                     <NavLink to={'/wishlist'} activeClassName='active'>
                         <img src="https://png.icons8.com/wish-list/ios7/50/000000" width={20} height={20} />
                     </NavLink>
                 </li>
-
                 <li className='dropdown-shoppingcart'>
                     <NavLink to={'/Shoppingcart'} activeClassName='active'>
                         <img src="https://png.icons8.com/shopping-cart/dotty/50/000000" width={20} height={20} />
                     </NavLink>
-                </li>
+                </li></div>
+                :
+                        null}
                 {/* <div className='dropdown-content'>
                                 <NavLink to={ '/sets' } activeClassName='active'>
                                     <span className='glyphicon glyphicon'></span> Sets

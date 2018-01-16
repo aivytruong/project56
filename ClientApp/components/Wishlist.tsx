@@ -24,14 +24,14 @@ export async function delete_correctproduct(user_id: number, item_number: string
 
 }
 
-export async function CreateShoppingcart(Item_Number: string, user_id: number) {
-    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateShoppingcart(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made shoppingcart", res)
 }
 
-export async function CreateHistory(Item_Number: string, user_id: number) {
-    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateHistory(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made history", res)
 }
@@ -136,7 +136,8 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
             let cart = localStorage.getItem("cart")
             if (cart != null) {
                 if (cart.includes(exists)) {
-                    alert("you already have this in your shoppingcart! Change the amount in the shoppingcart.")
+                    alert("You already have this in your shoppingcart! Change the amount in the shoppingcart.")
+                    location.reload()
                 }
                 else {
                     let cartlijst = JSON.parse(cart)
@@ -157,6 +158,7 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
             console.log("else", NextState);
         }
 
+
     }
 
 
@@ -173,9 +175,7 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
 
         if (user != null) {
             CreateShoppingcart(this.props.load.item_Number,
-                user)
-            CreateHistory(this.props.load.item_Number,
-                user)
+                user, 1)
         }
     }
 

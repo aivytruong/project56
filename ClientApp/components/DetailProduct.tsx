@@ -16,20 +16,27 @@ export async function get_correctproduct(item_Number: string): Promise<Models.Le
     return json
 }
 
+export async function get_correctshoppingcartproduct(item_Number: string, user_id: number): Promise<Models.Shoppingcart[]> {
+    let res = await fetch(`./ShoppingcartController/Shoppingcartalert/${item_Number}/${user_id}`, { method: 'get', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+    let json = await res.json()
+    console.log("received correct products", json)
+    return json
+}
+
 export async function CreateWishlist(Item_Number: string, user_id: number) {
     let res = await fetch(`./WishlistController/CreateWishlist/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made wishlist", res)
 }
 
-export async function CreateShoppingcart(Item_Number: string, user_id: number) {
-    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateShoppingcart(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made shoppingcart", res)
 }
 
-export async function CreateHistory(Item_Number: string, user_id: number) {
-    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateHistory(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made history", res)
 }
@@ -81,7 +88,7 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
             let list = currentlist == null ? NextState.lego.item_Number : currentlist.valueOf().toString() + "," + NextState.lego.item_Number
             console.log("1e", NextState);
             this.setState({ ...this.state, wishlist: false })
-            return localStorage.setItem("wishlist", currentlist == null ? list : currentlist.includes(exists) ? (alert("You already have this item in your wishlist."), currentlist) : list)
+            return localStorage.setItem("wishlist", currentlist == null ? list : currentlist.includes(exists) ? (alert("You already have this item in your wishlist."), currentlist) : (alert("added to wishlist"), list) );
 
         }
 
@@ -98,13 +105,14 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
             {
                 if (cart.includes(exists))
                 {
-                    alert("you already have this in your shoppingcart! Change the amount in the shoppingcart.")
+                    alert("You already have this in your shoppingcart! Change the amount in the shoppingcart.")
                 }
                 else
                 {
                 let cartlijst = JSON.parse(cart)
                 let item = {lego: NextState.lego.item_Number, amount: 1}
                 localStorage.setItem("cart", JSON.stringify(cartlijst.concat(item)))
+                alert("added to shoppingcart")
                 }
                 
             }
@@ -114,6 +122,7 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
                 console.log({item})
                 localStorage.setItem("cart", JSON.stringify(lijst.concat(item)))  
                 console.log("concat", lijst)  
+                alert("added to shoppingcart")
             }
 
         }
@@ -129,16 +138,33 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         if (user != null) {
             CreateWishlist(this.props.lego.item_Number,
                 user)
+                alert("added to wishlist")
         }
     }
 
     Createnshop() {
         let user = JSON.parse(sessionStorage.getItem("user"))
 
-        if (user != null) {
-            CreateShoppingcart(this.props.lego.item_Number,
-                user)
-        }
+        // if (user != null) {
+        //     CreateShoppingcart(this.props.lego.item_Number,
+        //         user).then(() => get_correctshoppingcartproduct(this.props.lego.item_Number, user) ? alert("alert") : null )
+        // }
+
+        get_correctshoppingcartproduct(this.props.lego.item_Number, user).then(e => 
+            {console.log({e})
+                if (e.length == 0)
+                {
+                    CreateShoppingcart(this.props.lego.item_Number,user, 1)
+                    alert("added to shoppingcart")
+                }
+                else
+                {
+                    
+                    alert("You already have this product in your shoppingcart! Change the amount in the shoppingcart.")
+                }
+                                                                                        
+            }
+        )
     }
 
     // randomCalculator()

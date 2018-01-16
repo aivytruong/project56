@@ -51,17 +51,14 @@ export class HistoryPage extends React.Component<RouteComponentProps<{}>, Histor
         return <div>
             
             {this.state.legopr.map((lego: Models.Lego) =>
-                <History load={lego} id={lego.item_Number} />)}
-
-           
-            
+                <History load={lego} id={lego.item_Number} his={this.state.history.find(p => lego.item_Number == p.item_Number)} />)}       
         </div>
     }
 }
 
 
 
-type LoadProducts = {load: Models.Lego,id:string}
+type LoadProducts = {load: Models.Lego,id:string, his: Models.History}
 export class History extends React.Component<LoadProducts, {}> {
     constructor(props: LoadProducts) {
         super(props);
@@ -74,11 +71,15 @@ export class History extends React.Component<LoadProducts, {}> {
         return <div>
             <h3>{this.props.load.name}</h3>
             <img src={this.props.load.image_URL} width={300} height={200} />
+            Amount = {this.props.his.amount}
             {this.props.load.euR_MSRP == "NA" ?
-            <h4>Price: €{this.props.load.usD_MSRP}</h4> 
+            <h4>Price: €{parseFloat(this.props.load.usD_MSRP) * this.props.his.amount}</h4> 
             :
             <h4>Price: €{this.props.load.euR_MSRP}</h4>}
             <h4>Status: pending...</h4>
+            {this.props.his.date}
+            
+
             <br></br>
             <br></br>
         </div>

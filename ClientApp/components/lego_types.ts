@@ -54,6 +54,7 @@ export type History = {
     item_Number : string
     user_id : number
     amount : number
+    date: string
 }
 
 export type Beiden = {
