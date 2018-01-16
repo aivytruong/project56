@@ -2,6 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
+import {PageHeader, Button} from 'react-bootstrap'
 
 
 type StarwarsProductComponentProps = {}
@@ -137,39 +138,51 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
     render() {
         // console.log("rendering", this.props.load.name)
         return <div>
+            
             {console.log(this.props)}
-            <h1>{this.props.lego.name}</h1>
+            <PageHeader className="HeaderStyle">{this.props.lego.name}</PageHeader>
             <br></br>
-            <img src={this.props.lego.image_URL} width={300} height={200}/>
-            <br></br>
-            <h3>Description</h3>
-            <br/>
-            <p>Bring all of the action of the epic {this.props.lego.theme} to your adventurous builder with the {this.props.lego.name}. Your child will take on exciting challenges and obstacles with this functional, action-packed set. Builders can take a break from screen time and take on a new challenge! They can role play with their friends and take on the evils for incredible, larger than life stories! Designed with builders of all ages in mind, this toy with {this.props.lego.pieces} pieces will encourage open-ended building play, and inspire any imagination.  </p>
-            <br></br>
+            <div className="HeaderStyle">
+            <div className="row" >
 
-
-            {this.props.lego.euR_MSRP == "NA" ?
-            <h3>Price: €{this.props.lego.usD_MSRP}</h3> 
-            :
-            <h3>Price: €{this.props.lego.euR_MSRP}</h3>}
-
+                <div className="col col-md-5" >
+                            
+                    <div className="detailImg" >
+                        <img src={this.props.lego.image_URL} width={400} height={300}/>
+                    </div>
+                    
+                </div>
             <br></br>
+            <div className="col col-md-5 col-offset-3">
+                <h3 className="HeaderStyle">Description</h3>
+                <br/>
+                <p  className="HeaderStyle">Bring all of the action of the epic {this.props.lego.theme} to your adventurous builder with the {this.props.lego.name}. Your child will take on exciting challenges and obstacles with this functional, action-packed set. Builders can take a break from screen time and take on a new challenge! They can role play with their friends and take on the evils for incredible, larger than life stories! Designed with builders of all ages in mind, this toy with {this.props.lego.pieces} pieces will encourage open-ended building play, and inspire any imagination. </p> 
+            </div>
             
+
+            <div className="col col-md-5 col-offset-6">
+                {this.props.lego.euR_MSRP == "NA" ?
+                <h3 className="HeaderStyle" >Price: €{this.props.lego.usD_MSRP}</h3> 
+                    :
+                <h3 className="HeaderStyle">Price: €{this.props.lego.euR_MSRP}</h3>}
+
             
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
+                    
+            <Button bsStyle="danger" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
             this.Createn()
             : 
-            this.setState({...this.state, lego:this.props.lego, wishlist:true })}>Add to wishlist </button>
+            this.setState({...this.state, lego:this.props.lego, wishlist:true })}>Add to wishlist </Button>
             
             
             
             
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
+            <Button bsStyle="danger" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd"? 
             this.Createnshop()
             :
-            this.setState({...this.state, lego:this.props.lego, cart: true})}>Add to shoppingcart </button>
-
-
+            this.setState({...this.state, lego:this.props.lego, cart: true})}>Add to shoppingcart </Button>
+            </div>
+            </div>
+            </div>
         </div>;
     }
 

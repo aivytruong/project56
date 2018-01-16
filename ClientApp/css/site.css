@@ -130,7 +130,12 @@
 
 html,body {
 	margin: 0;
-	padding: 0;
+    padding: 0;
+    background-image: url(https://image.ibb.co/hSyBUb/Background.jpg);
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    height:100%;
 }
 .slider {
 	width: 1024px;
@@ -177,9 +182,7 @@ html,body {
     background-color: yellow;
 }
 
-body {
-    padding-top: 100px;
-}
+
 
 .css-red{ background-color: red; color: white;}
 .css-text-red{ color: red;}
@@ -232,9 +235,7 @@ body {
 .product{
     float: left;
     padding: 10px;
-    /* display:flex;
-    justify-content:center; */
-    
+   
 }
 
 .starwars{
@@ -253,18 +254,83 @@ body {
 
 
 .figuurtjes{
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 0;
-    background-color: green;
-    border: 2px solid #4CAF50;
-    /* grid-template-columns: repeat(3, 1fr); */
-    /* grid-template-rows: repeat(11, minmax(100px, 200px)); */
-    /* grid-gap: 5rem;
-    grid-auto-flow: column; */
+   
+/*     
+    background-color: rgba(94, 60, 72, 0.212); */
+    
+    
     
 }
 .figuurtjesrow{
     float: right;
-    padding: 50px;
+    padding: 10px;
+    display:flex;
+    transform: translateX(155px);
+    flex-wrap: wrap;   
 }
+.SideBar{
+    min-width: 200px;
+    width: 20%;
+    height:calc(100vh - 150px);
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+}
+* {
+    margin: 0;
+    padding: 0;
+    
+  }
+
+  .namez{
+      position: relative;
+  }
+.Navlinks{
+    height:100px
+}
+  body {
+    padding-top: 100px;
+    background-image: url(https://www.lego.com/r/www/r/portals/-/media/images/home/layout/take-overs/2018/city/city_1hy18_takeoverbackground_in_1920x969.jpg?l.r=-404698435);
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    background-attachment:  fixed;
+    height:100%;
+}
+
+.HeaderStyle{
+    color: white
+}
+  
+  
+.hoii{
+    margin-left: 10px;
+    
+    
+}
+.detailImg{
+    
+}
+  ul {
+    list-style-type: none;
+  }
+  
+  li img {
+    float: right;
+    margin: 10px;
+    border: 5px solid rgba(108, 240, 247, 0.322);
+    
+  
+    -webkit-transition: box-shadow 0.5s ease;
+    -moz-transition: box-shadow 0.5s ease;
+    -o-transition: box-shadow 0.5s ease;
+    -ms-transition: box-shadow 0.5s ease;
+    transition: box-shadow 1s ease;
+  }
+  
+  li img:hover {
+    -webkit-box-shadow: 0px 0px 2px rgba(63, 3, 3, 0.9);
+    box-shadow: 0px 0px 2px rgba(44, 1, 1, 0.9);
+    border: 2px solid rgba(131, 26, 0, 0.473);
+  }
+  
+  

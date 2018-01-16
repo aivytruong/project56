@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
+import {Button, Glyphicon} from 'react-bootstrap'
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
         return <div className='main-nav'>
@@ -15,7 +16,7 @@ export class NavMenu extends React.Component<{}, {}> {
                 <li>
                     {sessionStorage.getItem("userStatus") == "Ingelogd" ?
                         <NavLink to={'/HistoryPage'} activeClassName='active'>
-                            <span className='glyphicon glyphicon'></span> History
+                            <span className='glyphicon glyphicon'></span> <Button bsStyle="danger" bsSize="small">History</Button>
                     </NavLink>
                         :
                         null}
@@ -28,13 +29,23 @@ export class NavMenu extends React.Component<{}, {}> {
                         </li>  */}
                 <li>
                     <NavLink to={'/sets'} activeClassName='active'>
-                        <span className='glyphicon glyphicon'></span> Sets
-                            </NavLink>
+                        <span className='glyphicon glyphicon'></span>
+                        <Button bsStyle="danger" bsSize="large">
+                            <Glyphicon glyph="th">
+                                Sets 
+                            </Glyphicon >
+                         </Button>
+                    </NavLink>
                 </li>
                 <li>
                     <NavLink to={'/separatebricks'} activeClassName='active'>
-                        <span className='glyphicon glyphicon'></span> Minifigures
-                            </NavLink>
+                        <span className='glyphicon glyphicon'></span>
+                         <Button bsStyle="danger" bsSize="large"> 
+                            <Glyphicon glyph="ice-lolly-tasted" > 
+                                Minifigures 
+                            </Glyphicon>
+                        </Button>
+                    </NavLink>
                 </li>
 
                 <li>
