@@ -261,6 +261,11 @@ html,body {
     
     
 }
+
+.borderz{
+    border: 5px solid rgba(108, 240, 247, 0.322);
+
+}
 .figuurtjesrow{
     float: right;
     padding: 10px;
@@ -307,8 +312,13 @@ html,body {
     
     
 }
-.detailImg{
-    
+.okee{
+    float: right;
+    padding: 30px;
+    margin-left: 100px;
+    display:flex;
+    transform: translateX(155px);
+    flex-wrap: wrap;   
 }
   ul {
     list-style-type: none;

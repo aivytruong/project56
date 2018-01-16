@@ -71,7 +71,7 @@ export class History extends React.Component<LoadProducts, {}> {
 
     render() {
         // console.log("rendering", this.props.load.name)
-        return <div>
+        return <div className="HeaderStyle">
             <h3>{this.props.load.name}</h3>
             <img src={this.props.load.image_URL} width={300} height={200} />
             {this.props.load.euR_MSRP == "NA" ?

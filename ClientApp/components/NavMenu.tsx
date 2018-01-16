@@ -74,13 +74,18 @@ export class NavMenu extends React.Component<{}, {}> {
                         <a href={'/'}
                             onClick={() => (sessionStorage.removeItem('user'), sessionStorage.removeItem('admin'), sessionStorage.removeItem('userStatus'))}
 
-                        >logout</a>
+                        >
+                        <Button bsStyle="warning" bsSize="large">
+                                Logout
+                        </Button></a>
                         :
                         sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
                             <a href={'/'}
                                 onClick={() => (sessionStorage.removeItem('admin'), sessionStorage.removeItem('user'), sessionStorage.removeItem('userStatus'))}
 
-                            >logout</a>
+                            ><Button bsStyle="warning" bsSize="large">
+                            Logout
+                    </Button></a>
                             :
                             <NavLink to={'/login'} activeClassName='active'>
                                 <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20} />
