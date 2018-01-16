@@ -230,6 +230,7 @@ export class Purchase extends React.Component<{}, {}> {
     componentWillMount() {
         localStorage.getItem("userStatus")
         localStorage.removeItem("checkout")
+        localStorage.removeItem("cart")
     }
 
 

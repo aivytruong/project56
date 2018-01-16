@@ -56,11 +56,8 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
 
     }
 checkout(){
-    // history moet mee
-    // localStorage.getItem("checkout") == "true"
-    // ? location.replace('/checkout')
-    // :  
-    location.replace('/')
+    
+   location.replace('/shoppingcart')
 
 
 }
