@@ -1,25 +1,40 @@
+@using project56
+@using project56.model
 @model IEnumerable<project56.model.Lego>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Legos";
 }
 
-<h2>Index</h2>
+<h2>Legos</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div>
+        <p>
+            Find by name: <input type="text" name="searchString" value="@ViewData["currentFilter"]"/>
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-currentFilter="@ViewData["CurrentFIlter"]">@Html.DisplayNameFor(model => model.Item_Number)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.Name)</a>
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Year)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Theme)
+                   <a asp-action="Index" asp-route-sortOrder="@ViewData["ThemeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.Theme)</a>
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Subtheme)
@@ -40,9 +55,6 @@
                     @Html.DisplayNameFor(model => model.USD_MSRP)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CAD_MSRP)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.EUR_MSRP)
                 </th>
                 <th>
@@ -57,6 +69,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item_Number)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -85,9 +100,6 @@
                 @Html.DisplayFor(modelItem => item.USD_MSRP)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CAD_MSRP)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.EUR_MSRP)
             </td>
             <td>
@@ -105,3 +117,23 @@
 }
     </tbody>
 </table>
+@{
+    PaginatedList<project56.model.Lego> PaginatedModel = Model as PaginatedList<project56.model.Lego>;
+    string prevDisabled = !PaginatedModel.HasPreviousPage ? "disabled" : "";
+    string nextDisabled = !PaginatedModel.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(PaginatedModel.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+   Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(PaginatedModel.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+   Next
+</a>

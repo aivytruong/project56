@@ -1,39 +1,39 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
+import * as Models from './lego_types'
+import {ProductLoad} from './ProductLoad';
+import {Search} from './SearchFunction';
 
-export class SeparateBricks extends React.Component<RouteComponentProps<{}>> {
-    constructor() {
+type ComponentProps = {}
+type ComponentState = { products: Models.Lego[] | "loading" }
+type LoadProducts = { load: Models.Lego }
+
+export async function get_monsterfightsproduct(theme:string): Promise<Models.Lego[]> {
+    let res = await fetch(`./custom/SeriousPlaySets/${theme}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let json = await res.json()
+    console.log("received correct products", json)
+    return json
+}
+
+export class SeparateBricks extends React.Component<RouteComponentProps<{}>, ComponentState> {
+    constructor(props, context) {
         super();
-        this.state = {};
+        this.state = { products: "loading" };
     }
 
-    public render() {
+    componentWillMount() {
+        get_monsterfightsproduct("Collectable Minifigures").then(products => this.setState({ ...this.state, products: products }))
+        console.log("mapping", this.state.products)
+    }
+
+    render() {
+        if (this.state.products == "loading") return <div>loading...</div>
+        else
         return <div>
-            
-            <h1>Welcome to the separate bricks page! </h1>
-            <h2>Choose a category</h2>
-            <br/>
-
-            <div className="categories">
-            <br/>
-            <NavLink to={ '/separatefigures' }  activeClassName='active'> <img src="http://i.ebayimg.com/00/s/MzkzWDM0Mg==/z/IpkAAOxyYSdS-zIg/$_35.JPG" width={200} height={300}/><br/><button>Figures</button> </NavLink>     
-            </div>
-
-            <div className="categories">
-            <br/>
-            <NavLink to={ '/separatebricksproduct' }  activeClassName='active'> <img src="https://27gen.files.wordpress.com/2013/06/lego-red-brick.jpg" width={300} height={200}/><br/><button>Bricks</button> </NavLink>        
-            </div> 
-
-            <div className="categories">
-            <br/>
-            <NavLink to={ '/separateobjects' }  activeClassName='active'> <img src="https://res.cloudinary.com/dorling-kindersley/image/upload/DK/87f2f3cdfee04ef789ba0295c99ebac5/558c1cf1cdc74a4da7d5b78bcd38d27e.jpg" width={300} height={200}/><br/><button>Objects</button> </NavLink>       
-            </div> 
-              
-        
-    </div>
-    
-
-   
+            <Search products={this.state.products}/>
+           
+            {console.log("render", this.state.products)}
+        </div>;
     }
 }

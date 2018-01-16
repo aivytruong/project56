@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using project56.model;
 using System;
@@ -18,6 +19,70 @@ namespace project56.Migrations
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+
+            modelBuilder.Entity("project56.model.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("admindetails");
+                });
+
+            modelBuilder.Entity("project56.model.ClassUser", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Adress");
+
+                    b.Property<string>("EmailAdress");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<string>("country");
+
+                    b.Property<string>("date_of_birth");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("UserDetails");
+                });
+
+            modelBuilder.Entity("project56.model.History", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Date");
+
+                    b.Property<string>("Item_Number");
+
+                    b.Property<int>("amount");
+
+                    b.Property<int>("user_id");
+
+                    b.HasKey("id");
+
+                    b.ToTable("historydetails");
+                });
 
             modelBuilder.Entity("project56.model.Lego", b =>
                 {
@@ -53,6 +118,36 @@ namespace project56.Migrations
                     b.HasKey("Item_Number");
 
                     b.ToTable("legodetails");
+                });
+
+            modelBuilder.Entity("project56.model.Shoppingcart", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Item_Number");
+
+                    b.Property<int>("amount");
+
+                    b.Property<int>("user_id");
+
+                    b.HasKey("id");
+
+                    b.ToTable("shoppingcartdetails");
+                });
+
+            modelBuilder.Entity("project56.model.Wishlist", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Item_Number");
+
+                    b.Property<int>("user_id");
+
+                    b.HasKey("id");
+
+                    b.ToTable("wishlistdetails");
                 });
 #pragma warning restore 612, 618
         }

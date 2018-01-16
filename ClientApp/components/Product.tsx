@@ -5,10 +5,15 @@ import * as Models from './lego_types'
 
 
 type StarwarsProductComponentProps = {}
+<<<<<<< HEAD
 type StarwarsProductComponentState =  {products: Models.Lego[] | "loading"}
+=======
+type StarwarsProductComponentState = { products: Models.Lego[] | "loading" }
+type LoadProducts = { load: Models.Lego }
+>>>>>>> origin/amount
 
-export async function get_starwars_product(theme: string): Promise<{product: Models.Lego}>{
-    let res = await fetch(`custom/StarwarsProduct/${theme}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+export async function get_product(): Promise<Models.Lego[]> {
+    let res = await fetch(`./custom/Product`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = await res.json()
     console.log("received correct products", json)
     return json
@@ -16,6 +21,7 @@ export async function get_starwars_product(theme: string): Promise<{product: Mod
 
 export class Product extends React.Component<RouteComponentProps<{}>, StarwarsProductComponentState> {
     constructor(props, context) {
+<<<<<<< HEAD
         super(props, context);
         this.state = {products:"loading"};
     }
@@ -55,9 +61,38 @@ No nisl elit civibus eum. Viris vitae et est, eam et discere salutandi urbanitas
             
             <br/>
             <br/>
-        </div>;
+=======
+        super();
+        this.state = { products: "loading" };
     }
 
+    componentWillMount() {
+        get_product().then(products => this.setState({ ...this.state, products: products }))
+        console.log("mapping", this.state.products)
+    }
 
+    render() {
+        if (this.state.products == "loading") return <div>loading...</div>
+        else
+        return <div>
+            {this.state.products.map(products => <div> name: <ProductLoad load={products} /> </div>)}
+            {console.log("render", this.state.products)}
+>>>>>>> origin/amount
+        </div>;
+    }
 }
 
+export class ProductLoad extends React.Component<LoadProducts, {}> {
+    constructor(props: LoadProducts) {
+        super(props);
+        this.state = {};
+    }
+
+    render() {
+        // console.log("rendering", this.props.load.name)
+        return <div>
+            {this.props.load.name}
+            
+        </div>;
+    }
+}
