@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import {ProductLoad} from './ProductLoad';
 import {Search} from './SearchFunction';
+import {PageHeader} from 'react-bootstrap'
 
 
 type HomeComponentProps = {}
@@ -40,10 +41,12 @@ export class Home extends React.Component<RouteComponentProps<{}>, HomeState> {
             </div>   */} {
             if (this.state.lego == "loading") return <div>loading...</div>
         else
-        return <div>
-                        <h1>What's new!</h1>
+        return <div className="HeaderStyle">
+                        <PageHeader >What's new!</PageHeader>
             <h3>Take a look at these special items in our store. Each month new and special items will take the spotlight. </h3>
-            <Search products={this.state.lego}/>
+            
+            <Search products={this.state.lego}/> 
+            
            
             {console.log("render", this.state.lego)}
         </div>
