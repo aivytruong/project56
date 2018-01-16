@@ -19,10 +19,60 @@ namespace project56.Controllers
         }
 
         // GET: Lego
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index( string sortOrder, 
+                                                string searchString,
+                                                string currentFilter,
+                                                int? page)
         {
-            return View(await _context.Legos.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["ThemeSortParm"] = sortOrder == "Theme" ? "theme_desc" : "Theme"; 
+            ViewData["IdSortParm"] = sortOrder == "Id" ? "id_desc" : "Id";
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else 
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var legos = from l in _context.Legos
+                        select l;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                legos = legos.Where(l => l.Name.ToLower().Contains(searchString.ToLower()));
+            }
+            switch(sortOrder)
+            {
+                case "name_desc":
+                    legos = legos.OrderByDescending(l => l.Name);
+                    break;
+                case "Theme":
+                    legos = legos.OrderBy(l => l.Theme);
+                    break;
+                case "theme_desc":
+                    legos = legos.OrderByDescending(l => l.Theme);
+                    break;
+                case "Id":
+                    legos = legos.OrderBy(l => l.Item_Number);
+                    break;
+                case "id_disc":
+                    legos = legos.OrderByDescending(l => l.Item_Number);
+                    break;
+                default:
+                    legos = legos.OrderBy(l => l.Name);
+                    break;
+            }
+
+            int pageSize = 10;
+            return View(await PaginatedList<Lego>.CreateAsync(legos.AsNoTracking(), page ?? 1, pageSize));
         }
+
 
         // GET: Lego/Details/5
         public async Task<IActionResult> Details(string id)

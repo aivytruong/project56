@@ -189,6 +189,7 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
     // i = i + parseFloat(lg.usD_MSRP) 
 
     checkout() {
+        localStorage.setItem("checkout", "true")
         this.setState({ ...this.state, userStatus: "Ingelogd" })
 
 
@@ -213,9 +214,9 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
             <br></br>
             
             {sessionStorage.getItem("userStatus") !="Ingelogd" ? 
-            <div> Total price = {this.calcTotalPrice() }</div> 
+            <div> Total price = {this.calcTotalPrice().toFixed(2) }</div> 
             : 
-            <div> Total price = {this.calcTotalPriceDb()} </div>
+            <div> Total price = {this.calcTotalPriceDb().toFixed(2)} </div>
             }
             
             <br></br>

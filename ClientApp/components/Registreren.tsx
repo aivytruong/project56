@@ -55,7 +55,15 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
 
 
     }
+checkout(){
+    // history moet mee
+    // localStorage.getItem("checkout") == "true"
+    // ? location.replace('/checkout')
+    // :  
+    location.replace('/')
 
+
+}
     Registreren() {
         var registered = UserRegistreren(this.state.firstName,
             this.state.lastName,
@@ -83,7 +91,7 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
                             :
                             console.log("localstorage cart is empty")
 
-                    }); location.replace('/')}
+                    }); this.checkout()}
                 
             })
         console.log("register", registered)
