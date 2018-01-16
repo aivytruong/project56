@@ -5,6 +5,7 @@ import * as Models from './lego_types'
 import { ProductLoad, get_correctshoppingcartproduct } from './DetailProduct'
 import { Checkout } from './Checkout'
 import { Lego, Shoppingcart } from './lego_types';
+import {PageHeader, Button} from 'react-bootstrap'
 
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
     let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
@@ -205,22 +206,26 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
 
     render() {  
         console.log(this.state.legopr)
-        return <div>
-
+        return <div className="HeaderStyle">
+            <div className="row">
+            <div >
             {this.state.legopr.map((lego: Models.Lego) =>
                 <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} shopcart={this.state.shopcart.find(p => p.item_Number == lego.item_Number)} />)
             }
+            </div>
 
             <br></br>
             
             {sessionStorage.getItem("userStatus") !="Ingelogd" ? 
-            <div> Total price = {this.calcTotalPrice().toFixed(2) }</div> 
+           <h2> Total price = {this.calcTotalPrice().toFixed(2) }</h2>
             : 
-            <div> Total price = {this.calcTotalPriceDb().toFixed(2)} </div>
+             <h2> Total price = {this.calcTotalPriceDb().toFixed(2)}</h2>
             }
+            </div>
             
-            <br></br>
-            <button onClick={() => this.checkout()}>Checkout</button>
+            <div className="col col-md-5 col-offset-3" >
+            <Button className="dezeman"bsStyle="success" bsSize="large" onClick={() => this.checkout()}>Checkout</Button>
+            </div>
 
         </div>
     }
@@ -321,47 +326,57 @@ export class ShoppingCart extends React.Component<LoadProducts, { deleteID: stri
 
 
     render() {
-        return <div>
-            {console.log(this.props)}
-            <h1>{this.props.load.name}</h1>
-            <br></br>
-            <img src={this.props.load.image_URL} width={300} height={200} />
-            <br></br>
+        return <div className="HeaderStyle">
+          
+            <div className="row">
+                <div >
+                        <h1>{this.props.load.name}</h1>
+                        <br></br>
+                        <img src={this.props.load.image_URL} width={300} height={200} />
+                        </div>
+                        <div >
+                        <h4>Price: €{this.props.load.usD_MSRP}</h4>
+                        </div>
+                        
 
-            <h4>Price: €{this.props.load.usD_MSRP}</h4>
+                        {/* <button onClick={() => this.deleteFromAmount()}>-</button> { this.props.shopcart.amount} <button onClick={() => this.addToAmount()}>+</button> */}
+                        <div >
+                        <h4>Amount:
+                        
+                        <Button bsStyle="danger" bsSize="small" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
 
-            {/* <button onClick={() => this.deleteFromAmount()}>-</button> { this.props.shopcart.amount} <button onClick={() => this.addToAmount()}>+</button> */}
+                                this.deleteFromAmount()
+                                :
+                                this.AddToLocalStorageMin()
+                            }>-</Button>
 
-            <h4>Amount:
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                            {sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                                <div>{this.props.shopcart.amount}</div>
+                                :
+                                this.amountParse()
+                            }
 
-                    this.deleteFromAmount()
-                    :
-                    this.AddToLocalStorageMin()
-                }>-</button>
+                            <Button bsStyle="danger" bsSize="small" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
 
-                {sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                    <div>{this.props.shopcart.amount}</div>
-                    :
-                    this.amountParse()
-                }
+                                this.addToAmount()
+                                :
+                                this.AddToLocalStoragePlus()
 
-                <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                            }>+</Button>
+                        </h4>
+                        </div>
+                        </div>
 
-                    this.addToAmount()
-                    :
-                    this.AddToLocalStoragePlus()
-
-                }>+</button>
-            </h4>
-
-            <br />
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                this.productDeleten()
-                :
-                this.props.deleteItem(this.props.load.item_Number)}>Remove from shoppingcart </button>
-            {/* <div>total{this.totalProd()}</div> */}
-        </div>;
+                        <br />
+                        <div >
+                        <Button bsStyle="warning" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                            this.productDeleten()
+                            :
+                            this.props.deleteItem(this.props.load.item_Number)}>Remove from shoppingcart </Button>
+                        {/* <div>total{this.totalProd()}</div> */}
+                        </div>
+                    </div>;
+        
     }
 }
 

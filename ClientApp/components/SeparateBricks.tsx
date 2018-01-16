@@ -4,6 +4,8 @@ import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import {ProductLoad} from './ProductLoad';
 import {Search} from './SearchFunction';
+import {PageHeader, SearchFunction} from "react-bootstrap"
+
 
 type ComponentProps = {}
 type ComponentState = { products: Models.Lego[] | "loading" }
@@ -31,6 +33,7 @@ export class SeparateBricks extends React.Component<RouteComponentProps<{}>, Com
         if (this.state.products == "loading") return <div>loading...</div>
         else
         return <div>
+            <PageHeader className="HeaderStyle" >Welcome to Minifigures </PageHeader>
             <Search products={this.state.products}/>
            
             {console.log("render", this.state.products)}

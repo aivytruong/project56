@@ -122,7 +122,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
 
 
     render() {
-        return <div>
+        return <div className="HeaderStyle">
 
             {sessionStorage.getItem("userStatus") == "Ingelogd" ?
 

@@ -105,7 +105,7 @@ checkout(){
 
     public render() {
 
-        return <div>
+        return <div className="HeaderStyle">
             {sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 <div/> 
                 
@@ -115,7 +115,7 @@ checkout(){
                 <div className='css-card'>
 
                     <div className='css-container css-red'>
-                        <h2>Register</h2>
+                        <h2 className="HeaderStyle">Register</h2>
                     </div><br />
                     <div className='css-container'>
                         <p>

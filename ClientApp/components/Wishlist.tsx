@@ -3,6 +3,8 @@ import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import { ProductLoad } from './DetailProduct'
+import {PageHeader, Button} from 'react-bootstrap'
+
 
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
     let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
@@ -181,24 +183,29 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
 
     render() {
         // console.log("rendering", this.props.load.name)
-        return <div>
-            {console.log(this.props)}
+        return <div className="HeaderStyle">
+            <div className="col col-md-5">
             <h1>{this.props.load.name}</h1>
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
+            </div>
 
+            <div className="col col-md-5 col-offset-6">
             <h3>Price: €{this.props.load.usD_MSRP}</h3>
+            </div>
 
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+            <div className="col col-md-5 col-offset-6">
+            <Button bsStyle="danger" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 this.productDeleten()
                 :
-                this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </button>
+                this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </Button>
 
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+            <Button bsStyle="warning" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 this.Createnshop()
                 :
-                this.setState({ ...this.state, load: this.props.load, cart: true })}>Add to shoppingcart </button>
+                this.setState({ ...this.state, load: this.props.load, cart: true })}>Add to shoppingcart </Button>
+        </div>
         </div>
     }
 }

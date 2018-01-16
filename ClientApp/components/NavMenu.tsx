@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import {Button, Glyphicon} from 'react-bootstrap'
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
@@ -8,15 +9,23 @@ export class NavMenu extends React.Component<{}, {}> {
                 <li>
                     <i className="fa fa-home"></i>
                     <NavLink to={'/'} exact activeClassName='active'>
-                        <i className='css-icons'>home</i>
+                            <Button bsStyle="warning" bsSize="large">
+                                    <Glyphicon glyph="home">
+                                        Home 
+                                    </Glyphicon >
+                            </Button>
+                        
                         <img src="http://www.stickpng.com/assets/images/5847e798cef1014c0b5e480e.png" width={25} height={20} />
                     </NavLink>
                 </li>
                 <li>
                     {sessionStorage.getItem("userStatus") == "Ingelogd" ?
                         <NavLink to={'/HistoryPage'} activeClassName='active'>
-                            <span className='glyphicon glyphicon'></span> History
-                    </NavLink>
+                            <span className='glyphicon glyphicon'></span> 
+                                <Button bsStyle="warning" bsSize="large">
+                                    History
+                                </Button>
+                        </NavLink>
                         :
                         null}
                 </li>
@@ -28,20 +37,35 @@ export class NavMenu extends React.Component<{}, {}> {
                 </li>  */}
                 <li>
                     <NavLink to={'/sets'} activeClassName='active'>
-                        <span className='glyphicon glyphicon'></span> Sets
-                            </NavLink>
+                        <span className='glyphicon glyphicon'></span> 
+                        <Button bsStyle="warning" bsSize="large">
+                            <Glyphicon glyph="th">
+                                Sets 
+                            </Glyphicon >
+                         </Button>
+                    </NavLink>
                 </li>
                 <li>
                     <NavLink to={'/separatebricks'} activeClassName='active'>
-                        <span className='glyphicon glyphicon'></span> Minifigures
-                            </NavLink>
+                        <span className='glyphicon glyphicon'></span> 
+                        <Button bsStyle="warning" bsSize="large"> 
+                            <Glyphicon glyph="ice-lolly-tasted" > 
+                                Minifigures 
+                            </Glyphicon>
+                        </Button>
+                    </NavLink>
                 </li>
 
                 <li>
                     {sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
                         <NavLink to={'/AdminMode'} activeClassName='active'>
-                            <span className='glyphicon glyphicon'></span> Admin
-                    </NavLink>
+                            <span className='glyphicon glyphicon'></span> 
+                            <Button bsStyle="warning" bsSize="large" >
+                                <Glyphicon glyph="edit">
+                                    Admin
+                                </Glyphicon>
+                            </Button>
+                        </NavLink>
                         :
                         null}
                 </li>
@@ -54,13 +78,20 @@ export class NavMenu extends React.Component<{}, {}> {
                         <a href={'/'}
                             onClick={() => (sessionStorage.removeItem('user'), sessionStorage.removeItem('admin'), sessionStorage.removeItem('userStatus'))}
 
-                        >logout</a>
+                            >
+                            <Button bsStyle="warning" bsSize="large">
+                            Logout
+                            </Button>
+                        </a>
                         :
                         sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
                             <a href={'/'}
                                 onClick={() => (sessionStorage.removeItem('admin'), sessionStorage.removeItem('user'), sessionStorage.removeItem('userStatus'))}
 
-                            >logout</a>
+                            >
+                            <Button bsStyle="warning" bsSize="large">
+                                    Logout
+                            </Button></a>
                             :
                             <NavLink to={'/login'} activeClassName='active'>
                                 <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20} />
