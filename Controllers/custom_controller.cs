@@ -124,10 +124,6 @@ namespace project56.Controllers
                             
         }
 
-<<<<<<< HEAD
-            if (starwars == null) throw new Exception("Product not found");
-            return starwars;
-=======
         [HttpGet("Duplo/{theme}")]
         public Lego[] Duplo(string theme)
         {
@@ -464,7 +460,6 @@ namespace project56.Controllers
                            where _starwars.Theme == theme
                            select _starwars;
             return starwars.ToArray(); 
->>>>>>> origin/amount
         }
 
         [HttpGet("CorrectProduct/{item_Number}")]

@@ -28,11 +28,7 @@
     "style-loader": "0.18.2",
     "typescript": "2.4.1",
     "url-loader": "0.5.9",
-<<<<<<< HEAD
-    "webpack": "^3.10.0",
-=======
     "webpack": "^3.8.1",
->>>>>>> origin/amount
     "webpack-hot-middleware": "2.18.2"
   },
   "dependencies": {
