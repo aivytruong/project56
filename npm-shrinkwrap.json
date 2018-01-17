@@ -24,8 +24,15 @@
     },
     "@types/react": {
       "version": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz",
-      "integrity": "sha512-SDvfa+9dIq7RBTBiPhV0V+NeLT16RSFjcsjcyIJUBLlHpOatja1mHuOlI+P7tJ7fZZeBd8CV5pHxmFt4MdpyGQ==",
-      "dev": true
+      "integrity": "sha512-SDvfa+9dIq7RBTBiPhV0V+NeLT16RSFjcsjcyIJUBLlHpOatja1mHuOlI+P7tJ7fZZeBd8CV5pHxmFt4MdpyGQ=="
+    },
+    "@types/react-bootstrap": {
+      "version": "0.31.9",
+      "resolved": "https://registry.npmjs.org/@types/react-bootstrap/-/react-bootstrap-0.31.9.tgz",
+      "integrity": "sha512-uA46u1hATyONfUvLb3X0MyHeIFLlKSCVIY/gw+kz5Cok50vJUimlELzhoGrPamWQsAjTJSpktl1V4xOIKzcaFQ==",
+      "requires": {
+        "@types/react": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz"
+      }
     },
     "@types/react-dom": {
       "version": "https://registry.npmjs.org/@types/react-dom/-/react-dom-15.5.1.tgz",

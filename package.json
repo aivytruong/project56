@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@types/bootstrap": "^3.3.36",
+    "@types/react-bootstrap": "^0.31.9",
     "amdefine": "^1.0.1",
     "arr-flatten": "^1.1.0",
     "base": "^0.13.1",
