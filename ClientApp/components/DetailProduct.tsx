@@ -41,6 +41,8 @@ export async function CreateHistory(Item_Number: string, user_id: number, amount
     return console.log("made history", res)
 }
 
+
+
 export class CorrectProduct extends React.Component<RouteComponentProps<{ item_Number: string, ID: number }>, StarwarsProductComponentState> {
     constructor(props, context) {
         super();

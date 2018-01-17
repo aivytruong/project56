@@ -36,6 +36,13 @@ export async function CreateHistory(Item_Number: string, user_id: number, amount
     return console.log("made history", res)
 }
 
+export async function get_correctshoppingcartproduct(item_Number: string, user_id: number): Promise<Models.Shoppingcart[]> {
+    let res = await fetch(`./ShoppingcartController/Shoppingcartalert/${item_Number}/${user_id}`, { method: 'get', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+    let json = await res.json()
+    console.log("received correct products", json)
+    return json
+}
+
 type WishlistRouterState = { legopr: Models.Lego[], userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", wishlist2: Models.Wishlist[] }
 
 export class WishlistRouter extends React.Component<RouteComponentProps<{ wishlist: number, lego: Models.Lego }>, WishlistRouterState> {
@@ -143,6 +150,7 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
                     let cartlijst = JSON.parse(cart)
                     let item = { lego: NextState.load.item_Number, amount: 1 }
                     localStorage.setItem("cart", JSON.stringify(cartlijst.concat(item)))
+                    
                 }
             }
             
@@ -151,6 +159,7 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
                 console.log({ item })
                 localStorage.setItem("cart", JSON.stringify(lijst.concat(item)))
                 console.log("concat", lijst)
+                
             }
         }
 
@@ -173,10 +182,19 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
     Createnshop() {
         let user = JSON.parse(sessionStorage.getItem("user"))
 
-        if (user != null) {
-            CreateShoppingcart(this.props.load.item_Number,
-                user, 1)
+        get_correctshoppingcartproduct(this.props.load.item_Number, user).then(e => {
+            console.log({ e })
+            if (e.length == 0) {
+                CreateShoppingcart(this.props.load.item_Number, user, 1)
+                alert("added to shoppingcart")
+            }
+            else {
+
+                alert("You already have this product in your shoppingcart! Change the amount in the shoppingcart.")
+            }
+
         }
+        )
     }
 
     render() {

@@ -73,7 +73,7 @@ export class History extends React.Component<LoadProducts, {}> {
             <img src={this.props.load.image_URL} width={300} height={200} />
             Amount = {this.props.his.amount}
             {this.props.load.euR_MSRP == "NA" ?
-            <h4>Price: €{parseFloat(this.props.load.usD_MSRP) * this.props.his.amount}</h4> 
+            <h4>Price: €{(parseFloat(this.props.load.usD_MSRP) * this.props.his.amount).toFixed(2)}</h4> 
             :
             <h4>Price: €{this.props.load.euR_MSRP}</h4>}
             <h4>Status: pending...</h4>
