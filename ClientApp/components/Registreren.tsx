@@ -21,8 +21,8 @@ export async function UserInloggen(username: string, password: string): Promise<
     return json
 }
 
-export async function CreateShoppingcart(Item_Number: string, user_id: number) {
-    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateShoppingcart(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
     return console.log("made shoppingcart", res)
 }
 
@@ -55,7 +55,15 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
 
 
     }
+checkout(){
+    // history moet mee
+    // localStorage.getItem("checkout") == "true"
+    // ? location.replace('/checkout')
+    // :  
+    location.replace('/')
 
+
+}
     Registreren() {
         var registered = UserRegistreren(this.state.firstName,
             this.state.lastName,
@@ -68,22 +76,26 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
             this.state.Date_of_birth,
             this.state.gender).then(r => {
 
-                if (r != null) this.setState({ ...this.state, user: r, userStatus: "Ingelogd" },
+                if (r.userName == "0") 
+                {alert("Username of Email already taken")}
+                
+                else {this.setState({ ...this.state, user: r, userStatus: "Ingelogd" },
                     () => {
                         let cart = localStorage.getItem("cart")
                         let cartlijst = JSON.parse(cart)
                         cartlijst != null ?
                             cartlijst.map((e: any) =>
                                     
-                            CreateShoppingcart(e.lego, JSON.parse(sessionStorage.getItem("user"))),localStorage.removeItem("cart"), location.replace('/'))
+                            CreateShoppingcart(e.lego, JSON.parse(sessionStorage.getItem("user")), e.amount),localStorage.removeItem("cart"), location.replace('/'))
                                 
                             :
                             console.log("localstorage cart is empty")
 
-                    });
-                else alert("Username of Email already taken")
+                    }); this.checkout()}
+                
             })
         console.log("register", registered)
+
  
     }
 
@@ -93,7 +105,7 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
 
     public render() {
 
-        return <div>
+        return <div className="">
             {sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 <div/> 
                 
@@ -103,7 +115,7 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
                 <div className='css-card'>
 
                     <div className='css-container css-red'>
-                        <h2>Register</h2>
+                        <h2 className="HeaderStyle">Register</h2>
                     </div><br />
                     <div className='css-container'>
                         <p>

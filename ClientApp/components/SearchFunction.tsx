@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import { ProductLoad } from './ProductLoad';
 import { NinjagoSets } from './NinjagoSets';
+import {form, FormGroup, FormControl} from 'react-bootstrap'
 
 type state = { search: "" }
 type productprops = { products: Models.Lego[] }
@@ -21,11 +22,12 @@ export class Search extends React.Component<productprops, state>{
 
     render() {
         let filteredproducts = this.props.products.filter((products) => { return products.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1; });
-        return <div>
-
-            <input type="text"
+        return <form>
+                <FormGroup>
+            <FormControl type="text" className="search-box" placeholder= 'Search'
                 value={this.state.search}
-                onChange={this.updateSearch.bind(this)} />
+                onChange={this.updateSearch.bind(this)} 
+                />
 
             {filteredproducts.map((products) => {
                 return <ProductLoad load={products}
@@ -34,8 +36,8 @@ export class Search extends React.Component<productprops, state>{
             })}
 
 
-
-        </div>
+            </FormGroup>
+        </form>
     }
 
 }

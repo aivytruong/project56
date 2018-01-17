@@ -21,9 +21,19 @@ namespace project56.Controllers
 
 
         [HttpGet("Shoppingcart")]
-        public Shoppingcart[] allWishlist()
+        public Shoppingcart[] allShoppingcart()
         {
             return _context.Shoppingcarts.ToArray();
+        }
+
+        [HttpGet("Shoppingcartalert/{item_number}/{user_id}")]
+        public Shoppingcart[] ShoppingcartAlert(string item_number, int user_id)
+        {
+            var alert = from _alert in _context.Shoppingcarts
+                        where _alert.Item_Number == item_number && _alert.user_id == user_id
+                        select _alert;
+
+            return alert.ToArray();
         }
 
         [HttpGet("CorrectUser/{user_id}")]
@@ -71,19 +81,28 @@ namespace project56.Controllers
             // _context.SaveChanges();
 
             var am = _context.Shoppingcarts.FirstOrDefault(d => d.Item_Number == item_number && d.user_id == user_id);
-            am.amount = am.amount - 1;
+            if (am.amount <= 1)
+            {
+                am.amount = am.amount;
+            }
+            else
+            {
+                am.amount = am.amount - 1;
+            }
+            
 
             _context.SaveChanges();
         }
 
 
-        [HttpPost("CreateShoppingcart/{Item_Number}/{user_id}")]
-        public void CreateShoppingcart(string Item_Number, int user_id)
+        [HttpPost("CreateShoppingcart/{Item_Number}/{user_id}/{amount}")]
+        public void CreateShoppingcart(string Item_Number, int user_id, int amount)
         {
             Shoppingcart newwishlist = new Shoppingcart()
             {
                 Item_Number = Item_Number,
                 user_id = user_id,
+                amount = amount
             };
             _context.Shoppingcarts.Add(newwishlist);
             _context.SaveChanges();

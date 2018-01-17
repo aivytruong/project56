@@ -3,6 +3,8 @@ import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import { ProductLoad } from './DetailProduct'
+import {PageHeader, Button} from 'react-bootstrap'
+
 
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
     let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
@@ -18,20 +20,27 @@ export async function get_correctuser(user_id: number): Promise<Models.Wishlist[
     return json
 }
 
+export async function get_correctshoppingcartproduct(item_Number: string, user_id: number): Promise<Models.Shoppingcart[]> {
+    let res = await fetch(`./ShoppingcartController/Shoppingcartalert/${item_Number}/${user_id}`, { method: 'get', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+    let json = await res.json()
+    console.log("received correct products", json)
+    return json
+}
+
 export async function delete_correctproduct(user_id: number, item_number: string) {
     let res = await fetch(`./WishlistController/Delete/${user_id}/${item_number}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
     return console.log("deleted correct product")
 
 }
 
-export async function CreateShoppingcart(Item_Number: string, user_id: number) {
-    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateShoppingcart(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made shoppingcart", res)
 }
 
-export async function CreateHistory(Item_Number: string, user_id: number) {
-    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateHistory(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made history", res)
 }
@@ -136,7 +145,8 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
             let cart = localStorage.getItem("cart")
             if (cart != null) {
                 if (cart.includes(exists)) {
-                    alert("you already have this in your shoppingcart! Change the amount in the shoppingcart.")
+                    alert("You already have this in your shoppingcart! Change the amount in the shoppingcart.")
+                    location.reload()
                 }
                 else {
                     let cartlijst = JSON.parse(cart)
@@ -157,6 +167,7 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
             console.log("else", NextState);
         }
 
+
     }
 
 
@@ -171,34 +182,46 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
     Createnshop() {
         let user = JSON.parse(sessionStorage.getItem("user"))
 
-        if (user != null) {
-            CreateShoppingcart(this.props.load.item_Number,
-                user)
-            CreateHistory(this.props.load.item_Number,
-                user)
+        get_correctshoppingcartproduct(this.props.load.item_Number, user).then(e => {
+            console.log({ e })
+            if (e.length == 0) {
+                CreateShoppingcart(this.props.load.item_Number, user, 1)
+                alert("added to shoppingcart")
+            }
+            else {
+
+                alert("You already have this product in your shoppingcart! Change the amount in the shoppingcart.")
+            }
+
         }
+        )
     }
 
     render() {
         // console.log("rendering", this.props.load.name)
-        return <div>
-            {console.log(this.props)}
+        return <div className="HeaderStyle">
+            <div className="col col-md-5">
             <h1>{this.props.load.name}</h1>
             <br></br>
             <img src={this.props.load.image_URL} width={300} height={200} />
             <br></br>
+            </div>
 
+            <div className="col col-md-5 col-offset-6">
             <h3>Price: €{this.props.load.usD_MSRP}</h3>
+            </div>
 
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+            <div className="col col-md-5 col-offset-6">
+            <Button bsStyle="danger" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 this.productDeleten()
                 :
-                this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </button>
+                this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </Button>
 
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+            <Button bsStyle="warning" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 this.Createnshop()
                 :
-                this.setState({ ...this.state, load: this.props.load, cart: true })}>Add to shoppingcart </button>
+                this.setState({ ...this.state, load: this.props.load, cart: true })}>Add to shoppingcart </Button>
+        </div>
         </div>
     }
 }

@@ -71,6 +71,8 @@ namespace project56.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Date");
+
                     b.Property<string>("Item_Number");
 
                     b.Property<int>("amount");

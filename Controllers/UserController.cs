@@ -32,7 +32,7 @@ namespace project56.Controllers
             if (item == null)
             {
                 ClassUser newuser = new ClassUser() {   
-                                                    ID = _context.Users.Max(u => u.ID) + 1,
+                                                    
                                                     FirstName = firstName,
                                                     LastName = lastName,
                                                     UserName = userName,
@@ -48,7 +48,17 @@ namespace project56.Controllers
                 return newuser;
             }
             else {
-                return null;
+                return new ClassUser() {                                                      
+                                        FirstName = "0",
+                                        LastName = "0",
+                                        UserName = "0",
+                                        EmailAdress = "0",
+                                        Password = "0",
+                                        Adress = "0",
+                                        PhoneNumber = "0",
+                                        country = "0",
+                                        date_of_birth = "0",
+                                        Gender = "0"};
             }
         }
 

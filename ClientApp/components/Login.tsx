@@ -5,14 +5,14 @@ import * as Models from './lego_types'
 
 type loginState = { userName: string, password: string, loggedin: boolean, userStatus: "Ingelogd" | "Uitgelogd" | "AdminIngelogd", user: Models.Users | "loading", admin: Models.Admins | 'loading' }
 
-export async function CreateShoppingcart(Item_Number: string, user_id: number) {
-    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateShoppingcart(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made shoppingcart", res)
 }
 
-export async function CreateHistory(Item_Number: string, user_id: number) {
-    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateHistory(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made history", res)
 }
@@ -63,20 +63,21 @@ export class Login extends React.Component<RouteComponentProps<{}>, loginState> 
                             let cart = localStorage.getItem("cart")
                             let cartlijst = JSON.parse(cart)
                             cartlijst != null ?
-                                cartlijst.map((e: any) => CreateShoppingcart(e.lego, JSON.parse(sessionStorage.getItem("user"))),localStorage.removeItem("cart"), location.replace('/'))
+                                cartlijst.map((e: any) => CreateShoppingcart(e.lego, JSON.parse(sessionStorage.getItem("user")), 1),localStorage.removeItem("cart"))
                                 :
                                 console.log("localstorage cart is empty")
                         }
-                    )
+                    ), location.replace('/')
                 }
-                else { this.setState({ loggedin: false }), console.log("else") }
-            })
+                else {AdminInloggen(this.state.userName, this.state.password)
+                    .then(value => {
+                        if (value.username != "") { this.setState({ ...this.state, loggedin: true, admin: value, userStatus: "AdminIngelogd" }), location.replace('/') }
+                        else {  alert("Wrong username or password!!!") }
+                    })}
+            }).catch(() => alert("Wrong username or password!!!"))
 
-        AdminInloggen(this.state.userName, this.state.password)
-            .then(value => {
-                if (value.username != "") { this.setState({ ...this.state, loggedin: true, admin: value, userStatus: "AdminIngelogd" }) }
-                else { this.setState({ loggedin: false }) }
-            })
+        
+            // { this.setState({ loggedin: false }), alert("Wrong username or password") }
     }
 
 

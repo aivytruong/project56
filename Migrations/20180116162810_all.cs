@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace project56.Migrations
 {
-    public partial class database : Migration
+    public partial class all : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +30,7 @@ namespace project56.Migrations
                 {
                     id = table.Column<int>(type: "int4", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Date = table.Column<string>(type: "text", nullable: true),
                     Item_Number = table.Column<string>(type: "text", nullable: true),
                     amount = table.Column<int>(type: "int4", nullable: false),
                     user_id = table.Column<int>(type: "int4", nullable: false)

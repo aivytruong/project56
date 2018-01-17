@@ -19,9 +19,52 @@ namespace project56.Controllers
         }
 
         // GET: Userc
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder,
+                                                string searchString,
+                                                string currentFilter,
+                                                int? page)
         {
-            return View(await _context.Users.ToListAsync());
+            ViewData["UNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "uname_desc" : "";
+            ViewData["LNameSortParm"] = sortOrder == "LName" ? "lname_desc" : "Theme";
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var users = from u in _context.Users
+                        select u;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.UserName.ToLower().Contains(searchString.ToLower())
+                                        || u.LastName.ToLower().Contains(searchString.ToLower()));
+            }
+            switch (sortOrder)
+            {
+                case "uname_desc":
+                    users = users.OrderByDescending(u => u.UserName);
+                    break;
+                case "LName":
+                    users = users.OrderBy(u => u.LastName);
+                    break;
+                case "lname_desc":
+                    users = users.OrderByDescending(u => u.LastName);
+                    break;
+                default:
+                    users = users.OrderBy(u => u.UserName);
+                    break;
+            }
+
+            int pageSize = 10;
+            return View(await PaginatedList<ClassUser>.CreateAsync(users.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Userc/Details/5

@@ -96,6 +96,8 @@ namespace project56.model
         public int user_id { get; set; }
         public int amount {get;set;}
 
+        public string Date { get; set; }
+
     }
 
 

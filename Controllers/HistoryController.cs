@@ -37,11 +37,13 @@ namespace project56.Controllers
         }
         
         
-        [HttpPost("CreateHistory/{Item_Number}/{user_id}")]
-        public void CreateHistory(string Item_Number, int user_id)
+        [HttpPost("CreateHistory/{Item_Number}/{user_id}/{amount}/{date}")]
+        public void CreateHistory(string Item_Number, int user_id, int amount, string date)
         {
             History newwishlist = new History() {Item_Number = Item_Number,
                                                    user_id = user_id,
+                                                   amount = amount,
+                                                   Date = date
                                                    };
             _context.Historys.Add(newwishlist);
             _context.SaveChanges();

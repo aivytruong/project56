@@ -9,15 +9,21 @@ type Headers = { 'content-type': 'application/json' }
 
 type regState = { firstName: string, lastName: string, userName: string, emailAdress: string, password: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
 
-export async function CreateShoppingcart(Item_Number: string, user_id: number) {
-    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateShoppingcart(Item_Number: string, user_id: number, amount:number) {
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made shoppingcart", res)
 }
 
-export async function CreateHistory(Item_Number: string, user_id: number) {
-    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function get_shoppingcart(): Promise<Models.Shoppingcart[]> {
+    let res = await fetch(`./ShoppingcarController/Shoppingcart`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+    let json = await res.json()
+    console.log("received correct products", json)
+    return json
+}
 
+export async function CreateHistory(Item_Number: string, user_id: number, amount:number, date:string) {
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}/${amount}/${date}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
     return console.log("made history", res)
 }
 
@@ -103,7 +109,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
                             let cart = localStorage.getItem("cart")
                             let cartlijst = JSON.parse(cart)
                             cartlijst != null ?
-                                cartlijst.map((e: any) => CreateHistory(e.lego, JSON.parse(sessionStorage.getItem("user"))), localStorage.removeItem("cart"))
+                                cartlijst.map((e: any) => CreateHistory(e.lego, JSON.parse(sessionStorage.getItem("user")), e.amount, new Date().toLocaleDateString()), localStorage.removeItem("cart"))
                                 :
                                 console.log("localstorage cart is empty")
                         }
@@ -116,7 +122,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
 
 
     render() {
-        return <div>
+        return <div className="HeaderStyle">
 
             {sessionStorage.getItem("userStatus") == "Ingelogd" ?
 
@@ -193,45 +199,6 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
                         </div>
                     </div>
                     </div>;
-
-
-                    {/* <h2>Want to continue without registering?</h2>
-                    <div><div className='css-card'>
-            <div className='css-container css-red'>
-            </div><br/>
-            <div className='css-container'>
-                <p>
-                    <span className='css-text-red'>First Name:</span>
-                    <input className='css-input css-lightred' value={this.state.firstName} onChange={event => this.setState({...this.state, firstName: event.target.value})}/>
-                </p>
-                <p>
-                    <span className='css-text-red'>Last Name:</span>
-                    <input className='css-input css-lightred' value={this.state.lastName} onChange={event => this.setState({...this.state, lastName: event.target.value})}/>
-                </p>
-                <p>
-                    <span className='css-text-red'>Email adress:</span>
-                    <input className='css-input css-lightred' value={this.state.emailAdress} onChange={event => this.setState({...this.state, emailAdress: event.target.value})}/>
-                </p>
-                <p>
-                    <span className='css-text-red'>Adress:</span>
-                    <input className='css-input css-lightred' value={this.state.adress} onChange={event => this.setState({...this.state, adress: event.target.value})}/>
-                </p>
-                <p>
-                    <span className='css-text-red'>Phone Number:</span>
-                    <input className='css-input css-lightred' value={this.state.phoneNumber} onChange={event => this.setState({...this.state, phoneNumber: event.target.value})}/>
-                </p>
-                <p>
-                    <span className='css-text-red'>Country:</span>
-                    <input className='css-input css-lightred' value={this.state.Country} onChange={event => this.setState({...this.state, Country: event.target.value})}/>
-                </p>
-                <p>
-                    
-                    <button className='css-btn' onClick={() => this.product} > Go to checkout </button>
-                    
-                </p>
-            </div>
-            </div>
-        </div> */}
                 </div>
             }
 
@@ -250,7 +217,6 @@ export class PurchaseRoute extends React.Component<RouteComponentProps<{}>, {}> 
         return <div>
             <Purchase />
         </div>
-
     }
 }
 
@@ -263,6 +229,7 @@ export class Purchase extends React.Component<{}, {}> {
 
     componentWillMount() {
         localStorage.getItem("userStatus")
+        localStorage.removeItem("checkout")
     }
 
 
@@ -274,23 +241,13 @@ export class Purchase extends React.Component<{}, {}> {
             : null
     }
 
-    // CreateHis(){
-    //     let user =  JSON.parse(sessionStorage.getItem("user"))
-
-    //     if (user != null)
-    //     {
-    //         CreateHistory(this.props.lego.item_Number,
-    //             user)
-    //     }
-    // }
-
+    
 
     render() {
         console.log("render")
         return <div>
 
             Order has been made! Go back to the homepage.
-            {/* {this.CreateHis()} */}
             {this.productDeleten()}
 
 

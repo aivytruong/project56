@@ -28,10 +28,17 @@ namespace project56.Controllers
         [HttpGet("Adminlogin/{username}/{password}")]
         public Admin Adminlogin(string username, string password)
         {
-            var adminloggin = from logins in _context.Admins
-                              where logins.Username == username && logins.Password == password
-                              select logins;
-            return adminloggin.FirstOrDefault();    
+            var adminloggin = _context.Admins.FirstOrDefault(admin => admin.Username == username && admin.Password == password);
+            if ( adminloggin != null )  {
+                return adminloggin;
+            } 
+            else {
+                return new Admin() {
+                                    Username = "",
+                                    Email = "",
+                                    Password = ""                          
+                };
+            }
         }
     }
 }
