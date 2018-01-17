@@ -198,7 +198,7 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
             let user = sessionStorage.getItem("user")
             sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 this.state.shopcart.map(f =>
-                    CreateHistory(f.item_Number, JSON.parse(sessionStorage.getItem("user")), f.amount, new Date().toDateString()), location.replace('/checkout'))
+                    CreateHistory(f.item_Number, JSON.parse(sessionStorage.getItem("user")), f.amount, new Date().toLocaleDateString()), location.replace('/checkout'))
                 :
                 location.replace('/checkout')
         }

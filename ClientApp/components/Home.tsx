@@ -5,7 +5,6 @@ import * as Models from './lego_types'
 import {PageHeader, Label} from 'react-bootstrap'
 import { ProductLoad } from './ProductLoad';
 import { Search } from './SearchFunction';
-import { get_product } from 'ClientApp/Components/AdminMode';
 import { Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button } from 'reactstrap';
 

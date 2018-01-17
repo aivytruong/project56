@@ -105,7 +105,7 @@ checkout(){
 
     public render() {
 
-        return <div className="HeaderStyle">
+        return <div className="">
             {sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 <div/> 
                 

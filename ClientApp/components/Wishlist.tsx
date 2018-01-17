@@ -20,6 +20,13 @@ export async function get_correctuser(user_id: number): Promise<Models.Wishlist[
     return json
 }
 
+export async function get_correctshoppingcartproduct(item_Number: string, user_id: number): Promise<Models.Shoppingcart[]> {
+    let res = await fetch(`./ShoppingcartController/Shoppingcartalert/${item_Number}/${user_id}`, { method: 'get', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+    let json = await res.json()
+    console.log("received correct products", json)
+    return json
+}
+
 export async function delete_correctproduct(user_id: number, item_number: string) {
     let res = await fetch(`./WishlistController/Delete/${user_id}/${item_number}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
     return console.log("deleted correct product")
@@ -175,10 +182,19 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
     Createnshop() {
         let user = JSON.parse(sessionStorage.getItem("user"))
 
-        if (user != null) {
-            CreateShoppingcart(this.props.load.item_Number,
-                user, 1)
+        get_correctshoppingcartproduct(this.props.load.item_Number, user).then(e => {
+            console.log({ e })
+            if (e.length == 0) {
+                CreateShoppingcart(this.props.load.item_Number, user, 1)
+                alert("added to shoppingcart")
+            }
+            else {
+
+                alert("You already have this product in your shoppingcart! Change the amount in the shoppingcart.")
+            }
+
         }
+        )
     }
 
     render() {
