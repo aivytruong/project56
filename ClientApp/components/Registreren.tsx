@@ -144,7 +144,7 @@ checkout(){
                         </p>
                         <p>
                             <span className='css-text-red'>Phone Number:</span>
-                            <input className='css-input css-lightred'pattern="^\+[0-9]{6,14}" title="Your number should be like this example: +312345678, 312345678 or 0612345678" value={this.state.phoneNumber} onChange={event => this.setState({ ...this.state, phoneNumber: event.target.value })} />
+                            <input className='css-input css-lightred'pattern="^\+\s*[0-9]{6,14}" title="Your number should be like this example: +312345678, 312345678 or 0612345678" value={this.state.phoneNumber} onChange={event => this.setState({ ...this.state, phoneNumber: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>Country code:</span>
@@ -156,7 +156,7 @@ checkout(){
                         </p>
                         <p>
                             <span className='css-text-red'>Gender(M/V):</span>
-                            <input className='css-input css-lightred' pattern="/^m$|^f$|^M$|^F$/" title="please enter m, f, M or F" value={this.state.gender} onChange={event => this.setState({ ...this.state, gender: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="/^m$|^v$|^M$|^V$/" title="please only enter: m, v, M or V" value={this.state.gender} onChange={event => this.setState({ ...this.state, gender: event.target.value })} />
                         </p>
                         <p>
                             <button className='css-btn' onClick={() => this.Registreren()}>Create account</button>
