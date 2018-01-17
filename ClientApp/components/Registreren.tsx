@@ -120,11 +120,11 @@ checkout(){
                     <div className='css-container'>
                         <p>
                             <span className='css-text-red'>First Name:</span>
-                            <input className='css-input css-lightred' pattern="[A-Za-z]*" title="Can only contain letters" value={this.state.firstName} onChange={event => this.setState({ ...this.state, firstName: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="[A-Za-z]{1,}" title="Can only contain letters" value={this.state.firstName} onChange={event => this.setState({ ...this.state, firstName: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>Last Name:</span>
-                            <input className='css-input css-lightred' pattern="[A-Za-z]*" title="Can only contain letters" value={this.state.lastName} onChange={event => this.setState({ ...this.state, lastName: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="[A-Za-z]{1,}" title="Can only contain letters" value={this.state.lastName} onChange={event => this.setState({ ...this.state, lastName: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>User Name:</span>
