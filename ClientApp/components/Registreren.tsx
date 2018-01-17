@@ -120,11 +120,11 @@ checkout(){
                     <div className='css-container'>
                         <p>
                             <span className='css-text-red'>First Name:</span>
-                            <input className='css-input css-lightred' pattern="[A-Za-z]{1,}" title="Can only contain letters" value={this.state.firstName} onChange={event => this.setState({ ...this.state, firstName: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="[A-Za-z]+" required title="Can only contain letters" value={this.state.firstName} onChange={event => this.setState({ ...this.state, firstName: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>Last Name:</span>
-                            <input className='css-input css-lightred' pattern="[A-Za-z]{1,}" title="Can only contain letters" value={this.state.lastName} onChange={event => this.setState({ ...this.state, lastName: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="[A-Za-z]+" title="Can only contain letters" value={this.state.lastName} onChange={event => this.setState({ ...this.state, lastName: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>User Name:</span>
@@ -136,11 +136,11 @@ checkout(){
                         </p>
                         <p>
                             <span className='css-text-red'>Password:</span>
-                            <input className='css-input css-lightred' pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$" title="Must include one number, one uppercase, lowercase letter and 8-16 characters" value={this.state.password} onChange={event => this.setState({ ...this.state, password: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="^\w*(?=\w*\d)(?=\w*[a-z])(?=\w*[A-Z])\w{6,18}$" title="Must include one number, one uppercase, lowercase letter and 6-18 characters" value={this.state.password} onChange={event => this.setState({ ...this.state, password: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>Zipcode + housenumber:</span>
-                            <input className='css-input css-lightred'pattern="[0-9]{4}\s*[a-zA-Z]{2}\s{1}[0-9a-zA-Z]{1,9}" title="Must contain a dutch zipcode and house number example 1234aa 19b or 1234 AA 19"  value={this.state.adress} onChange={event => this.setState({ ...this.state, adress: event.target.value })} />
+                            <input className='css-input css-lightred'pattern="[0-9]{4}\s*[a-zA-Z]{2}\s+[0-9a-zA-Z]{1,9}" title="Must contain a dutch zipcode and house number example 1234aa 19b or 1234 AA 19"  value={this.state.adress} onChange={event => this.setState({ ...this.state, adress: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>Phone Number:</span>
