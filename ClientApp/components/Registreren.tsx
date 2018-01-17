@@ -108,23 +108,23 @@ export class Registreren extends React.Component<RouteComponentProps<{}>, regSta
                     <div className='css-container'>
                         <p>
                             <span className='css-text-red'>First Name:</span>
-                            <input className='css-input css-lightred' value={this.state.firstName} onChange={event => this.setState({ ...this.state, firstName: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="[A-Za-z]*" title="Can only contain letters and numbers" value={this.state.firstName} onChange={event => this.setState({ ...this.state, firstName: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>Last Name:</span>
-                            <input className='css-input css-lightred' value={this.state.lastName} onChange={event => this.setState({ ...this.state, lastName: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="[A-Za-z]" title="Can only contain letters and numbers" value={this.state.lastName} onChange={event => this.setState({ ...this.state, lastName: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>User Name:</span>
-                            <input className='css-input css-lightred' value={this.state.userName} onChange={event => this.setState({ ...this.state, userName: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="[A-Za-z0-9]{5,}" title="Can only contain letters and numbers and must be more than 5 characters" value={this.state.userName} onChange={event => this.setState({ ...this.state, userName: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>Email adress:</span>
-                            <input className='css-input css-lightred' value={this.state.emailAdress} onChange={event => this.setState({ ...this.state, emailAdress: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="[[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$]" title="must be a correct email" value={this.state.emailAdress} onChange={event => this.setState({ ...this.state, emailAdress: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>Password:</span>
-                            <input className='css-input css-lightred' value={this.state.password} onChange={event => this.setState({ ...this.state, password: event.target.value })} />
+                            <input className='css-input css-lightred' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" value={this.state.password} onChange={event => this.setState({ ...this.state, password: event.target.value })} />
                         </p>
                         <p>
                             <span className='css-text-red'>Adress:</span>
