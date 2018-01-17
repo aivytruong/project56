@@ -48,6 +48,7 @@
     "parse-json": "^4.0.0",
     "pify": "^3.0.0",
     "posix-character-classes": "^1.0.0",
+    "react-bootstrap-validation": "^0.1.11",
     "reactstrap": "^5.0.0-alpha.4",
     "repeat-element": "^1.1.2",
     "set-blocking": "^2.0.0",
@@ -56,6 +57,7 @@
     "split-string": "^3.0.2",
     "to-regex": "^3.0.1",
     "to-regex-range": "^3.0.0",
+    "vendor.js": "0.0.4",
     "y18n": "^4.0.0",
     "yarn": "^1.1.0"
   }
