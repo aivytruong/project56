@@ -95,14 +95,15 @@ namespace project56.Controllers
         }
 
 
-        [HttpPost("CreateShoppingcart/{Item_Number}/{user_id}/{amount}")]
-        public void CreateShoppingcart(string Item_Number, int user_id, int amount)
+        [HttpPost("CreateShoppingcart/{Item_Number}/{user_id}/{amount}/{price}")]
+        public void CreateShoppingcart(string Item_Number, int user_id, int amount, string price)
         {
             Shoppingcart newwishlist = new Shoppingcart()
             {
                 Item_Number = Item_Number,
                 user_id = user_id,
-                amount = amount
+                amount = amount,
+                price = price
             };
             _context.Shoppingcarts.Add(newwishlist);
             _context.SaveChanges();

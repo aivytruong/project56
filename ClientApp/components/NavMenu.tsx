@@ -1,47 +1,70 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { CartData } from './ChartData';
+import {Button, Glyphicon} from 'react-bootstrap'
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
-        return <div className='main-nav'>
+        return <div>
+        <div className='main-nav'>
             <ul>
-                <li>
-                    <i className="fa fa-home"></i>
-                    <NavLink to={'/'} exact activeClassName='active'>
-                        <i className='css-icons'>home</i>
-                        <img src="http://www.stickpng.com/assets/images/5847e798cef1014c0b5e480e.png" width={25} height={20} />
-                    </NavLink>
-                </li>
-                <li>
-                    {sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                        <NavLink to={'/HistoryPage'} activeClassName='active'>
-                            <span className='glyphicon glyphicon'></span> History
-                    </NavLink>
-                        :
-                        null}
-                </li>
+            <li>
+            
+            <NavLink to={'/'} exact activeClassName='active'>
+                    <Button bsStyle="warning" bsSize="large">
+                            <Glyphicon glyph="home">
+                                Home 
+                            </Glyphicon >
+                    </Button>
+                
+                {/* <img src="http://www.stickpng.com/assets/images/5847e798cef1014c0b5e480e.png" width={80} height={50} /> */}
+            </NavLink>
+        </li>
+        <li>
+        {sessionStorage.getItem("userStatus") == "Ingelogd" ?
+            <NavLink to={'/HistoryPage'} activeClassName='active'>
+                <span className='glyphicon glyphicon'></span> 
+                    <Button bsStyle="warning" bsSize="large">
+                        History
+                    </Button>
+            </NavLink>
+            :
+            null}
+    </li>
 
-                {/* <li>
+                <li>
                             <NavLink to={ '/databasebutton' } activeClassName='active'>
                                 <span className='glyphicon glyphicon'></span> database
                             </NavLink>
-                </li>  */}
+                </li> 
                 <li>
-                    <NavLink to={'/sets'} activeClassName='active'>
-                        <span className='glyphicon glyphicon'></span> Sets
-                            </NavLink>
-                </li>
-                <li>
-                    <NavLink to={'/separatebricks'} activeClassName='active'>
-                        <span className='glyphicon glyphicon'></span> Minifigures
-                            </NavLink>
-                </li>
+                <NavLink to={'/sets'} activeClassName='active'>
+                    <span className='glyphicon glyphicon'></span> 
+                    <Button bsStyle="warning" bsSize="large">
+                        <Glyphicon glyph="th">
+                            Sets 
+                        </Glyphicon >
+                     </Button>
+                </NavLink>
+            </li>
+            <li>
+            <NavLink to={'/separatebricks'} activeClassName='active'>
+                <span className='glyphicon glyphicon'></span> 
+                <Button bsStyle="warning" bsSize="large"> 
+                    <Glyphicon glyph="ice-lolly-tasted" > 
+                        Minifigures 
+                    </Glyphicon>
+                </Button>
+            </NavLink>
+        </li>
 
                 <li>
                     {sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
-                        <NavLink to={'/AdminMode'} activeClassName='active'>
-                            <span className='glyphicon glyphicon'></span> Admin
-                    </NavLink>
+                        <div>
+                            <Button bsStyle="warning" bsSize="large"   className="glyphicon glyphicon" data-toggle="modal" data-target="#myModal">
+                                Admin Actions
+                            </Button>
+                        </div>
                         :
                         null}
                 </li>
@@ -54,16 +77,16 @@ export class NavMenu extends React.Component<{}, {}> {
                         <a href={'/'}
                             onClick={() => (sessionStorage.removeItem('user'), sessionStorage.removeItem('admin'), sessionStorage.removeItem('userStatus'))}
 
-                        >logout</a>
+                        ><Button bsStyle="warning" bsSize="large">logout</Button></a>
                         :
                         sessionStorage.getItem("userStatus") == "AdminIngelogd" ?
                             <a href={'/'}
                                 onClick={() => (sessionStorage.removeItem('admin'), sessionStorage.removeItem('user'), sessionStorage.removeItem('userStatus'))}
 
-                            >logout</a>
+                            ><Button bsStyle="warning" bsSize="large">logout</Button></a>
                             :
                             <NavLink to={'/login'} activeClassName='active'>
-                                <img src="https://png.icons8.com/lego-head/Dusk_Wired/1600" width={20} height={20} />
+                                <Glyphicon glyph="user"/>
                             </NavLink>
 
                     }
@@ -72,28 +95,55 @@ export class NavMenu extends React.Component<{}, {}> {
                 {sessionStorage.getItem("userStatus") != "AdminIngelogd" ? <div>
                 <li className='dropdown-wish'>
                     <NavLink to={'/wishlist'} activeClassName='active'>
-                        <img src="https://png.icons8.com/wish-list/ios7/50/000000" width={20} height={20} />
-                    </NavLink>
+                    <Glyphicon glyph="list-alt"/>                    </NavLink>
                 </li>
                 <li className='dropdown-shoppingcart'>
                     <NavLink to={'/Shoppingcart'} activeClassName='active'>
-                        <img src="https://png.icons8.com/shopping-cart/dotty/50/000000" width={20} height={20} />
+                    <Glyphicon glyph="shopping-cart"/>
                     </NavLink>
                 </li></div>
                 :
                         null}
-                {/* <div className='dropdown-content'>
-                                <NavLink to={ '/sets' } activeClassName='active'>
-                                    <span className='glyphicon glyphicon'></span> Sets
-                                </NavLink>
-                                <NavLink to={ '/sets' } activeClassName='active'>
-                                    <span className='glyphicon glyphicon'></span> Sets
-                                </NavLink>
-                                <NavLink to={ '/sets' } activeClassName='active'>
-                                    <span className='glyphicon glyphicon'></span> Sets
-                                </NavLink>
-                            </div> */}
             </ul>
+        </div>
+        <div className="modal" id="myModal" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <Button bsStyle="warning" bsSize="large" type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></Button>
+                    </div>
+                    <div className="modal-body">
+                    <a href={`/Userc`} >
+                        <Button bsStyle="warning" bsSize="large" className="btn btn-primary btn-lg">Edit, create and update users</Button>
+                    </a>
+                    <a href={`/lego`} >
+                        <Button bsStyle="warning" bsSize="large" type="button" className="btn btn-primary btn-lg">Edit, create and update lego products</Button>
+                    </a>
+                    <Button bsStyle="warning" bsSize="large" type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#dataModal">
+                        Cart Graph
+                    </Button>
+                    </div>
+                    <div className="modal-footer">
+                        <Button bsStyle="warning" bsSize="large" type="button" className="btn btn-default" data-dismiss="modal">Close</Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="modal" id="dataModal" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <Button bsStyle="warning" bsSize="large" type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></Button>
+                    </div>
+                    <div className="modal-body">
+                        <CartData />
+                    </div>
+                    <div className="modal-footer">
+                        <Button bsStyle="warning" bsSize="large" type="button" className="btn btn-default" data-dismiss="modal">Close</Button>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     }
 }

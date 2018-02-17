@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import { ProductLoad } from './DetailProduct'
+import {PageHeader, Button} from 'react-bootstrap'
 
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
     let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
@@ -150,6 +151,7 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
                     let cartlijst = JSON.parse(cart)
                     let item = { lego: NextState.load.item_Number, amount: 1 }
                     localStorage.setItem("cart", JSON.stringify(cartlijst.concat(item)))
+                    alert("Added to shoppingcart! Product remains in the wishlist just in case you need it later again!")
                     
                 }
             }
@@ -159,6 +161,8 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
                 console.log({ item })
                 localStorage.setItem("cart", JSON.stringify(lijst.concat(item)))
                 console.log("concat", lijst)
+                alert("Added to shoppingcart! Product remains in the wishlist just in case you need it later again!")
+                    
                 
             }
         }
@@ -199,24 +203,38 @@ export class Wishlist extends React.Component<LoadProducts, { cart: boolean, loa
 
     render() {
         // console.log("rendering", this.props.load.name)
-        return <div>
-            {console.log(this.props)}
-            <h1>{this.props.load.name}</h1>
-            <br></br>
-            <img src={this.props.load.image_URL} width={300} height={200} />
-            <br></br>
+        return <div className="HeaderStyle" >
 
-            <h3>Price: €{this.props.load.usD_MSRP}</h3>
+            <div className="HeaderStyle">           
+            <div className="container">
+            <div className="row"> 
+            <div className="col col-md-5">
+                        <h1>{this.props.load.name}</h1>
+                        <br></br>
+                        <img src={this.props.load.image_URL} width={300} height={200} />
+                        <br></br>
+                        </div>
+                        <div className="col col-md-5 col-offset-3">
+                        
+                        </div>
+                        <div className="buttoonn">
+                        <div className="pricee">
+                        <h3>Price: €{this.props.load.usD_MSRP}</h3>
 
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                this.productDeleten()
-                :
-                this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </button>
-
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                this.Createnshop()
-                :
-                this.setState({ ...this.state, load: this.props.load, cart: true })}>Add to shoppingcart </button>
+                        <Button bsStyle="danger" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                            this.productDeleten()
+                            :
+                            this.props.deleteItem(this.props.load.item_Number)}>Remove from wishlist </Button>
+                        </div>
+                        <br></br>
+<Button bsStyle="danger" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                            this.Createnshop()
+                            :
+                            this.setState({ ...this.state, load: this.props.load, cart: true })}>Add to shoppingcart </Button>
+                    </div>
+        </div>
+        </div>
+        </div>
         </div>
     }
 }

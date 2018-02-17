@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace project56.Migrations
 {
-    public partial class all : Migration
+    public partial class migrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,6 +25,23 @@ namespace project56.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Datadetails",
+                columns: table => new
+                {
+                    dataId = table.Column<int>(type: "int4", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    productID = table.Column<string>(type: "text", nullable: true),
+                    productName = table.Column<string>(type: "text", nullable: true),
+                    purchases = table.Column<int>(type: "int4", nullable: false),
+                    shoppingcart = table.Column<int>(type: "int4", nullable: false),
+                    wishlist = table.Column<int>(type: "int4", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Datadetails", x => x.dataId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "historydetails",
                 columns: table => new
                 {
@@ -33,6 +50,8 @@ namespace project56.Migrations
                     Date = table.Column<string>(type: "text", nullable: true),
                     Item_Number = table.Column<string>(type: "text", nullable: true),
                     amount = table.Column<int>(type: "int4", nullable: false),
+                    price = table.Column<string>(type: "text", nullable: true),
+                    totalprice = table.Column<string>(type: "text", nullable: true),
                     user_id = table.Column<int>(type: "int4", nullable: false)
                 },
                 constraints: table =>
@@ -72,6 +91,7 @@ namespace project56.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Item_Number = table.Column<string>(type: "text", nullable: true),
                     amount = table.Column<int>(type: "int4", nullable: false),
+                    price = table.Column<string>(type: "text", nullable: true),
                     user_id = table.Column<int>(type: "int4", nullable: false)
                 },
                 constraints: table =>
@@ -120,6 +140,9 @@ namespace project56.Migrations
         {
             migrationBuilder.DropTable(
                 name: "admindetails");
+
+            migrationBuilder.DropTable(
+                name: "Datadetails");
 
             migrationBuilder.DropTable(
                 name: "historydetails");

@@ -2,11 +2,22 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
+import {PageHeader, Button} from 'react-bootstrap'
 
 
 type StarwarsProductComponentProps = {}
 type StarwarsProductComponentState = { products: Models.Lego | "loading", Item_Number: Models.Users | "loading", ID: Models.Users | "loading" }
 type LoadProducts = { load: Models.Lego, id: string }
+
+export async function addCart(item_Number:string, productName:string) {
+    let res = await fetch(`./DataController/addCart/${item_Number}/${productName}`, { method: 'post', credentials: 'include', headers: { 'content-type' : 'application/json'}})
+    console.log('added to cartdata')
+}
+
+export async function addWish(item_Number:string, productName:string) {
+    let res = await fetch(`./DataController/addWish/${item_Number}${productName}`, { method: 'post', credentials: 'include', headers: { 'content-type' : 'application/json'}})
+    console.log('added to wishlistdata')
+}
 
 
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
@@ -29,18 +40,11 @@ export async function CreateWishlist(Item_Number: string, user_id: number) {
     return console.log("made wishlist", res)
 }
 
-export async function CreateShoppingcart(Item_Number: string, user_id: number, amount: number) {
-    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateShoppingcart(Item_Number: string, user_id: number, amount: number, price:string) {
+    let res = await fetch(`./ShoppingcartController/CreateShoppingcart/${Item_Number}/${user_id}/${amount}/${price}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made shoppingcart", res)
 }
-
-export async function CreateHistory(Item_Number: string, user_id: number, amount: number) {
-    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
-
-    return console.log("made history", res)
-}
-
 
 
 export class CorrectProduct extends React.Component<RouteComponentProps<{ item_Number: string, ID: number }>, StarwarsProductComponentState> {
@@ -134,9 +138,9 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         let user = JSON.parse(sessionStorage.getItem("user"))
 
         if (user != null) {
-            CreateWishlist(this.props.lego.item_Number,
-                user)
+            CreateWishlist(this.props.lego.item_Number, user)
             alert("added to wishlist")
+            addWish(this.props.lego.item_Number, this.props.lego.name);
         }
     }
 
@@ -151,7 +155,7 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         get_correctshoppingcartproduct(this.props.lego.item_Number, user).then(e => {
             console.log({ e })
             if (e.length == 0) {
-                CreateShoppingcart(this.props.lego.item_Number, user, 1)
+                CreateShoppingcart(this.props.lego.item_Number, user, 1, this.props.lego.usD_MSRP)
                 alert("added to shoppingcart")
             }
             else {
@@ -159,61 +163,78 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
                 alert("You already have this product in your shoppingcart! Change the amount in the shoppingcart.")
             }
 
-        }
-        )
+        })
     }
 
-    // randomCalculator()
-    // {
-    //     var min = 15;
-    //     var max = 100;
-    //     // and the formula is:
-    //     var random = Math.floor(Math.random() * (max - min + 1)) + min;
-    //     return random;
-    // }
+    settingState(input) {
+        if ( input == 'wish' ) {
+            this.setState({...this.state, lego:this.props.lego, wishlist: true});
+            addWish(this.props.lego.item_Number, this.props.lego.name);
+        }
+        if ( input == 'cart' ) {
+            this.setState({...this.state, lego:this.props.lego, cart: true});
+            addCart(this.props.lego.item_Number, this.props.lego.name);
+        }
+    }
 
     render() {
         // console.log("rendering", this.props.load.name)
         return <div>
-            {console.log(this.props)}
-            <h1>{this.props.lego.name}</h1>
+  
+  <PageHeader className="HeaderStyle">{this.props.lego.name}</PageHeader>
             <br></br>
-            <img src={this.props.lego.image_URL} width={300} height={200} />
+            <div className="HeaderStyle">
+            <div className="container">
+            <div className="row"> 
+            <div className="col col-md-5">
+            <img src={this.props.lego.image_URL} width={400} height={300} />
+            </div>
+            
             <br></br>
+           <div className="col col-md-5 col-offset-3">
             <h3>Description</h3>
             <br />
             <p>Bring all of the action of the epic {this.props.lego.theme} to your adventurous builder with the {this.props.lego.name}. Your child will take on exciting challenges and obstacles with this functional, action-packed set. Builders can take a break from screen time and take on a new challenge! They can role play with their friends and take on the evils for incredible, larger than life stories! Designed with builders of all ages in mind, this toy with {this.props.lego.pieces} pieces will encourage open-ended building play, and inspire any imagination.  </p>
+            
             <br></br>
 
             <h3>Price: €{this.props.lego.usD_MSRP}</h3>
+            
 
             <br></br>
             {sessionStorage.getItem("userStatus") == "AdminIngelogd"
                 ?
                 <div>
                     <a href={`/Lego/Edit/${this.props.lego.item_Number}`} >
-                        <button >Edit </button>
+                        <Button bsStyle="warning" bsSize="large" >Edit </Button>
                     </a>
 
                     <a href={`/Lego/Delete/${this.props.lego.item_Number}`}>
-                        <button>Delete</button>
+                        <Button bsStyle="warning" bsSize="large">Delete</Button>
                     </a>
                 </div>
                 :
                 <div>
-                    <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                    <Button bsStyle="danger" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
                         this.Createn()
                         :
-                        this.setState({ ...this.state, lego: this.props.lego, wishlist: true })}>Add to wishlist
-                        </button>
+                        this.settingState('wish')}>Add to wishlist
+                        </Button>
 
-                    <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                    <Button bsStyle="danger" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
                         this.Createnshop()
                         :
-                        this.setState({ ...this.state, lego: this.props.lego, cart: true })}>Add to shoppingcart
-                        </button>
+                        this.settingState('cart')}>Add to shoppingcart
+                        </Button>
                 </div>
-            }</div>;
+                
+                
+            }
+            </div>
+            </div>
+            </div>
+                </div> 
+                </div>;
     }
 
 

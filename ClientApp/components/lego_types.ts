@@ -48,16 +48,24 @@ export type Shoppingcart = {
     item_Number : string
     user_id : number
     amount : number
+    price: string
 }
 
 export type History = {
     item_Number : string
     user_id : number
     amount : number
+    price : string
+    totalprice: string
     date: string
 }
 
-export type Beiden = {
-    products : Lego
-    shoppingcart : Shoppingcart
+
+export type Data = {
+    dataId : number
+    Productid: string
+    productName: string
+    Wishlist : number
+    purchases : number
+    shoppingcart: number
 }

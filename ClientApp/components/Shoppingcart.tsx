@@ -5,6 +5,12 @@ import * as Models from './lego_types'
 import { ProductLoad, get_correctshoppingcartproduct } from './DetailProduct'
 import { Checkout } from './Checkout'
 import { Lego, Shoppingcart } from './lego_types';
+import {PageHeader, Button} from 'react-bootstrap'
+
+export async function addPurchase(item_Number:string, productName:string) {
+    let res = await fetch(`./DataController/addWish/${item_Number}${productName}`, { method: 'post', credentials: 'include', headers: { 'content-type' : 'application/json'}})
+    console.log('added to wishlistdata')
+}
 
 export async function get_correctproduct(item_Number: string): Promise<Models.Lego> {
     let res = await fetch(`./custom/CorrectProduct/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
@@ -17,13 +23,6 @@ export async function get_shoppingcart(): Promise<Models.Shoppingcart[]> {
     let res = await fetch(`./ShoppingcarController/Shoppingcart`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
     let json = await res.json()
     console.log("received correct products", json)
-    return json
-}
-
-export async function get_beiden(products: Lego, shoppingcart: Shoppingcart): Promise<Models.Lego> {
-    let res = await fetch(`./custom/CorrectProduct/${products}/${shoppingcart}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
-    let json = await res.json()
-    console.log("beiden", json)
     return json
 }
 
@@ -58,18 +57,18 @@ export async function updateminamount(item_number: string, user_id: number) {
     return console.log("updated amount", res.status)
 }
 
-export async function CreateHistory(Item_Number: string, user_id: number, amount:number, date:string) {
-    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}/${amount}/${date}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateHistory(Item_Number: string, user_id: number, amount:number, price:string, totalprice:string, date:string) {
+    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}/${amount}/${price}/${totalprice}/${date}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made history", res)
 }
 
-type WishlistRouterState = { legopr: Models.Lego[], shopcart: Models.Shoppingcart[], history: Models.History[], userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", amount: number, beiden: Models.Beiden[] }
+type WishlistRouterState = { legopr: Models.Lego[], shopcart: Models.Shoppingcart[], history: Models.History[], userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", amount: number }
 
 export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wishlist: number, lego: Models.Lego }>, WishlistRouterState> {
     constructor(props: RouteComponentProps<{ wishlist: number, lego: Models.Lego }>) {
         super(props)
-        this.state = { legopr: [], shopcart: [], history: [], userStatus: "Uitgelogd", user: "loading", amount: 1, beiden: [] }
+        this.state = { legopr: [], shopcart: [], history: [], userStatus: "Uitgelogd", user: "loading", amount: 1 }
     }
 
     componentWillMount() {
@@ -197,7 +196,7 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
             let user = sessionStorage.getItem("user")
             sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 this.state.shopcart.map(f =>
-                    CreateHistory(f.item_Number, JSON.parse(sessionStorage.getItem("user")), f.amount, new Date().toLocaleDateString()), location.replace('/checkout'))
+                    CreateHistory(f.item_Number, JSON.parse(sessionStorage.getItem("user")), f.amount, f.price, this.calcTotalPriceDb().toString(), new Date().toLocaleDateString()), location.replace('/checkout'))
                 :
                 location.replace('/checkout')
         }
@@ -206,22 +205,25 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
     render() {  
         console.log(this.state.legopr)
         return <div>
+            <div className="container">
+                <div className="row">
 
-            {this.state.legopr.map((lego: Models.Lego) =>
-                <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} shopcart={this.state.shopcart.find(p => p.item_Number == lego.item_Number)} />)
-            }
+                        {this.state.legopr.map((lego: Models.Lego) =>
+                            <ShoppingCart load={lego} id={lego.item_Number} deleteItem={(p) => this.deleteItem(p)} shopcart={this.state.shopcart.find(p => p.item_Number == lego.item_Number)} />)
+                        }
 
-            <br></br>
-            
-            {sessionStorage.getItem("userStatus") !="Ingelogd" ? 
-            <div> Total price = {this.calcTotalPrice().toFixed(2) }</div> 
-            : 
-            <div> Total price = {this.calcTotalPriceDb().toFixed(2)} </div>
-            }
-            
-            <br></br>
-            <button onClick={() => this.checkout()}>Checkout</button>
-
+                        <br></br>
+                        
+                        {sessionStorage.getItem("userStatus") !="Ingelogd" ? 
+                        <div className="HeaderStyle"> Total price = {this.calcTotalPrice().toFixed(2) }</div> 
+                        : 
+                        <div className="HeaderStyle"> Total price = {this.calcTotalPriceDb().toFixed(2)} </div>
+                        }
+                        
+                        <br></br>
+                        <Button bsStyle="success" bsSize="large" onClick={() => this.checkout()}>Checkout</Button>
+        </div>
+        </div>
         </div>
     }
 }
@@ -321,47 +323,53 @@ export class ShoppingCart extends React.Component<LoadProducts, { deleteID: stri
 
 
     render() {
-        return <div>
-            {console.log(this.props)}
-            <h1>{this.props.load.name}</h1>
-            <br></br>
-            <img src={this.props.load.image_URL} width={300} height={200} />
-            <br></br>
+        return <div className="HeaderStyle">
+            <div className="container">
+                <div className="row">
+                <div className="col col-md-5">
+                        <h1>{this.props.load.name}</h1>
+                        <br></br>
+                        <img src={this.props.load.image_URL} width={300} height={200} />
+                        <br></br>
+                        </div>
+                        <div className="buttoonn">
+                        <h4 >Price: €{this.props.load.usD_MSRP}</h4>
 
-            <h4>Price: €{this.props.load.usD_MSRP}</h4>
+                        {/* <button onClick={() => this.deleteFromAmount()}>-</button> { this.props.shopcart.amount} <button onClick={() => this.addToAmount()}>+</button> */}
 
-            {/* <button onClick={() => this.deleteFromAmount()}>-</button> { this.props.shopcart.amount} <button onClick={() => this.addToAmount()}>+</button> */}
+                        <h4>Amount:
+                        <Button bsStyle="warning" bsSize="small" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
 
-            <h4>Amount:
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                                this.deleteFromAmount()
+                                :
+                                this.AddToLocalStorageMin()
+                            }>-</Button>
 
-                    this.deleteFromAmount()
-                    :
-                    this.AddToLocalStorageMin()
-                }>-</button>
+                            {sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                                <div>{this.props.shopcart.amount}</div>
+                                :
+                                this.amountParse()
+                            }
 
-                {sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                    <div>{this.props.shopcart.amount}</div>
-                    :
-                    this.amountParse()
-                }
+                            <Button bsStyle="warning" bsSize="small" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
 
-                <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                                this.addToAmount()
+                                :
+                                this.AddToLocalStoragePlus()
 
-                    this.addToAmount()
-                    :
-                    this.AddToLocalStoragePlus()
+                            }>+</Button>
+                        </h4>
 
-                }>+</button>
-            </h4>
-
-            <br />
-            <button onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
-                this.productDeleten()
-                :
-                this.props.deleteItem(this.props.load.item_Number)}>Remove from shoppingcart </button>
-            {/* <div>total{this.totalProd()}</div> */}
-        </div>;
+                        <br />
+                        <Button bsStyle="danger" bsSize="large" onClick={() => sessionStorage.getItem("userStatus") == "Ingelogd" ?
+                            this.productDeleten()
+                            :
+                            this.props.deleteItem(this.props.load.item_Number)}>Remove from shoppingcart </Button>
+                            </div>
+                        {/* <div>total{this.totalProd()}</div> */}
+        </div>
+        </div>
+        </div>
     }
 }
 

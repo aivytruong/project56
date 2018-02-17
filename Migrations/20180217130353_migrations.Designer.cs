@@ -11,8 +11,8 @@ using System;
 namespace project56.Migrations
 {
     [DbContext(typeof(LegoContext))]
-    [Migration("20180116162810_all")]
-    partial class all
+    [Migration("20180217130353_migrations")]
+    partial class migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,6 +78,10 @@ namespace project56.Migrations
 
                     b.Property<int>("amount");
 
+                    b.Property<string>("price");
+
+                    b.Property<string>("totalprice");
+
                     b.Property<int>("user_id");
 
                     b.HasKey("id");
@@ -121,6 +125,26 @@ namespace project56.Migrations
                     b.ToTable("legodetails");
                 });
 
+            modelBuilder.Entity("project56.model.ProductData", b =>
+                {
+                    b.Property<int>("dataId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("productID");
+
+                    b.Property<string>("productName");
+
+                    b.Property<int>("purchases");
+
+                    b.Property<int>("shoppingcart");
+
+                    b.Property<int>("wishlist");
+
+                    b.HasKey("dataId");
+
+                    b.ToTable("Datadetails");
+                });
+
             modelBuilder.Entity("project56.model.Shoppingcart", b =>
                 {
                     b.Property<int>("id")
@@ -129,6 +153,8 @@ namespace project56.Migrations
                     b.Property<string>("Item_Number");
 
                     b.Property<int>("amount");
+
+                    b.Property<string>("price");
 
                     b.Property<int>("user_id");
 
