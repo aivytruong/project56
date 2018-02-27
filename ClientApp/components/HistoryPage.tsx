@@ -46,59 +46,99 @@ export class HistoryPage extends React.Component<RouteComponentProps<{}>, Histor
       catch(error => console.error(error))
   }
 
+  // didExpend(value) {
+  //   this.setState({ ...this.state, expanded: value })
+  // }
+
+  render() {
+
+    return <div>
+
+      {/* {this.state.history.map(e => 
+      !this.state.expanded?
+      <button onClick={() => this.didExpend(true)}>order number:{e.order_id}</button>
+      :
+      <button onClick={() => this.didExpend(false)}> Close </button>)} */}
+
+
+      {this.state.history.map(e =>
+        <Expanding his={e} order={e.order_id} load={this.state.legopr.find(p => e.item_Number == p.item_Number)} />)}
+
+    </div>
+  }
+}
+
+type LoadOrderNumbers = { his: Models.History, order: number, load: Models.Lego }
+export class Expanding extends React.Component<LoadOrderNumbers, HistoryState> {
+  constructor(props: LoadOrderNumbers) {
+    super(props);
+    this.state = { history: [], legopr: [], expanded: false };
+  }
+
+
+
   didExpend(value) {
     this.setState({ ...this.state, expanded: value })
   }
 
   render() {
-
     return <div>
-     {this.state.history.map(e => 
-      !this.state.expanded?
-      <button onClick={() => this.didExpend(true)}>order number:{e.order_id}</button>
-      :
-      <button onClick={() => this.didExpend(false)}> Close </button>)}
 
+      {
+        !this.state.expanded ?
+        <button onClick={() => this.didExpend(true)}>order number:{this.props.his.order_id}</button>
+        :
+        <button onClick={() => this.didExpend(false)}> Close </button>
+      }
 
-      {this.state.expanded ?
-       this.state.legopr.map((lego: Models.Lego) =>
-        <History load={lego} id={lego.item_Number} his={this.state.history.find(p => lego.item_Number == p.item_Number)} />)
-        : 
-        <span />}
-
-      
+      {
+        this.state.expanded == true ?
+          <div>
+            <h3>{this.props.load.name}</h3>
+            <img src={this.props.load.image_URL} width={300} height={200} />
+            <h4>Amount: {this.props.his.amount}</h4>
+            <h4>Price: €{(parseFloat(this.props.his.price) * this.props.his.amount).toFixed(2)}</h4>
+            <h4>Status: pending...</h4>
+            <h4>Date of purchase: {this.props.his.date}</h4>
+            <br></br>
+            <br></br>
+          </div>
+          :
+          <div/>
+      }
     </div>
   }
 }
 
 
-
-type LoadProducts = { load: Models.Lego, id: string, his: Models.History }
-export class History extends React.Component<LoadProducts, {}> {
-  constructor(props: LoadProducts) {
-    super(props);
-    this.state = {};
-  }
-
-
-  render() {
-    // console.log("rendering", this.props.load.name)
-    return <div>
-      <h3>{this.props.load.name}</h3>
-
-      <img src={this.props.load.image_URL} width={300} height={200} />
-
-      <h4>Amount: {this.props.his.amount}</h4>
-
-      <h4>Price: €{(parseFloat(this.props.his.price) * this.props.his.amount).toFixed(2)}</h4>
-
-      <h4>Status: pending...</h4>
-
-      <h4>Date of purchase: {this.props.his.date}</h4>
+// type LoadProducts = { load: Models.Lego, id: string, his: Models.History }
+// export class History extends React.Component<LoadProducts, {}> {
+//   constructor(props: LoadProducts) {
+//     super(props);
+//     this.state = {};
+//   }
 
 
-      <br></br>
-      <br></br>
-    </div>
-  }
-}
+//   render() {
+//     // console.log("rendering", this.props.load.name)
+//     return <div>
+
+
+//       <h3>{this.props.load.name}</h3>
+
+//       <img src={this.props.load.image_URL} width={300} height={200} />
+
+//       <h4>Amount: {this.props.his.amount}</h4>
+
+//       <h4>Price: €{(parseFloat(this.props.his.price) * this.props.his.amount).toFixed(2)}</h4>
+
+//       <h4>Status: pending...</h4>
+
+//       <h4>Date of purchase: {this.props.his.date}</h4>
+
+
+//       <br></br>
+//       <br></br>
+//     </div>
+//   }
+// }
