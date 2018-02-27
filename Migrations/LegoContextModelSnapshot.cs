@@ -77,6 +77,8 @@ namespace project56.Migrations
 
                     b.Property<int>("amount");
 
+                    b.Property<int>("order_id");
+
                     b.Property<string>("price");
 
                     b.Property<string>("totalprice");

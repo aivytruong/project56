@@ -37,14 +37,14 @@ namespace project56.Controllers
         }
         
         
-        [HttpPost("CreateHistory/{Item_Number}/{user_id}/{amount}/{price}/{totalprice}/{date}")]
-        public void CreateHistory(string Item_Number, int user_id, int amount, string price, string totalprice, string date)
+        [HttpPost("CreateHistory/{order_id}/{Item_Number}/{user_id}/{amount}/{price}/{date}")]
+        public void CreateHistory(int order_id, string Item_Number, int user_id, int amount, string price,  string date)
         {
-            History newwishlist = new History() {Item_Number = Item_Number,
+            History newwishlist = new History() { order_id = order_id,
+                                                  Item_Number = Item_Number,
                                                    user_id = user_id,
                                                    amount = amount,
                                                    price = price,
-                                                   totalprice = totalprice,
                                                    Date = date
                                                    };
             _context.Historys.Add(newwishlist);

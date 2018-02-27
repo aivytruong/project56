@@ -11,7 +11,7 @@ using System;
 namespace project56.Migrations
 {
     [DbContext(typeof(LegoContext))]
-    [Migration("20180217130353_migrations")]
+    [Migration("20180226121954_migrations")]
     partial class migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,6 +77,8 @@ namespace project56.Migrations
                     b.Property<string>("Item_Number");
 
                     b.Property<int>("amount");
+
+                    b.Property<int>("order_id");
 
                     b.Property<string>("price");
 

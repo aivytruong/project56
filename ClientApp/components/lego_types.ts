@@ -52,6 +52,7 @@ export type Shoppingcart = {
 }
 
 export type History = {
+    order_id : number
     item_Number : string
     user_id : number
     amount : number

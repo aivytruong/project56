@@ -50,6 +50,7 @@ namespace project56.Migrations
                     Date = table.Column<string>(type: "text", nullable: true),
                     Item_Number = table.Column<string>(type: "text", nullable: true),
                     amount = table.Column<int>(type: "int4", nullable: false),
+                    order_id = table.Column<int>(type: "int4", nullable: false),
                     price = table.Column<string>(type: "text", nullable: true),
                     totalprice = table.Column<string>(type: "text", nullable: true),
                     user_id = table.Column<int>(type: "int4", nullable: false)

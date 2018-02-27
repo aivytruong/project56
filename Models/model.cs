@@ -90,6 +90,7 @@ namespace project56.model
     {
         [Key]
         public int id { get; set; }
+        public int order_id {get;set;}
         public string Item_Number { get; set; }
 
         [ForeignKey("UserDetails")]

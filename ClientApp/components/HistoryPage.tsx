@@ -53,11 +53,12 @@ export class HistoryPage extends React.Component<RouteComponentProps<{}>, Histor
   render() {
 
     return <div>
+     {this.state.history.map(e => 
+      !this.state.expanded?
+      <button onClick={() => this.didExpend(true)}>order number:{e.order_id}</button>
+      :
+      <button onClick={() => this.didExpend(false)}> Close </button>)}
 
-      {!this.state.expanded ?
-        <button onClick={() => this.didExpend(true)}>order number:    date:    total price: status:</button>
-        :
-        <button onClick={() => this.didExpend(false)}> Close </button>}
 
       {this.state.expanded ?
        this.state.legopr.map((lego: Models.Lego) =>

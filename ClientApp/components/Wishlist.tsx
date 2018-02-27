@@ -31,11 +31,6 @@ export async function CreateShoppingcart(Item_Number: string, user_id: number, a
     return console.log("made shoppingcart", res)
 }
 
-export async function CreateHistory(Item_Number: string, user_id: number, amount:number) {
-    let res = await fetch(`./HistoryController/CreateHistory/${Item_Number}/${user_id}/${amount}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
-
-    return console.log("made history", res)
-}
 
 export async function get_correctshoppingcartproduct(item_Number: string, user_id: number): Promise<Models.Shoppingcart[]> {
     let res = await fetch(`./ShoppingcartController/Shoppingcartalert/${item_Number}/${user_id}`, { method: 'get', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
