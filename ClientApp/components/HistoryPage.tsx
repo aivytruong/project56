@@ -4,9 +4,8 @@ import { Link, NavLink } from 'react-router-dom';
 import * as Models from './lego_types'
 import { ProductLoad } from './DetailProduct'
 
+
 type Headers = { 'content-type': 'application/json' }
-
-
 
 export async function get_correctuser(user_id: number): Promise<Models.History[]> {
   let res = await fetch(`./HistoryController/CorrectUser/${user_id}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
@@ -29,27 +28,54 @@ export async function get_correctproduct(item_Number: string): Promise<Models.Le
   return json
 }
 
+export async function get_correcthistory(item_Number: string): Promise<Models.History> {
+  let res = await fetch(`./HistoryController/CorrectHistory/${item_Number}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+  let json = await res.json()
+  console.log("received correct products", json)
+  return json
+}
 
-type HistoryState = { history: Models.History[], legopr: Models.Lego[], expanded: boolean }
+export async function get_correctorder(order_id: number): Promise<Models.History[]> {
+  let res = await fetch(`./HistoryController/CorrectOrder/${order_id}`, { method: 'get', credentials: 'include', headers: { 'content-type': 'application/json' } })
+  let json = await res.json()
+  //console.log("received correct order id", json)
+  return json
+}
+
+
+type HistoryState = { history: Models.History[], legopr: Models.Lego[], expanded: boolean, orders: ((Models.History)[])[] }
 
 export class HistoryPage extends React.Component<RouteComponentProps<{}>, HistoryState> {
   constructor(props: RouteComponentProps<{}>) {
     super(props)
-    this.state = { history: [], legopr: [], expanded: false }
+    this.state = { history: [], legopr: [], expanded: false, orders: [] }
   }
 
   componentWillMount() {
     (get_correctuser(parseInt(sessionStorage.getItem("user"))).
       then(pr => this.setState({ ...this.state, history: pr.concat(this.state.history) },
-        () => this.state.history.map((p: Models.History) => get_correctproduct(p.item_Number).
-          then(p => this.setState({ ...this.state, legopr: this.state.legopr.concat(p) })))))).
-      catch(error => console.error(error))
+        () => this.state.history.map((p: Models.History) =>
+          this.state.history.indexOf(p) == 0 ||
+            this.state.history[this.state.history.indexOf(p) - 1] != undefined &&
+            this.state.history[this.state.history.indexOf(p) - 1].order_id != this.state.history[this.state.history.indexOf(p)].order_id
+            ?
+            get_correctorder(p.order_id).then(h => this.setState({ ...this.state, orders: this.state.orders.concat([h]) }))
+
+            :
+            console.log("item already exists")
+        ))))
+
+    //     then(p => this.setState({ ...this.state, legopr: this.state.legopr.concat(p) })))))).
+    // catch(error => console.error(error))
+
+    // (get_correctuser(parseInt(sessionStorage.getItem("user"))).
+    // then(pr => this.setState({ ...this.state, history: pr.concat(this.state.history) })))
+
   }
 
   render() {
 
     return <div>
-
       {/* {this.state.history.map(e => 
       !this.state.expanded?
       <button onClick={() => this.didExpend(true)}>order number:{e.order_id}</button>
@@ -57,21 +83,29 @@ export class HistoryPage extends React.Component<RouteComponentProps<{}>, Histor
       <button onClick={() => this.didExpend(false)}> Close </button>)} */}
 
 
-      {this.state.history.map(e =>
-        <Expanding his={e} order={e.order_id} load={this.state.legopr.find(p => e.item_Number == p.item_Number)} />)}
+      {/* load={this.state.legopr.find(p => e.item_Number == p.item_Number)} */}
+
+      {this.state.orders.map(e =>
+        <Expanding his={e} />)}
 
     </div>
   }
 }
 
-type LoadOrderNumbers = { his: Models.History, order: number, load: Models.Lego }
+type LoadOrderNumbers = { his: Models.History[] }
 export class Expanding extends React.Component<LoadOrderNumbers, HistoryState> {
   constructor(props: LoadOrderNumbers) {
     super(props);
-    this.state = { history: [], legopr: [], expanded: false };
+    this.state = { history: [], legopr: [], expanded: false, orders: [] };
   }
 
+  componentWillMount() {
+    this.props.his.map(product => get_correctproduct(product.item_Number).then(products => this.setState({ ...this.state, legopr: this.state.legopr.concat(products) }))
+    .catch(e => console.error(e)))
 
+    // get_correctproduct(this.props.match.params.item_Number).then(products => this.setState({ ...this.state, products: products }))
+    //     console.log("mapping", this.state.products)
+  }
 
   didExpend(value) {
     this.setState({ ...this.state, expanded: value })
@@ -79,62 +113,40 @@ export class Expanding extends React.Component<LoadOrderNumbers, HistoryState> {
 
   render() {
     return <div>
-
+      {console.log(this.state)}
       {
         !this.state.expanded ?
-        <button onClick={() => this.didExpend(true)}>order number:{this.props.his.order_id}, status: pending...</button>
-        :
-        <button onClick={() => this.didExpend(false)}> Close </button>
+          <button onClick={() => this.didExpend(true)}>order number:{this.props.his[0].order_id}, status: pending...</button>
+          :
+          <button onClick={() => this.didExpend(false)}> Close </button>
       }
 
       {
         this.state.expanded == true ?
           <div>
-            <h3>{this.props.load.name}</h3>
-            <img src={this.props.load.image_URL} width={300} height={200} />
-            <h4>Amount: {this.props.his.amount}</h4>
-            <h4>Price: €{(parseFloat(this.props.his.price) * this.props.his.amount).toFixed(2)}</h4>
-            <h4>Status: pending...</h4>
-            <h4>Date of purchase: {this.props.his.date}</h4>
-            <br></br>
-            <br></br>
+            {this.props.his.map(e =>
+              <div>
+                {this.state.legopr.map(p =>
+                  e.item_Number == p.item_Number ?
+                    <div>
+                      <h4>Name: {p.name}</h4>
+                      <img src={p.image_URL}/>
+                    </div>
+                    :
+                    <div />)}
+                <h4>Amount: {e.amount}</h4>
+                <h4>Price: €{(parseFloat(e.price) * e.amount).toFixed(2)}</h4>
+                <h4>Status: pending...</h4>
+                <h4>Date of purchase: {e.date}</h4>
+
+              </div>)
+            }
           </div>
           :
-          <div/>
+          <div />
+
       }
     </div>
   }
 }
 
-
-// type LoadProducts = { load: Models.Lego, id: string, his: Models.History }
-// export class History extends React.Component<LoadProducts, {}> {
-//   constructor(props: LoadProducts) {
-//     super(props);
-//     this.state = {};
-//   }
-
-
-//   render() {
-//     // console.log("rendering", this.props.load.name)
-//     return <div>
-
-
-//       <h3>{this.props.load.name}</h3>
-
-//       <img src={this.props.load.image_URL} width={300} height={200} />
-
-//       <h4>Amount: {this.props.his.amount}</h4>
-
-//       <h4>Price: €{(parseFloat(this.props.his.price) * this.props.his.amount).toFixed(2)}</h4>
-
-//       <h4>Status: pending...</h4>
-
-//       <h4>Date of purchase: {this.props.his.date}</h4>
-
-
-//       <br></br>
-//       <br></br>
-//     </div>
-//   }
-// }
