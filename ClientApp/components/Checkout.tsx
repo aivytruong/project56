@@ -53,6 +53,18 @@ export async function delete_correctsc(user_id: number) {
   return console.log("deleted shoppinglist")
 }
 
+export async function delete_correctproduct(user_id: number, item_number: string) {
+  let res = await fetch(`./ShoppingcartController/Delete/${user_id}/${item_number}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
+  return console.log("deleted correct product from shoppingcart")
+
+}
+
+export async function delete_correctproduct2(user_id: number, item_number: string) {
+  let res = await fetch(`./HistoryController/Delete/${user_id}/${item_number}`, { method: 'delete', credentials: 'include', headers: { 'content-type': 'application/json' } })
+  return console.log("deleted correct product from history")
+
+}
+
 type LoadProducts = { load: Models.Lego, id: string, deleteItem: (index: string) => void }
 type loginState = { lego: Models.Lego | 'loading', userName: string, password: string, loggedin: boolean, admin: boolean, userStatus: "Ingelogd" | 'Uitgelogd', user: Models.Users | "loading", legopr: Models.Lego[], wishlist2: Models.Shoppingcart[], firstName: string, lastName: string, emailAdress: string, adress: string, phoneNumber: string, Country: string, Date_of_birth: string, gender: string }
 
@@ -113,7 +125,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
               let cart = localStorage.getItem("cart")
               let cartlijst = JSON.parse(cart)
               cartlijst != null ?
-                cartlijst.map((e: any) => CreateHistory(randomid, e.lego, JSON.parse(sessionStorage.getItem("user")), e.amount, e.price,new Date().toLocaleDateString()), localStorage.removeItem("cart"))
+                cartlijst.map((e: any) => CreateHistory(randomid, e.lego, JSON.parse(sessionStorage.getItem("user")), e.amount, e.price,new Date().toLocaleDateString()), localStorage.remove("cart"))
                 :
                 console.log("localstorage cart is empty")
             }
@@ -231,11 +243,11 @@ export class Purchase extends React.Component<{}, {}> {
     this.state = {}
   }
 
-  componentWillMount() {
-    localStorage.getItem("userStatus")
-    localStorage.removeItem("checkout")
-    localStorage.removeItem("cart")
-  }
+  // componentWillMount() {
+  //   localStorage.getItem("userStatus")
+  //   localStorage.removeItem("checkout")
+  //   localStorage.removeItem("cart")
+  // }
 
 
   productDeleten() {
@@ -254,6 +266,7 @@ export class Purchase extends React.Component<{}, {}> {
 
       Order has been made! Go back to the homepage.
             {this.productDeleten()}
+            
 
 
 

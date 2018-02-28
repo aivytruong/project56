@@ -46,10 +46,6 @@ export class HistoryPage extends React.Component<RouteComponentProps<{}>, Histor
       catch(error => console.error(error))
   }
 
-  // didExpend(value) {
-  //   this.setState({ ...this.state, expanded: value })
-  // }
-
   render() {
 
     return <div>
@@ -86,7 +82,7 @@ export class Expanding extends React.Component<LoadOrderNumbers, HistoryState> {
 
       {
         !this.state.expanded ?
-        <button onClick={() => this.didExpend(true)}>order number:{this.props.his.order_id}</button>
+        <button onClick={() => this.didExpend(true)}>order number:{this.props.his.order_id}, status: pending...</button>
         :
         <button onClick={() => this.didExpend(false)}> Close </button>
       }

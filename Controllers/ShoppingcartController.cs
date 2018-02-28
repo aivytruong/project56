@@ -133,13 +133,17 @@ namespace project56.Controllers
             _context.SaveChanges();
         }
 
-        [HttpDelete("DeleteUserSC/{user_id}")]
+[HttpDelete("DeleteUserSC/{user_id}")]
         public void DeleteUserSC(int user_id)
         {
             var user = from _user in _context.Shoppingcarts
                        where _user.user_id == user_id
                        select _user;
-            _context.Shoppingcarts.Remove(user.FirstOrDefault());
+            var all = user.ToArray();
+            for (int i = all.Length -1; i >=0; i--)
+            {
+                _context.Shoppingcarts.Remove(all[i]);
+            }
             _context.SaveChanges();
         }
     }

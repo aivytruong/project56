@@ -258,8 +258,7 @@ export class ShoppingCart extends React.Component<LoadProducts, { deleteID: stri
     productDeleten() {
         let user = JSON.parse(sessionStorage.getItem("user"))
         user != null ?
-            (delete_correctproduct(user, this.props.load.item_Number).then(() => location.reload()),
-                delete_correctproduct2(user, this.props.load.item_Number).then(() => location.reload()))
+            (delete_correctproduct(user, this.props.load.item_Number).then(() => location.reload()))
             : null
     }
 

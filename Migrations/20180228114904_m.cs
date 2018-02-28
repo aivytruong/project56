@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace project56.Migrations
 {
-    public partial class migrations : Migration
+    public partial class m : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -11,8 +11,8 @@ using System;
 namespace project56.Migrations
 {
     [DbContext(typeof(LegoContext))]
-    [Migration("20180226121954_migrations")]
-    partial class migrations
+    [Migration("20180228114904_m")]
+    partial class m
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
