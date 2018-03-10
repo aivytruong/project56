@@ -170,10 +170,12 @@ export class ProductLoad extends React.Component<ProductLoadProps, ProductLoadSt
         if ( input == 'wish' ) {
             this.setState({...this.state, lego:this.props.lego, wishlist: true});
             addWish(this.props.lego.item_Number, this.props.lego.name);
+            alert("Added to wishlist!")
         }
         if ( input == 'cart' ) {
             this.setState({...this.state, lego:this.props.lego, cart: true});
             addCart(this.props.lego.item_Number, this.props.lego.name);
+            alert("Added to shoppingcart, you can change the amount there!")
         }
     }
 

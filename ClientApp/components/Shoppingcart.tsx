@@ -57,8 +57,8 @@ export async function updateminamount(item_number: string, user_id: number) {
     return console.log("updated amount", res.status)
 }
 
-export async function CreateHistory(order_id:number, Item_Number: string, user_id: number, amount:number, price:string, date:string) {
-    let res = await fetch(`./HistoryController/CreateHistory/${order_id}/${Item_Number}/${user_id}/${amount}/${price}/${date}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateHistory(order_id:number, Item_Number: string, user_id: number, amount:number, price:string, totalprice:string, date:string) {
+    let res = await fetch(`./HistoryController/CreateHistory/${order_id}/${Item_Number}/${user_id}/${amount}/${price}/${totalprice}/${date}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
     return console.log("made history", res)
 }
@@ -198,7 +198,7 @@ export class ShoppingCartRouter extends React.Component<RouteComponentProps<{ wi
             let user = sessionStorage.getItem("user")
             sessionStorage.getItem("userStatus") == "Ingelogd" ?
                 this.state.shopcart.map(f =>
-                    CreateHistory(randomid,f.item_Number, JSON.parse(sessionStorage.getItem("user")), f.amount, f.price, new Date().toLocaleDateString()), location.replace('/checkout'))
+                    CreateHistory(randomid,f.item_Number, JSON.parse(sessionStorage.getItem("user")), f.amount, f.price, this.calcTotalPriceDb().toString() ,new Date().toLocaleDateString()), location.replace('/checkout'))
                 :
                 location.replace('/checkout')
         }

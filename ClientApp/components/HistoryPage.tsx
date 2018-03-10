@@ -76,14 +76,7 @@ export class HistoryPage extends React.Component<RouteComponentProps<{}>, Histor
   render() {
 
     return <div>
-      {/* {this.state.history.map(e => 
-      !this.state.expanded?
-      <button onClick={() => this.didExpend(true)}>order number:{e.order_id}</button>
-      :
-      <button onClick={() => this.didExpend(false)}> Close </button>)} */}
 
-
-      {/* load={this.state.legopr.find(p => e.item_Number == p.item_Number)} */}
 
       {this.state.orders.map(e =>
         <Expanding his={e} />)}
@@ -116,7 +109,7 @@ export class Expanding extends React.Component<LoadOrderNumbers, HistoryState> {
       {console.log(this.state)}
       {
         !this.state.expanded ?
-          <button onClick={() => this.didExpend(true)}>order number:{this.props.his[0].order_id}, status: pending...</button>
+          <button onClick={() => this.didExpend(true)}>order number:{this.props.his[0].order_id}, status: pending..., total:{this.props.his[0].totalprice}</button>
           :
           <button onClick={() => this.didExpend(false)}> Close </button>
       }

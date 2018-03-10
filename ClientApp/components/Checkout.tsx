@@ -3,7 +3,8 @@ import { RouteComponentProps } from 'react-router';
 import { Link, NavLink, Redirect } from 'react-router-dom';
 import * as Models from './lego_types'
 import { ProductLoad } from './DetailProduct'
-import { ShoppingCart } from './Shoppingcart'
+import { ShoppingCart, ShoppingCartRouter} from './Shoppingcart'
+
 
 type Headers = { 'content-type': 'application/json' }
 
@@ -22,8 +23,8 @@ export async function get_shoppingcart(): Promise<Models.Shoppingcart[]> {
   return json
 }
 
-export async function CreateHistory(order_id:number, Item_Number: string, user_id: number, amount:number, price:string, date:string) {
-  let res = await fetch(`./HistoryController/CreateHistory/${order_id}/${Item_Number}/${user_id}/${amount}/${price}/${date}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
+export async function CreateHistory(order_id:number, Item_Number: string, user_id: number, amount:number, price:string, totalprice:string, date:string) {
+  let res = await fetch(`./HistoryController/CreateHistory/${order_id}/${Item_Number}/${user_id}/${amount}/${price}/${totalprice}/${date}`, { method: 'post', credentials: 'include', headers: new Headers({ 'content-type': 'application/json' }) })
 
   return console.log("made history", res)
 }
@@ -125,7 +126,7 @@ export class Checkout extends React.Component<RouteComponentProps<{}>, loginStat
               let cart = localStorage.getItem("cart")
               let cartlijst = JSON.parse(cart)
               cartlijst != null ?
-                cartlijst.map((e: any) => CreateHistory(randomid, e.lego, JSON.parse(sessionStorage.getItem("user")), e.amount, e.price,new Date().toLocaleDateString()), localStorage.remove("cart"))
+                cartlijst.map((e: any) => CreateHistory(randomid, e.lego, JSON.parse(sessionStorage.getItem("user")), e.amount, e.price, null ,new Date().toLocaleDateString()), localStorage.remove("cart"))
                 :
                 console.log("localstorage cart is empty")
             }
