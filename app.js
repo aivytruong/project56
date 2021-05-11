@@ -27,7 +27,7 @@ const transporter = nodemailer.createTransport({
 
 var mailOptions = {
     generateTextFromHTML: true,
-    from: 'LegoStore <zeezoutkorrel@gmail.com', 
+    from: 'LegoStore <zeez@gmail.com', 
     to: {this.props.user.emailAdress},
     subject: 'test', 
     html: 'Hello! Thank you for registering at the LegoStore. <br/><br/> Now that you have an account, it is easier to keep track of your purchase history and save items you might want to purchase later! Log in now! <br/><br/> The LegoStore Team'
