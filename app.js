@@ -5,7 +5,7 @@ const xoauth2 = require('xoauth2');
 //     service: 'gmail', 
 //     auth: {
 //         xoauth2: xoauth2.createXOAuth2Generator({
-//             user: 'zeezoutkorrel@gmail.com',
+//             user: 'zeez@gmail.com',
 //             clientId: '511842036637-l7a1o32n9qvq02tk2v1s1e915fegma97.apps.googleusercontent.com',
 //             clientSecret: 'dyXMUTtiGnSxDhy31_11t_Ek',
 //             refreshToken: '1/jtu4j3WnlF4YrNlzY-eVTTew_70FzGfKWSbqNX-ybig' 
@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       type: 'OAuth2',
-      user: 'zeezoutkorrel@gmail.com',
+      user: 'zeez@gmail.com',
       clientId: '511842036637-l7a1o32n9qvq02tk2v1s1e915fegma97.apps.googleusercontent.com',
       clientSecret: 'dyXMUTtiGnSxDhy31_11t_Ek',
       refreshToken: '1/jtu4j3WnlF4YrNlzY-eVTTew_70FzGfKWSbqNX-ybig' ,
